@@ -8,6 +8,6 @@ public class SongThemesController {
 
     @PostMapping("/theme-search")
     public String themeSearch() {
-        return "redirect:/";
+        return "redirect:/theme-search-results";
     }
 }
