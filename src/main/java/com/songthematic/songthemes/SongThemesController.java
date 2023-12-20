@@ -1,13 +1,13 @@
 package com.songthematic.songthemes;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class SongThemesController {
 
-    @PostMapping("/theme-search")
+    @GetMapping("/theme-search")
     public String themeSearch() {
-        return "redirect:/theme-search-results";
+        return "theme-search-results";
     }
 }

@@ -7,12 +7,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SongThemesControllerTest {
 
     @Test
-    void postSearchRedirectsToSearchResults() throws Exception {
+    void getSearchReturnsSearchResultsView() throws Exception {
         SongThemesController songThemesController = new SongThemesController();
 
-        String redirectPage = songThemesController.themeSearch();
+        String viewName = songThemesController.themeSearch();
 
-        assertThat(redirectPage)
-                .isEqualTo("redirect:/theme-search-results");
+        assertThat(viewName)
+                .isEqualTo("theme-search-results");
     }
+
 }
