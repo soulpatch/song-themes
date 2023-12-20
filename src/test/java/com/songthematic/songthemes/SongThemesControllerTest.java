@@ -10,7 +10,7 @@ class SongThemesControllerTest {
 
     @Test
     void searchReturnsSearchResultsView() throws Exception {
-        SongThemesController songThemesController = new SongThemesController(new SongSearcher("new years", "auld lang syne"));
+        SongThemesController songThemesController = new SongThemesController(SongSearcher.withOneSong());
 
         Model model = new ConcurrentModel();
         String viewName = songThemesController.themeSearch(model);
@@ -21,7 +21,7 @@ class SongThemesControllerTest {
 
     @Test
     void searchReturnsModelWithNoSongsFoundAttribute() throws Exception {
-        SongThemesController songThemesController = new SongThemesController(new SongSearcher("new years", "auld lang syne"));
+        SongThemesController songThemesController = new SongThemesController(SongSearcher.withOneSong());
 
         Model model = new ConcurrentModel();
         songThemesController.themeSearch(model);

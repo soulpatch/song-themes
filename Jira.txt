@@ -4,7 +4,7 @@ Did Ted file an issue for name1 with introduce parameter
 
 [ ] Create SongSearcher that can search by theme
     [X] Finds no songs
-    [ ] Finds a song that matches the theme
+    [X] Finds a song that matches the theme
     [ ] Find multiple songs that match the theme
 
 [ ] Create GET endpoint for searching by theme
