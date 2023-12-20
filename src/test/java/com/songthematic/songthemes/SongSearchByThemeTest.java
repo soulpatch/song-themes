@@ -10,7 +10,7 @@ public class SongSearchByThemeTest {
 
     @Test
     public void searchForThemeThatDoesNotExistReturnsNoResults() throws Exception {
-        SongSearcher songSearcher = new SongSearcher();
+        SongSearcher songSearcher = new SongSearcher("new years", "auld lang syne");
 
         List<String> foundSongs = songSearcher.byTheme("Applesauce");
 
@@ -20,7 +20,7 @@ public class SongSearchByThemeTest {
 
     @Test
     void searchForThemeFindsOneMatchingSong() throws Exception {
-        SongSearcher songSearcher = new SongSearcher();
+        SongSearcher songSearcher = new SongSearcher("new years", "auld lang syne");
 
         List<String> foundSong = songSearcher.byTheme("New Years");
 
