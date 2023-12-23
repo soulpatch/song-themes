@@ -13,12 +13,16 @@ ZOMBIES
     [X] Return empty page
     [X] Return model saying there were no results
     [X] Return model saying there are results
+
+    [X] Returns model with a single song matching
+>   [ ] Returns model with a multiple song matching
     [ ] Generate HTML saying there were no results
-    [ ] Returns model with a single song matching
-    [ ] Returns model with a multiple song matching
 
 [ ]
 
+Mock-free Zone
+
+GOOS book = Growing Object-Oriented Software, Guided by Tests by Steve Freeman, Nat Pryce
 
 FUTURE FEATURES/STORIES
 

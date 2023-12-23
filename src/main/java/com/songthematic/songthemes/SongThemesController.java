@@ -20,7 +20,13 @@ public class SongThemesController {
     @GetMapping("/theme-search")
     public String themeSearch(String requestedTheme, Model model) {
         List<String> foundSongs = songSearcher.byTheme(requestedTheme);
+        List<SongView> songViews = foundSongs
+                .stream()
+                .map(SongView::new)
+                .toList();
+
         model.addAttribute("emptySearchResults", foundSongs.isEmpty());
+        model.addAttribute("searchResults", songViews);
         return "theme-search-results";
     }
 }
