@@ -13,8 +13,9 @@ public class SongSearcher {
         this.song = song;
     }
 
-    public static SongSearcher createSongSearcher(String theme, String song) {
-        return new SongSearcher(theme, song);
+    public static SongSearcher createSongSearcher(Song song) {
+
+        return new SongSearcher(song.theme(), song.songTitle());
     }
 
     public static SongSearcher withSongsForTheme(String theme) {
@@ -22,7 +23,7 @@ public class SongSearcher {
     }
 
     public static SongSearcher withOneSong() {
-        return createSongSearcher("new years", "auld lang syne");
+        return createSongSearcher(new Song("new years", "auld lang syne"));
     }
 
     public List<String> byTheme(String requestedTheme) {

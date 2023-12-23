@@ -15,7 +15,7 @@ ZOMBIES
     [X] Return model saying there are results
 
     [X] Returns model with a single song matching
->   [ ] Returns model with a multiple song matching
+>>  [ ] Returns model with a multiple song matching
     [ ] Generate HTML saying there were no results
 
 [ ]
