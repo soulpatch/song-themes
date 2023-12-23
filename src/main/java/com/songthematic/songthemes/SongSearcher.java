@@ -8,18 +8,18 @@ public class SongSearcher {
     private final String theme;
     private final String song;
 
-    private SongSearcher(String theme, String song) {
-        this.theme = theme;
-        this.song = song;
+    private SongSearcher(Song song) {
+        this.theme = song.theme();
+        this.song = song.songTitle();
     }
 
     public static SongSearcher createSongSearcher(Song song) {
 
-        return new SongSearcher(song.theme(), song.songTitle());
+        return new SongSearcher(song);
     }
 
     public static SongSearcher withSongsForTheme(String theme) {
-        return new SongSearcher(theme, "Song with theme "+ theme);
+        return new SongSearcher(new Song(theme, "Song with theme "+ theme));
     }
 
     public static SongSearcher withOneSong() {
