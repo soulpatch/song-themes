@@ -2,8 +2,6 @@ Song Themes Stuff To Do
 -----------------------
 
 Visitor Searches for Songs with One Theme
-
-ZOMBIES
 [ ] Create SongSearcher that can search by theme
     [X] Finds no songs
     [X] Finds a song that matches the theme
@@ -18,7 +16,8 @@ ZOMBIES
 >>  [ ] Returns model with a multiple song matching
     [ ] Generate HTML saying there were no results
 
-[ ]
+[ ] Package up according to Hexagonal Architecture
+
 
 Mock-free Zone
 
