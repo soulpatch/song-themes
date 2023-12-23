@@ -1,7 +1,9 @@
 Song Themes Stuff To Do
 -----------------------
-Did Ted file an issue for name1 with introduce parameter
 
+Visitor Searches for Songs with One Theme
+
+ZOMBIES
 [ ] Create SongSearcher that can search by theme
     [X] Finds no songs
     [X] Finds a song that matches the theme
@@ -10,12 +12,15 @@ Did Ted file an issue for name1 with introduce parameter
 [ ] Create GET endpoint for searching by theme
     [X] Return empty page
     [X] Return model saying there were no results
+    [ ] Return model saying there are results
     [ ] Generate HTML saying there were no results
     [ ] Returns model with a single song matching
     [ ] Returns model with a multiple song matching
 
 [ ]
 
+
+FUTURE FEATURES/STORIES
 
 
 

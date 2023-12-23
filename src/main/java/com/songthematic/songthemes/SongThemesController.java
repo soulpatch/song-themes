@@ -18,8 +18,8 @@ public class SongThemesController {
     }
 
     @GetMapping("/theme-search")
-    public String themeSearch(Model model) {
-        List<String> foundSongs = songSearcher.byTheme("");
+    public String themeSearch(String requestedTheme, Model model) {
+        List<String> foundSongs = songSearcher.byTheme(requestedTheme);
         model.addAttribute("emptySearchResults", foundSongs.isEmpty());
         return "theme-search-results";
     }
