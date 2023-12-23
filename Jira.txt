@@ -5,6 +5,7 @@ Visitor Searches for Songs with One Theme
 [ ] Create SongSearcher that can search by theme
     [X] Finds no songs
     [X] Finds a song that matches the theme
+    [X] Made theme search case-insensitive
     [ ] Find multiple songs that match the theme
 
 [ ] Create GET endpoint for searching by theme
