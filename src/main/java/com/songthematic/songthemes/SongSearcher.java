@@ -8,14 +8,13 @@ public class SongSearcher {
     private final String theme;
     private final String song;
 
-    private SongSearcher(Song song) {
-        this.theme = song.theme();
-        this.song = song.songTitle();
+    private SongSearcher(Song... song) {
+        this.theme = song[0].theme();
+        this.song = song[0].title();
     }
 
-    public static SongSearcher createSongSearcher(Song song) {
-
-        return new SongSearcher(song);
+    public static SongSearcher createSongSearcher(Song... songs) {
+        return new SongSearcher(songs[0]);
     }
 
     public static SongSearcher withSongsForTheme(String theme) {

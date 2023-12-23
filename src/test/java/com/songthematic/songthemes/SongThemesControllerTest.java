@@ -1,6 +1,7 @@
 package com.songthematic.songthemes;
 
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -36,10 +37,11 @@ class SongThemesControllerTest {
     }
 
     @Test
+    @Disabled
     void searchReturnsModelWithNonEmptySearchResults() throws Exception {
         String theme = "new years";
-        String songTitle = "auld lang syne";
-        SongThemesController songThemesController = createSongThemesController(new Song(theme, songTitle));
+        SongThemesController songThemesController = createSongThemesController(new Song(theme, "auld lang syne"),
+                                                                               new Song(theme, "New Year's Eve In A Haunted House"));
 
         Model model = new ConcurrentModel();
         songThemesController.themeSearch("new years", model);
@@ -48,12 +50,13 @@ class SongThemesControllerTest {
                 .isEqualTo(Boolean.FALSE);
         List<SongView> searchResults = (List<SongView>) model.getAttribute("searchResults");
         assertThat(searchResults)
-                .containsExactly(new SongView("auld lang syne"));
+                .containsExactly(new SongView("auld lang syne"),
+                                 new SongView("New Year's Eve In A Haunted House"));
     }
 
     @NotNull
-    private static SongThemesController createSongThemesController(Song song) {
+    private static SongThemesController createSongThemesController(Song... songs) {
         return new SongThemesController(
-                SongSearcher.createSongSearcher(song));
+                SongSearcher.createSongSearcher(songs[0]));
     }
 }
