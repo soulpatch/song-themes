@@ -8,18 +8,13 @@ public class SongSearcher {
 
     private SongSearcher(Song... songs) {
         for (Song song : songs) {
-            List<Song> songList;
-            if (themeToSongsMap.containsKey(song.theme().toLowerCase())) {
-                String normalizedTheme = song.theme().toLowerCase();
-                songList = themeToSongsMap.get(normalizedTheme);
-            } else {
-                songList = new ArrayList<>();
-            }
+            String normalizedTheme = song.theme().toLowerCase();
+            themeToSongsMap.putIfAbsent(normalizedTheme, new ArrayList<>());
+            List<Song> songList = themeToSongsMap.get(normalizedTheme);
             songList.add(song);
-            themeToSongsMap.put(song.theme().toLowerCase(), songList);
+            themeToSongsMap.put(normalizedTheme, songList);
         }
 
-        // TRY #2 later putIfAbsent
         // TRY #3 Collectors groupingBy
 
     }
