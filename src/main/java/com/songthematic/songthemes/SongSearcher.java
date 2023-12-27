@@ -7,13 +7,9 @@ import java.util.Map;
 
 public class SongSearcher {
 
-    private final String theme;
-    private final String song;
     private final Map<String, Song> songs = new HashMap<>();
 
     private SongSearcher(Song... song) {
-        this.theme = song[0].theme();
-        this.song = song[0].title();
         songs.put(song[0].theme().toLowerCase(), song[0]);
     }
 

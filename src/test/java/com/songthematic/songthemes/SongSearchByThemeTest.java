@@ -28,7 +28,7 @@ public class SongSearchByThemeTest {
             "New Years,New Years",
             "New Years,new years"
     })
-    void searchForThemeFindsOneMatchingSong(String songTheme, String requestedTheme) throws Exception {
+    void searchForThemeFindsOneMatchingSongIgnoringCase(String songTheme, String requestedTheme) throws Exception {
         SongSearcher songSearcher = SongSearcher.createSongSearcher(new Song(songTheme, "auld lang syne"));
 
         List<String> foundSong = songSearcher.byTheme(requestedTheme);
