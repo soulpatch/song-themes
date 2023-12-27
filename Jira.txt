@@ -20,9 +20,12 @@ Visitor Searches for Songs with One Theme
 [ ] Package up according to Hexagonal Architecture
 
 
+RANDOM NOTES
 Mock-free Zone
 
+REFERENCES
 GOOS book = Growing Object-Oriented Software, Guided by Tests by Steve Freeman, Nat Pryce
+
 
 EARLY STORIES
 Visitor searches for songs with one theme
@@ -55,9 +58,12 @@ FUTURE FEATURE IDEAS
 
 * Member can save theme search result as a playlist
 * Member can edit their playlist (remove, re-order)
+* Member can generate a Spotify playlist (Youtube, Amazon, Apple, WindowsMedia Player also?)
 * Member can flag songs as favorites (only visible to that member)
 * Member can rate songs 0-3 stars (only visible to that member)
+* Identify contributors with similar taste
 * Member can share their playlist with anyone
+* Have the playlist be of certain time duration (consider bin packing)
 
 * Contributor can view all of their contributions
 *
