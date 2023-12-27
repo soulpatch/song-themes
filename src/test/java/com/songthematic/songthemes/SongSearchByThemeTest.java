@@ -40,8 +40,9 @@ public class SongSearchByThemeTest {
     @Test
     @Disabled
     void searchForThemeFindsMultipleMatchingSongs() throws Exception {
-        SongSearcher songSearcher = SongSearcher.createSongSearcher(new Song("new years", "auld lang syne"),
-                                                                    new Song("new years", "New Year's Eve In A Haunted House"));
+        SongSearcher songSearcher = SongSearcher.createSongSearcher(
+                new Song("new years", "auld lang syne"),
+                new Song("new years", "New Year's Eve In A Haunted House"));
         List<String> foundSongs = songSearcher.byTheme("New Years");
 
         assertThat(foundSongs)
