@@ -24,7 +24,43 @@ Mock-free Zone
 
 GOOS book = Growing Object-Oriented Software, Guided by Tests by Steve Freeman, Nat Pryce
 
-FUTURE FEATURES/STORIES
+EARLY STORIES
+Visitor searches for songs with one theme
+Visitor searches for songs with multiple themes
+Administrator adds a single song and its theme
+Administrator adds a single song and its themes PLURAL
+
+NEXT LEVEL STORIES
+Find Song by any Song Attribute (Title, Artist, etc.)
+
+Invitation
+    Administrator invites person (unknown to the system) to be a Contributor
+    Administrator assigns roles
+    Administrator invites a person (unknown to the system)  to be an Administrator
+Contributor Adding Songs
+    Contributor adds a single song and its themes PLURAL
+    Administrator approves contributor song theme submission(s)
+Contributor Updating Songs
+    Contributor submits a song theme edit/correction/update/additional info
+    Administrator is notified when a Contributor submits contribution
+    Administrator approves contributor song theme update
+    Administrator rejects contributor song theme or update. Gives reason why
+
+FUTURE FEATURE IDEAS
+* Administrator bulk imports song themes from a file
+* Administrator bulk imports song themes from the clipboard
+* Contributor bulk imports song themes from a file
+* Expand search results based on themes chosen, using synonyms or other mechanisms
+* Member can register to receive notifications when new songs added for theme(s) of interest
+
+* Member can save theme search result as a playlist
+* Member can edit their playlist (remove, re-order)
+* Member can flag songs as favorites (only visible to that member)
+* Member can rate songs 0-3 stars (only visible to that member)
+* Member can share their playlist with anyone
+
+* Contributor can view all of their contributions
+*
 
 
 
