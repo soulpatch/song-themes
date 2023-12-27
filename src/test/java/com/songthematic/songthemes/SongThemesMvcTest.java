@@ -18,7 +18,7 @@ public class SongThemesMvcTest {
 
     @Test
     public void getToSearchEndpointReturns200() throws Exception {
-        mockMvc.perform(get("/theme-search"))
+        mockMvc.perform(get("/theme-search?requestedTheme=pants"))
                 .andExpect(status().is2xxSuccessful());
     }
 }
