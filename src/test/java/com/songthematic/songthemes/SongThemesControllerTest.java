@@ -1,7 +1,6 @@
 package com.songthematic.songthemes;
 
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
@@ -37,7 +36,6 @@ class SongThemesControllerTest {
     }
 
     @Test
-    @Disabled
     void searchReturnsModelWithNonEmptySearchResults() throws Exception {
         String theme = "new years";
         SongThemesController songThemesController = createSongThemesController(new Song(theme, "auld lang syne"),
@@ -57,6 +55,6 @@ class SongThemesControllerTest {
     @NotNull
     private static SongThemesController createSongThemesController(Song... songs) {
         return new SongThemesController(
-                SongSearcher.createSongSearcher(songs[0]));
+                SongSearcher.createSongSearcher(songs));
     }
 }

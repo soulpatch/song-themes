@@ -2,19 +2,22 @@ Song Themes Stuff To Do
 -----------------------
 
 Visitor Searches for Songs with One Theme
+
+Application
 [ ] Create SongSearcher that can search by theme
     [X] Finds no songs
     [X] Finds a song that matches the theme
     [X] Made theme search case-insensitive
-    [ ] Find multiple songs that match the theme
+    [X] Find songs that have different themes
+    [X] Find multiple songs that match the theme
 
+Adapter
 [ ] Create GET endpoint for searching by theme
     [X] Return empty page
     [X] Return model saying there were no results
     [X] Return model saying there are results
-
     [X] Returns model with a single song matching
->>  [ ] Returns model with a multiple song matching
+    [X] Returns model with a multiple song matching
     [ ] Generate HTML saying there were no results
 
 [ ] Package up according to Hexagonal Architecture
