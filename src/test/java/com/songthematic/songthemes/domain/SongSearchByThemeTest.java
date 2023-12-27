@@ -1,4 +1,4 @@
-package com.songthematic.songthemes;
+package com.songthematic.songthemes.domain;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

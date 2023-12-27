@@ -1,4 +1,4 @@
-package com.songthematic.songthemes;
+package com.songthematic.songthemes.domain;
 
 import java.util.*;
 import java.util.stream.Collectors;

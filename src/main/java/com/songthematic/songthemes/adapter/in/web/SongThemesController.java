@@ -1,5 +1,6 @@
-package com.songthematic.songthemes;
+package com.songthematic.songthemes.adapter.in.web;
 
+import com.songthematic.songthemes.domain.SongSearcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

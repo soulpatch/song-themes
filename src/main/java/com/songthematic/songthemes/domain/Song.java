@@ -1,4 +1,4 @@
-package com.songthematic.songthemes;
+package com.songthematic.songthemes.domain;
 
 public record Song(String theme, String title) {
 }

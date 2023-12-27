@@ -1,5 +1,7 @@
-package com.songthematic.songthemes;
+package com.songthematic.songthemes.adapter.in.web;
 
+import com.songthematic.songthemes.domain.Song;
+import com.songthematic.songthemes.domain.SongSearcher;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
