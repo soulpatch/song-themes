@@ -1,16 +1,14 @@
 package com.songthematic.songthemes;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SongSearcher {
 
-    private final Map<String, List<Song>> songs = new HashMap<>();
+    private final Map<String, List<Song>> themeToSongsMap = new HashMap<>();
 
-    private SongSearcher(Song... song) {
-        songs.put(song[0].theme().toLowerCase(), List.of(song[0]));
+    private SongSearcher(Song... songs) {
+        // assuming all incoming songs are of same theme
+        themeToSongsMap.put(songs[0].theme().toLowerCase(), Arrays.asList(songs));
     }
 
     public static SongSearcher createSongSearcher(Song... songs) {
@@ -26,7 +24,7 @@ public class SongSearcher {
     }
 
     public List<String> byTheme(String requestedTheme) {
-        List<Song> matchingSongs = songs.get(requestedTheme.toLowerCase());
+        List<Song> matchingSongs = themeToSongsMap.get(requestedTheme.toLowerCase());
 
         if (matchingSongs != null) {
             return matchingSongs.stream()

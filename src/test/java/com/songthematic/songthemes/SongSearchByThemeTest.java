@@ -1,6 +1,5 @@
 package com.songthematic.songthemes;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -38,7 +37,6 @@ public class SongSearchByThemeTest {
     }
 
     @Test
-    @Disabled
     void searchForThemeFindsMultipleMatchingSongs() throws Exception {
         SongSearcher songSearcher = SongSearcher.createSongSearcher(
                 new Song("new years", "auld lang syne"),
@@ -49,4 +47,5 @@ public class SongSearchByThemeTest {
                 .containsExactly("auld lang syne",
                                  "New Year's Eve In A Haunted House");
     }
+
 }
