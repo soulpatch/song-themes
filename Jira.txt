@@ -20,7 +20,7 @@ Adapter
     [X] Returns model with a multiple song matching
     [ ] Generate HTML saying there were no results
 
-[ ] Package up according to Hexagonal Architecture
+[X] Package up according to Hexagonal Architecture
 
 
 RANDOM NOTES
