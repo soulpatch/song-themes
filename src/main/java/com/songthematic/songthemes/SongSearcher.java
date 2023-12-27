@@ -7,8 +7,21 @@ public class SongSearcher {
     private final Map<String, List<Song>> themeToSongsMap = new HashMap<>();
 
     private SongSearcher(Song... songs) {
-        // assuming all incoming songs are of same theme
-        themeToSongsMap.put(songs[0].theme().toLowerCase(), Arrays.asList(songs));
+        for (Song song : songs) {
+            List<Song> songList;
+            if (themeToSongsMap.containsKey(song.theme().toLowerCase())) {
+                String normalizedTheme = song.theme().toLowerCase();
+                songList = themeToSongsMap.get(normalizedTheme);
+            } else {
+                songList = new ArrayList<>();
+            }
+            songList.add(song);
+            themeToSongsMap.put(song.theme().toLowerCase(), songList);
+        }
+
+        // TRY #2 later putIfAbsent
+        // TRY #3 Collectors groupingBy
+
     }
 
     public static SongSearcher createSongSearcher(Song... songs) {
@@ -16,7 +29,7 @@ public class SongSearcher {
     }
 
     public static SongSearcher withOneSongForTheme(String theme) {
-        return new SongSearcher(new Song(theme, "Song with theme "+ theme));
+        return new SongSearcher(new Song(theme, "Song with theme " + theme));
     }
 
     public static SongSearcher withOneSong() {
@@ -28,8 +41,8 @@ public class SongSearcher {
 
         if (matchingSongs != null) {
             return matchingSongs.stream()
-                    .map(Song::title)
-                    .toList();
+                                .map(Song::title)
+                                .toList();
         }
 
         return Collections.emptyList();
