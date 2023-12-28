@@ -18,8 +18,8 @@ Adapter
     [X] Return model saying there are results
     [X] Returns model with a single song matching
     [X] Returns model with a multiple song matching
-    [ ] Generate HTML shows there were no results REOPENED :)
-    [ ] Generate HTML that shows matching results
+    [X] Generate HTML shows there were no results
+    [X] Generate HTML that shows matching results
 
 
             is manual testing of UI enough?
