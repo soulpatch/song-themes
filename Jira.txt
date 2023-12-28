@@ -4,7 +4,7 @@ Song Themes Stuff To Do
 Visitor Searches for Songs with One Theme
 
 Application
-[ ] Create SongSearcher that can search by theme
+[X] Create SongSearcher that can search by theme
     [X] Finds no songs
     [X] Finds a song that matches the theme
     [X] Made theme search case-insensitive
@@ -18,7 +18,18 @@ Adapter
     [X] Return model saying there are results
     [X] Returns model with a single song matching
     [X] Returns model with a multiple song matching
-    [ ] Generate HTML saying there were no results
+    [ ] Generate HTML shows there were no results REOPENED :)
+    [ ] Generate HTML that shows matching results
+
+
+            is manual testing of UI enough?
+            Push UI "logic" into Java code
+            UI templates exclusively about presentation (i.e. should not have logic)
+                https://www.martinfowler.com/eaaDev/PresentationModel.html
+            If doing end-to-end testing, could use HTMLUnit
+            "Security through obscurity"
+            HTMX - provides interactivity with less complexity
+            Patterns of Enterprise Application Architecture by Martin Fowler
 
 [X] Package up according to Hexagonal Architecture
 
