@@ -12,7 +12,7 @@ Application
     [X] Find multiple songs that match the theme
 
 Adapter
-[ ] Create GET endpoint for searching by theme
+[X] Create GET endpoint for searching by theme
     [X] Return empty page
     [X] Return model saying there were no results
     [X] Return model saying there are results
@@ -20,6 +20,10 @@ Adapter
     [X] Returns model with a multiple song matching
     [X] Generate HTML shows there were no results
     [X] Generate HTML that shows matching results
+
+[X] Package up according to Hexagonal Architecture
+
+[ ]
 
 
             is manual testing of UI enough?
@@ -33,7 +37,6 @@ Adapter
 
             InfiTest - tests run every time code is compiled (TO-DO give a try sometime)
 
-[X] Package up according to Hexagonal Architecture
 
 
 RANDOM NOTES
