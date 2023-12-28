@@ -27,7 +27,6 @@ public class SongThemesController {
                 .map(SongView::new)
                 .toList();
 
-        model.addAttribute("emptySearchResults", foundSongs.isEmpty());
         model.addAttribute("searchResults", songViews);
 
         if (foundSongs.isEmpty()) {
