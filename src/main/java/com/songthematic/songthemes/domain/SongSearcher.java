@@ -23,10 +23,6 @@ public class SongSearcher {
         return new SongSearcher(new Song(theme, "Song with theme " + theme));
     }
 
-    public static SongSearcher withOneSong() {
-        return createSongSearcher(new Song("new years", "auld lang syne"));
-    }
-
     public List<String> byTheme(String requestedTheme) {
         List<Song> matchingSongs = themeToSongsMap.get(requestedTheme.toLowerCase());
 

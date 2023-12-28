@@ -14,14 +14,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SongThemesControllerTest {
 
     @Test
-    void searchReturnsSearchResultsView() throws Exception {
-        SongThemesController songThemesController = new SongThemesController(SongSearcher.withOneSong());
+    void searchReturnsMatchingSearchResultsView() throws Exception {
+        Song song = new Song("new years", "irrelevant song title");
+        SongThemesController songThemesController = new SongThemesController(SongSearcher.createSongSearcher(song));
 
         Model model = new ConcurrentModel();
-        String viewName = songThemesController.themeSearch("", model);
+        String viewName = songThemesController.themeSearch("new years", model);
 
         assertThat(viewName)
-                .isEqualTo("theme-search-results");
+                .isEqualTo("theme-search-has-results");
     }
 
     @Test
@@ -31,10 +32,12 @@ class SongThemesControllerTest {
         SongThemesController songThemesController = createSongThemesController(new Song(theme, songTitle));
 
         Model model = new ConcurrentModel();
-        songThemesController.themeSearch("christmas", model);
+        String viewName = songThemesController.themeSearch("christmas", model);
 
         assertThat(model.getAttribute("emptySearchResults"))
                 .isEqualTo(Boolean.TRUE);
+        assertThat(viewName)
+                .isEqualTo("theme-search-no-results");
     }
 
     @Test

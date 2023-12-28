@@ -31,6 +31,8 @@ Adapter
             HTMX - provides interactivity with less complexity
             Patterns of Enterprise Application Architecture by Martin Fowler
 
+            InfiTest - tests run every time code is compiled (TO-DO give a try sometime)
+
 [X] Package up according to Hexagonal Architecture
 
 
