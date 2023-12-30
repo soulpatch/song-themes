@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class SongThemesApplication {
+public class SongThemesStartup {
 
     public static void main(String[] args) {
-        SpringApplication.run(SongThemesApplication.class, args);
+        SpringApplication.run(SongThemesStartup.class, args);
     }
 
     @Bean

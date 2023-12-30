@@ -1,6 +1,5 @@
 Song Themes Stuff To Do
 -----------------------
-
 Visitor Searches for Songs with One Theme
 
 Application
@@ -24,15 +23,54 @@ Adapter
 [X] Package up according to Hexagonal Architecture
 [X] First push of behavior to production!
 
+Add a Song with a Theme
+[ ] Add a song that doesn't exist to the database
+    [ ] just below UI
+    [ ]
+
+What is a song?
+    Theme *
+    Artist *
+    Song Title *
+    Release Title  (UI could say something Album or Single Title)
+
+    ?Release Type (Compilation, Soundtrack)?
+    Notes??
+
+    Compilation vs a Collection
+        Compilation = Various Artists
+        Compilation =Discogs= Collection
+
+Event-sourced domain model vs state-based domain model?
+
+How do we handle typos?
+    e.g. New Years vs New Yaer's
+
+[New years {x}]
+
 [ ] Add Repository
 [ ] Add Persistence to Database
 [ ] Adding Songs via the bulk load of CSV file
+[ ] Adding Song via the UI
 [ ] Adding Songs via the UI
 [ ]
 [ ] Add ArchUnit checking
 
 
+RELEASE "PLAN"
+V1 - Site has songs and themes that Admin entered, includes authentication
+V2 - Add concept of Contributor
+V3 - Add concept of Member
+
+
 HUDDLE NOTES
+2023 Dec 30 - Episode #6
+    High level overview of Hexagonal Arch from Ted
+    Package structure is hard
+    How are themes managed?
+    Curation is very important - Ted's experience at EBay
+    Could use LLMs to look at potentially similar taxonomy?
+
 2023 Dec 28
     is manual testing of UI enough?
     Push UI "logic" into Java code
@@ -100,6 +138,6 @@ FUTURE FEATURE IDEAS
 * Contributor can view all of their contributions
 *
 
-
-
-
+QUESTIONS
+* Differentiating between songs with same title, but are different songs (cover vs not-a-cover)
+* Differentiating between bands with the same name

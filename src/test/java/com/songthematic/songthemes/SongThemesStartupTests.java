@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @Tag("io")
-class SongThemesApplicationTests {
+class SongThemesStartupTests {
 
   @Test
   void contextLoads() {

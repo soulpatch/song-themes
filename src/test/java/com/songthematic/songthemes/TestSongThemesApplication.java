@@ -17,7 +17,7 @@ public class TestSongThemesApplication {
   }
 
   public static void main(String[] args) {
-    SpringApplication.from(SongThemesApplication::main).with(TestSongThemesApplication.class).run(args);
+    SpringApplication.from(SongThemesStartup::main).with(TestSongThemesApplication.class).run(args);
   }
 
 }
