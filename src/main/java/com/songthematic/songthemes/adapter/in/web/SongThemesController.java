@@ -21,7 +21,7 @@ public class SongThemesController {
 
     @GetMapping("/theme-search")
     public String themeSearch(@RequestParam("requestedTheme") String requestedTheme, Model model) {
-        List<String> foundSongs = songSearcher.byTheme(requestedTheme);
+        List<String> foundSongs = songSearcher.songTitlesByTheme(requestedTheme);
         List<SongView> songViews = foundSongs
                 .stream()
                 .map(SongView::new)

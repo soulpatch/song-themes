@@ -23,15 +23,19 @@ public class SongSearcher {
         return new SongSearcher(new Song(theme, "Song with theme " + theme));
     }
 
-    public List<String> byTheme(String requestedTheme) {
+    public List<String> songTitlesByTheme(String requestedTheme) {
+        List<Song> matchingSongs = byTheme(requestedTheme);
+        return matchingSongs.stream()
+                            .map(Song::title)
+                            .toList();
+    }
+
+    public List<Song> byTheme(String requestedTheme) {
         List<Song> matchingSongs = themeToSongsMap.get(requestedTheme.toLowerCase());
 
-        if (matchingSongs != null) {
-            return matchingSongs.stream()
-                                .map(Song::title)
-                                .toList();
+        if (matchingSongs == null) {
+            matchingSongs = Collections.emptyList();
         }
-
-        return Collections.emptyList();
+        return matchingSongs;
     }
 }
