@@ -70,6 +70,7 @@ HUDDLE NOTES
     How are themes managed?
     Curation is very important - Ted's experience at EBay
     Could use LLMs to look at potentially similar taxonomy?
+    https://github.com/Suigi/intellij-templates
 
 2023 Dec 28
     is manual testing of UI enough?
