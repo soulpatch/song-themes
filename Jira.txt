@@ -22,31 +22,44 @@ Adapter
     [X] Generate HTML that shows matching results
 
 [X] Package up according to Hexagonal Architecture
+[X] First push of behavior to production!
 
+[ ] Add Repository
+[ ] Add Persistence to Database
+[ ] Adding Songs via the bulk load of CSV file
+[ ] Adding Songs via the UI
 [ ]
+[ ] Add ArchUnit checking
 
 
-            is manual testing of UI enough?
-            Push UI "logic" into Java code
-            UI templates exclusively about presentation (i.e. should not have logic)
-                https://www.martinfowler.com/eaaDev/PresentationModel.html
-            If doing end-to-end testing, could use HTMLUnit
-            "Security through obscurity"
-            HTMX - provides interactivity with less complexity
-            Patterns of Enterprise Application Architecture by Martin Fowler
+HUDDLE NOTES
+2023 Dec 28
+    is manual testing of UI enough?
+    Push UI "logic" into Java code
+    UI templates exclusively about presentation (i.e. should not have logic)
+        https://www.martinfowler.com/eaaDev/PresentationModel.html
+    If doing end-to-end testing, could use HTMLUnit
+    "Security through obscurity"
+    HTMX - provides interactivity with less complexity
+    Patterns of Enterprise Application Architecture by Martin Fowler
 
-            InfiTest - tests run every time code is compiled (TO-DO give a try sometime)
+    InfiTest - tests run every time code is compiled (TO-DO give a try sometime)
 
-
+    CQRS stands for Command Query Responsibility Segregation
+        Separating reads from writes
+    CQS stands for Command Query Separation from Meyer OOSC book
+        Object-Oriented Software Construction, 2nd edition (1997)
+        https://bertrandmeyer.com/oosc2/
 
 RANDOM NOTES
 Mock-free Zone
 
-REFERENCES
-GOOS book = Growing Object-Oriented Software, Guided by Tests by Steve Freeman, Nat Pryce
+REFERENCE BOOKS MENTIONED DURING LIVE STREAMS
+* GOOS book = Growing Object-Oriented Software, Guided by Tests by Steve Freeman, Nat Pryce
 
 
 EARLY STORIES
+
 Visitor searches for songs with one theme
 Visitor searches for songs with multiple themes
 Administrator adds a single song and its theme
