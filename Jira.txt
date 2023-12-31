@@ -24,9 +24,10 @@ Adapter
 [X] First push of behavior to production!
 
 Add a Song with a Theme
-[ ] Add a song that doesn't exist to the database
-    [ ] just below UI
-    [ ]
+[X] Add a song that doesn't exist to the database
+    [X] just below UI
+    [ ] Create in-memory repository
+    [ ] Create database repository adapter
 
 What is a song?
     Theme *
@@ -48,8 +49,7 @@ How do we handle typos?
 
 [New years {x}]
 
-[ ] Add Repository
-[ ] Add Persistence to Database
+
 [ ] Adding Songs via the bulk load of CSV file
 [ ] Adding Song via the UI
 [ ] Adding Songs via the UI
@@ -64,6 +64,10 @@ V3 - Add concept of Member
 
 
 HUDDLE NOTES
+2023 Dec 31 - Episode #7
+    TCR = Test Commit Revert
+        IntelliJ has a plugin to help with TCR
+
 2023 Dec 30 - Episode #6
     High level overview of Hexagonal Arch from Ted
     Package structure is hard
