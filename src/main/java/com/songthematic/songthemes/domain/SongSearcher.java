@@ -2,6 +2,7 @@ package com.songthematic.songthemes.domain;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SongSearcher {
 
@@ -32,5 +33,14 @@ public class SongSearcher {
 
     public List<Song> byTheme(String requestedTheme) {
         return themeToSongsMap.getOrDefault(requestedTheme.toLowerCase(), Collections.emptyList());
+    }
+
+    public SongSearcher add(Song song) {
+        Stream<Song> songStream = themeToSongsMap.values()
+                                                 .stream()
+                                                 .flatMap(Collection::stream);
+        Song[] songs = Stream.concat(songStream, Stream.of(song))
+                                      .toArray(Song[]::new);
+        return createSongSearcher(songs);
     }
 }
