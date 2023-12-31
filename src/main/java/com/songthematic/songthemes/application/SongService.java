@@ -13,8 +13,7 @@ public class SongService {
 
     public SongService() {
         songSearcher = SongSearcher.createSongSearcher();
-        songRepository = new SongRepository();
-        songRepository.setSongRepository(new ArrayList<>());
+        songRepository = SongRepository.create(new ArrayList<Song>());
     }
 
     public SongService(SongRepository songRepository) {
