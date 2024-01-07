@@ -2,25 +2,31 @@ package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class SongRepository {
-    private List<Song> songRepository;
+    private final List<Song> songs;
+
+    private SongRepository(List<Song> songs) {
+        this.songs = songs;
+    }
 
     static SongRepository create(List<Song> songList) {
-        SongRepository songRepository = new SongRepository();
-        songRepository.setSongRepository(songList);
+        SongRepository songRepository = new SongRepository(songList);
         return songRepository;
     }
 
-    public List<Song> getSongRepository() {
-        return songRepository;
+    static SongRepository createEmpty() {
+        return create(new ArrayList<>());
     }
 
-    public void setSongRepository(List<Song> songRepository) {
-        this.songRepository = songRepository;
+    public Stream<Song> allSongs() {
+        return songs.stream();
     }
 
-    public SongRepository() {
+    void add(Song song) {
+        songs.add(song);
     }
 }

@@ -1,5 +1,6 @@
 package com.songthematic.songthemes.domain;
 
+import com.songthematic.songthemes.application.SongFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -28,7 +29,7 @@ public class SongSearchByThemeTest {
             "New Years,new years"
     })
     void searchForThemeFindsOneMatchingSongIgnoringCase(String songTheme, String requestedTheme) throws Exception {
-        SongSearcher songSearcher = SongSearcher.createSongSearcher(new Song(songTheme, "auld lang syne"));
+        SongSearcher songSearcher = SongSearcher.createSongSearcher(SongFactory.createSong("auld lang syne", songTheme));
 
         List<String> foundSong = songSearcher.songTitlesByTheme(requestedTheme);
 
@@ -39,8 +40,8 @@ public class SongSearchByThemeTest {
     @Test
     void searchForThemeFindsMultipleMatchingSongs() throws Exception {
         SongSearcher songSearcher = SongSearcher.createSongSearcher(
-                new Song("new years", "auld lang syne"),
-                new Song("new years", "New Year's Eve In A Haunted House"));
+                SongFactory.createSong("auld lang syne", "new years"),
+                SongFactory.createSong("New Year's Eve In A Haunted House", "new years"));
         List<String> foundSongs = songSearcher.songTitlesByTheme("New Years");
 
         assertThat(foundSongs)
@@ -51,8 +52,8 @@ public class SongSearchByThemeTest {
     @Test
     void forSongsWithDifferentThemesSearchFindsAllSongs() throws Exception {
         SongSearcher songSearcher = SongSearcher.createSongSearcher(
-                new Song("new years", "auld lang syne"),
-                new Song("christmas", "The Christmas Tree is on Fire"));
+                SongFactory.createSong("auld lang syne", "new years"),
+                SongFactory.createSong("The Christmas Tree is on Fire", "christmas"));
 
         assertThat(songSearcher.songTitlesByTheme("new years"))
                 .containsExactly("auld lang syne");
@@ -60,4 +61,16 @@ public class SongSearchByThemeTest {
                 .containsExactly("The Christmas Tree is on Fire");
 
     }
+
+    @Test
+    void songWithMultipleThemesIsFoundByItsSecondTheme() throws Exception {
+        SongSearcher songSearcher = SongSearcher.createSongSearcher(
+                SongFactory.createSong("Nightmare Before Christmas", List.of("Christmas", "Halloween")));
+
+        List<Song> songsFound = songSearcher.byTheme("halloween");
+        assertThat(songsFound)
+                .extracting(Song::songTitle)
+                .containsExactly("Nightmare Before Christmas");
+    }
+
 }

@@ -14,37 +14,50 @@ class SongServiceTest {
     void multipleSongsAddedAreFoundByTheirTheme() throws Exception {
         SongService songService = new SongService();
 
-        songService.addSong(new Song("new years", "This Will Be Our Year"));
-        songService.addSong(new Song("new years", "Funky New Year"));
+        songService.addSong(SongFactory.createSong("This Will Be Our Year", "new years"));
+        songService.addSong(SongFactory.createSong("Funky New Year", "new years"));
 
         List<Song> songsFound = songService.searchByTheme("new years");
         assertThat(songsFound)
-                .containsExactly(new Song("new years", "This Will Be Our Year"),
-                                 new Song("new years", "Funky New Year"));
+                .containsExactly(SongFactory.createSong("This Will Be Our Year", "new years"),
+                                 SongFactory.createSong("Funky New Year", "new years"));
     }
 
     @Test
     void savedSongsLoadedOnStartup() throws Exception {
         List<Song> songList = new ArrayList<>();
-        songList.add(new Song("Fire", "Baby's on Fire"));
+        songList.add(SongFactory.createSong("Baby's on Fire", "Fire"));
 
         SongRepository songRepository = SongRepository.create(songList);
         SongService songService = new SongService(songRepository);
 
         assertThat(songService.searchByTheme("fire"))
-                .containsExactly(new Song("Fire", "Baby's on Fire"));
+                .containsExactly(SongFactory.createSong("Baby's on Fire", "Fire"));
     }
 
     @Test
     void addedSongsAreSavedToRepository() throws Exception {
         List<Song> songList = new ArrayList<>();
-        songList.add(new Song("Fire", "Baby's on Fire"));
+        songList.add(SongFactory.createSong("Baby's on Fire", "Fire"));
         SongRepository songRepository = SongRepository.create(songList);
         SongService songService = new SongService(songRepository);
 
-        songService.addSong(new Song("Fire", "Smokestack Lightning"));
+        songService.addSong(SongFactory.createSong("Smokestack Lightning", "Fire"));
 
-        assertThat(songRepository.getSongRepository())
+        assertThat(songRepository.allSongs())
                 .hasSize(2);
     }
+
+    @Test
+    void bulkAddSongUsingCsvFormat() throws Exception {
+        String row = "\"Artist\",\"SongTitle\",\"ReleaseTitle\",\"ReleaseType\",\"Theme1\"";
+        SongRepository songRepository = SongRepository.createEmpty();
+        SongService songService = new SongService(songRepository);
+
+        songService.importSongs(row);
+
+        assertThat(songRepository.allSongs())
+                .containsExactly(SongFactory.createSong("Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1"));
+    }
+
 }

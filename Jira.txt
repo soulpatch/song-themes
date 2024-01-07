@@ -26,44 +26,75 @@ Adapter
 Add a Song with a Theme
 [X] Add a song that doesn't exist to the database
     [X] just below UI
-    [ ] Create in-memory repository
+    [X] Create in-memory repository
     [ ] Create database repository adapter
 
-What is a song?
-    Theme *
-    Artist *
-    Song Title *
-    Release Title  (UI could say something Album or Single Title)
+Songs with Multiple Themes
+    [X] Find a Song if one of its Themes match
+    [X] Add a Song with multiple Themes
 
-    ?Release Type (Compilation, Soundtrack)?
-    Notes??
+Increase Song Attributes
+>> [ ] Add more song attributes (artist, release title, release type)
 
-    Compilation vs a Collection
-        Compilation = Various Artists
-        Compilation =Discogs= Collection
-
-Event-sourced domain model vs state-based domain model?
-
-How do we handle typos?
-    e.g. New Years vs New Yaer's
-
-[New years {x}]
+[ ] Upgrade to Spring Boot 3.2.1
 
 
-[ ] Adding Songs via the bulk load of CSV file
+[ ] Authetication (when to add?)
+[ ] Persist to DB
+
+[ ] Install Tab Shifter Plug-in
+
+UI
+[ ] Adding Songs via the bulk load of CSV (text box instead of via file)
+    CSV Format brainstorm
+    "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1,Theme2,Theme3,Theme4" < Option A
+    Artist,SongTitle,ReleaseTitle,ReleaseType,Theme1,Theme2,Theme3,Theme4, ...      < Option B
+    Artist,SongTitle,ReleaseTitle,ReleaseType,{Theme1;Theme2;Theme3;Theme}          < Option C
+    "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1","Theme2","Theme3","Theme4" < Option D  CHOSEN
+   EXAMPLE
+    "Peggy Lee","My Heart Belongs To Daddy","The Best Of Peggy Lee 1952-1956","","Daddy"
+    "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1"
+
 [ ] Adding Song via the UI
 [ ] Adding Songs via the UI
 [ ]
 [ ] Add ArchUnit checking
 
+UI Theme Sketch
+    [New years {x}]  [Vampires {x}]
+
 
 RELEASE "PLAN"
-V1 - Site has songs and themes that Admin entered, includes authentication
-V2 - Add concept of Contributor
-V3 - Add concept of Member
+V0.1 - Site has songs and themes that Admin entered, includes authentication
+V0.2 - Add concept of Contributor
+V0.3 - Add concept of Member
+V0.4 -
 
 
-HUDDLE NOTES
+STREAM AD HOC NOTES
+2024 Jan 6 - Episode #10
+
+2024 Jan 3 - Episode #9
+    Aggregates - the thing makes decisions (one of the things it does)
+        Decider as a term instead of Aggregate root - Ted's starting to use
+
+    Aggregates can only refer to other Aggregates via an identifier, not via the object
+
+    Aggregates contain Value Objects and Entities (both can contain logic)
+    Value Objects are immutable, therefore don't need an identifier
+
+    CRC cards https://en.wikipedia.org/wiki/Class-responsibility-collaboration_card
+
+2024 Jan 2 - Episode #8
+	Give information
+		almost never return reference to a variable directly, except primitives
+	Objects have protocols
+
+	Lombok is evil
+
+    MVP = Minimum Lovable Product
+
+
 2023 Dec 31 - Episode #7
     TCR = Test Commit Revert
         IntelliJ has a plugin to help with TCR
@@ -94,6 +125,25 @@ HUDDLE NOTES
         Object-Oriented Software Construction, 2nd edition (1997)
         https://bertrandmeyer.com/oosc2/
 
+    What is a song? (which episode did we discuss this?)
+        Theme(s) *
+        Artist *
+        Song Title *
+        Release Title  (UI could say something Album or Single Title)
+        Release Type (Compilation, Soundtrack) - consider better name later
+
+
+        Format (LP, CD, 7"
+        Record Label??
+        Notes??
+        Radio Friendly
+        Link(s) to music [bandcamp, spotify, etc.]
+        Link to lyrics
+
+        Compilation vs a Collection
+            Compilation = Various Artists
+            Compilation =Discogs= Collection
+
 RANDOM NOTES
 Mock-free Zone
 
@@ -102,7 +152,6 @@ REFERENCE BOOKS MENTIONED DURING LIVE STREAMS
 
 
 EARLY STORIES
-
 Visitor searches for songs with one theme
 Visitor searches for songs with multiple themes
 Administrator adds a single song and its theme
@@ -136,6 +185,7 @@ FUTURE FEATURE IDEAS
 * Member can generate a Spotify playlist (Youtube, Amazon, Apple, WindowsMedia Player also?)
 * Member can flag songs as favorites (only visible to that member)
 * Member can rate songs 0-3 stars (only visible to that member)
+* Member can make their curated theme playlist public. Website will need to display curated playlists...a big-ish topci
 * Identify contributors with similar taste
 * Member can share their playlist with anyone
 * Have the playlist be of certain time duration (consider bin packing)
@@ -146,3 +196,6 @@ FUTURE FEATURE IDEAS
 QUESTIONS
 * Differentiating between songs with same title, but are different songs (cover vs not-a-cover)
 * Differentiating between bands with the same name
+* Event-sourced domain model vs state-based domain model?
+* How do we handle typos/different spelling?
+    e.g. New Years vs New Year's
