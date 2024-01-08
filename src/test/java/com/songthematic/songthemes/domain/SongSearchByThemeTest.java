@@ -13,7 +13,7 @@ public class SongSearchByThemeTest {
 
     @Test
     public void searchForThemeThatDoesNotExistReturnsNoResults() throws Exception {
-        SongSearcher songSearcher = SongSearcher.withOneSongForTheme("new years");
+        SongSearcher songSearcher = SongSearcher.withOneDefaultSongAndTheme("new years");
 
         List<String> foundSongs = songSearcher.songTitlesByTheme("Applesauce");
 

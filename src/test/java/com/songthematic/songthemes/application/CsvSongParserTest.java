@@ -12,6 +12,11 @@ class CsvSongParserTest {
     void parseSongFromCsv() throws Exception {
         String csvSongs = "\"Artist\",\"SongTitle\",\"ReleaseTitle\",\"ReleaseType\",\"Theme1\"";
 
+        /* can use text blocks, but the last double-quote has to be escaped
+        String csvSongs = """
+                          "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1\"""";
+        */
+
         CsvSongParser csvSongParser = new CsvSongParser();
         List<Song> songs = csvSongParser.parse(csvSongs);
 

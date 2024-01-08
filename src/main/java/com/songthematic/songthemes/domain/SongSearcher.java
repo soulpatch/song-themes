@@ -1,7 +1,6 @@
 package com.songthematic.songthemes.domain;
 
 import java.util.*;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class SongSearcher {
@@ -9,26 +8,12 @@ public class SongSearcher {
     private final Map<String, List<Song>> themeToSongsMap = new HashMap<>();
 
     private SongSearcher(Song... songs) {
-        Stream<Song> songStream = Arrays.stream(songs);
-        themeToSongsMap.putAll(
-                indexSongsByTheme(songStream));
-    }
-
-    private static Map<String, List<Song>> indexSongsByTheme(Stream<Song> songStream) {
-        Map<String, List<Song>> map = new HashMap<>();
-        songStream.forEach(indexSongByThemes(map));
-        return map;
-    }
-
-    private static Consumer<Song> indexSongByThemes(Map<String, List<Song>> map) {
-        return song -> {
+        for (Song song : songs) {
             for (String theme : song.themes()) {
-                String normalizedTheme = theme.toLowerCase();
-                List<Song> songs = map.getOrDefault(normalizedTheme, new ArrayList<>());
-                songs.add(song);
-                map.put(normalizedTheme, songs);
+                themeToSongsMap.computeIfAbsent(theme.toLowerCase(), ignored -> new ArrayList<>())
+                               .add(song);
             }
-        };
+        }
     }
 
     public static SongSearcher createSongSearcher(Song... songs) {
@@ -39,7 +24,7 @@ public class SongSearcher {
         return new SongSearcher(songs.toArray(Song[]::new));
     }
 
-    public static SongSearcher withOneSongForTheme(String theme) {
+    public static SongSearcher withOneDefaultSongAndTheme(String theme) {
         return new SongSearcher(new Song("artist", "songTitle", "releaseTitle", "Song with theme " + theme, List.of(theme)));
     }
 
