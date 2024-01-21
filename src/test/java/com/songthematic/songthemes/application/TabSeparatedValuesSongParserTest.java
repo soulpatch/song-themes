@@ -44,7 +44,18 @@ class TabSeparatedValuesSongParserTest {
 
     @Test
     void parseMultipleSongs() throws Exception {
+        String tsvSongs = """
+                Earth, Wind & Fire	Gratitude				Thank You	Thanks	Gratitude		Rizzi
+                Joey Ramone	What A Wonderful World	Don’t Worry About Me			Thank You	Thanks	Gratitude	Joy	Rizzi
+                """;
 
+        TsvSongParser tsvSongParser = new TsvSongParser();
+        List<Song> songs = tsvSongParser.parse(tsvSongs);
 
+        assertThat(songs)
+                .containsExactly(
+                        new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You", "Thanks", "Gratitude")),
+                        new Song("Joey Ramone", "A Wonderful World", "Don’t Worry About Me", "", List.of("Thank You", "Thanks", "Gratitude"))
+                );
     }
 }
