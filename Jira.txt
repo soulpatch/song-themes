@@ -45,7 +45,7 @@ Increase Song Attributes
 
 [ ] Install Tab Shifter Plug-in
 
->> [ ] Adding Songs via the bulk load of CSV (text box instead of via file)
+[ ] Adding Songs via the bulk load of TSV (text box instead of via file)
     CSV Format brainstorm
     "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1,Theme2,Theme3,Theme4" < Option A
     Artist,SongTitle,ReleaseTitle,ReleaseType,Theme1,Theme2,Theme3,Theme4, ...      < Option B
@@ -54,6 +54,8 @@ Increase Song Attributes
    EXAMPLE
     "Peggy Lee","My Heart Belongs To Daddy","The Best Of Peggy Lee 1952-1956","","Daddy"
     "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1"
+    >> [ ] Add one line of Song information
+       [ ]
 
 UI
 [ ] Adding Song via the UI

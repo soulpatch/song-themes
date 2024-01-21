@@ -30,4 +30,15 @@ class TabSeparatedValuesSongParserTest {
         assertThat(songs)
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
     }
+
+    @Test
+    void stopAddingThemesWhenHitFirstBlankTheme() throws Exception {
+        String tsvSongs = "DontCareArtist	DontCareSongTitle	DontCareReleaseTitle	DontCareReleaseType	Notes	Thank You			IgnoredTheme	DontCareContributor";
+
+        TsvSongParser tsvSongParser = new TsvSongParser();
+        List<Song> songs = tsvSongParser.parse(tsvSongs);
+
+        assertThat(songs)
+                .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
+    }
 }
