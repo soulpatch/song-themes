@@ -23,6 +23,9 @@ public class TsvSongParser {
         List<String> themes = new ArrayList<>();
 
         for (int i = 5; i <= 8; i++) {
+            if (columns[i].isEmpty()) {
+                break;
+            }
             themes.add(columns[i]);
         }
         return themes;

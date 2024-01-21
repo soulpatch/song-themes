@@ -1,7 +1,6 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -22,7 +21,6 @@ class TabSeparatedValuesSongParserTest {
     }
 
     @Test
-    @Disabled
     void parseSongWithOnlyOneThemeHasOneTheme() throws Exception {
         String tsvSongs = "DontCareArtist	DontCareSongTitle	DontCareReleaseTitle	DontCareReleaseType	Notes	Thank You				DontCareContributor";
 
