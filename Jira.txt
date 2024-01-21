@@ -46,16 +46,11 @@ Increase Song Attributes
 [ ] Install Tab Shifter Plug-in
 
 [ ] Adding Songs via the bulk load of TSV (text box instead of via file)
-    CSV Format brainstorm
-    "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1,Theme2,Theme3,Theme4" < Option A
-    Artist,SongTitle,ReleaseTitle,ReleaseType,Theme1,Theme2,Theme3,Theme4, ...      < Option B
-    Artist,SongTitle,ReleaseTitle,ReleaseType,{Theme1;Theme2;Theme3;Theme}          < Option C
-    "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1","Theme2","Theme3","Theme4" < Option D  CHOSEN
-   EXAMPLE
-    "Peggy Lee","My Heart Belongs To Daddy","The Best Of Peggy Lee 1952-1956","","Daddy"
-    "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1"
-    >> [ ] Add one line of Song information
-       [ ]
+    [X] Decided to switch from CSV to TSV because copying from Excel produces tab separated columns
+    [X] Add one line of Song information
+>>     [ ] Process multiple songs
+       [ ] Skip header row(s)
+       [ ] Test for only one theme column (generally, not enough columns)
 
 UI
 [ ] Adding Song via the UI

@@ -8,7 +8,7 @@ import java.util.List;
 public class TsvSongParser {
 
     public List<Song> parse(String tsvSongs) {
-        String[] columns = tsvSongs.split("\t");
+        String[] columns = tsvSongs.split("\t", 10);
 
         String artist = columns[0];
         String songTitle = columns[1];

@@ -1,7 +1,6 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -50,9 +49,8 @@ class SongServiceTest {
     }
 
     @Test
-    @Disabled("disabled until TsvParser is done")
     void bulkAddSongUsingTsvFormat() throws Exception {
-        String row = "\"Artist\",\"SongTitle\",\"ReleaseTitle\",\"ReleaseType\",\"Theme1\"";
+        String row = "Artist\tSongTitle\tReleaseTitle\tReleaseType\tSkippedNotes\tTheme1\t\t\tContributor";
         SongRepository songRepository = SongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
