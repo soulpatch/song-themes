@@ -34,9 +34,10 @@ Songs with Multiple Themes
     [X] Add a Song with multiple Themes
 
 Increase Song Attributes
->> [ ] Add more song attributes (artist, release title, release type)
+ [X] Add more song attributes (artist, release title, release type)
 
-[ ] Upgrade to Spring Boot 3.2.1
+[X] Upgrade to Spring Boot 3.2.1
+[ ] Upgrade to Spring Boot 3.2.2
 
 
 [ ] Authetication (when to add?)
@@ -44,8 +45,7 @@ Increase Song Attributes
 
 [ ] Install Tab Shifter Plug-in
 
-UI
-[ ] Adding Songs via the bulk load of CSV (text box instead of via file)
+>> [ ] Adding Songs via the bulk load of CSV (text box instead of via file)
     CSV Format brainstorm
     "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1,Theme2,Theme3,Theme4" < Option A
     Artist,SongTitle,ReleaseTitle,ReleaseType,Theme1,Theme2,Theme3,Theme4, ...      < Option B
@@ -55,6 +55,7 @@ UI
     "Peggy Lee","My Heart Belongs To Daddy","The Best Of Peggy Lee 1952-1956","","Daddy"
     "Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1"
 
+UI
 [ ] Adding Song via the UI
 [ ] Adding Songs via the UI
 [ ]

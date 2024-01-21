@@ -31,8 +31,8 @@ public class SongService {
     }
 
     public void importSongs(String csvSongs) {
-        CsvSongParser csvSongParser = new CsvSongParser();
-        List<Song> songs = csvSongParser.parse(csvSongs);
+        TsvSongParser tsvSongParser = new TsvSongParser();
+        List<Song> songs = tsvSongParser.parse(csvSongs);
         songs.forEach(this::addSong);
     }
 }
