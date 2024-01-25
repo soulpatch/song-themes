@@ -10,8 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TabSeparatedValuesSongParserTest {
     @Test
     void parseSongFromTabSeparatedValues() throws Exception {
-        // Artist	Song Title	Release Title	Release Type	Notes	Theme1	Theme2	Theme3	Theme4	Contributor
-        String tsvSongs = "Earth, Wind & Fire	Gratitude	ReleaseTitle	ReleaseType	SkippedNotes	Thank You	Thanks	Gratitude	Theme4	Rizzi";
+        // Artist\tSong Title\tRelease Title\tRelease Type\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
+        String tsvSongs = "Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
         List<Song> songs = tsvSongParser.parse(tsvSongs);
@@ -22,7 +22,7 @@ class TabSeparatedValuesSongParserTest {
 
     @Test
     void parseSongWithOnlyOneThemeHasOneTheme() throws Exception {
-        String tsvSongs = "DontCareArtist	DontCareSongTitle	DontCareReleaseTitle	DontCareReleaseType	SkippedNotes	Thank You				DontCareContributor";
+        String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
         List<Song> songs = tsvSongParser.parse(tsvSongs);
@@ -33,7 +33,7 @@ class TabSeparatedValuesSongParserTest {
 
     @Test
     void stopAddingThemesWhenHitFirstBlankTheme() throws Exception {
-        String tsvSongs = "DontCareArtist	DontCareSongTitle	DontCareReleaseTitle	DontCareReleaseType	SkippedNotes	Thank You			IgnoredTheme	DontCareContributor";
+        String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\tIgnoredTheme\tDontCareContributor";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
         List<Song> songs = tsvSongParser.parse(tsvSongs);
@@ -44,18 +44,21 @@ class TabSeparatedValuesSongParserTest {
 
     @Test
     void parseMultipleSongs() throws Exception {
-        String tsvSongs = """
-                Earth, Wind & Fire	Gratitude				Thank You	Thanks	Gratitude		Rizzi
-                Joey Ramone	What A Wonderful World	Don’t Worry About Me			Thank You	Thanks	Gratitude	Joy	Rizzi
+        String tsvTwoSongs = """
+                Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
+                Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
                 """;
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        List<Song> songs = tsvSongParser.parse(tsvSongs);
+        List<Song> songs = tsvSongParser.parse(tsvTwoSongs);
 
         assertThat(songs)
+                .as("expecting 2 songs")
+                .hasSize(2)
+                .as("unexpected song content")
                 .containsExactly(
                         new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You", "Thanks", "Gratitude")),
-                        new Song("Joey Ramone", "A Wonderful World", "Don’t Worry About Me", "", List.of("Thank You", "Thanks", "Gratitude"))
+                        new Song("Joey Ramone", "What A Wonderful World", "Don’t Worry About Me", "", List.of("Thank You", "Thanks", "Gratitude", "Joy"))
                 );
     }
 }

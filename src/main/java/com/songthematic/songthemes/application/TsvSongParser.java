@@ -8,7 +8,13 @@ import java.util.List;
 public class TsvSongParser {
 
     public List<Song> parse(String tsvSongs) {
-        String[] columns = tsvSongs.split("\t", 10);
+        return tsvSongs.lines()
+                       .map(this::parseSong)
+                       .toList();
+    }
+
+    private Song parseSong(String tsvSong) {
+        String[] columns = tsvSong.split("\t", 10);
 
         String artist = columns[0];
         String songTitle = columns[1];
@@ -16,7 +22,7 @@ public class TsvSongParser {
         String releaseType = columns[3];
         List<String> themes = parseThemes(columns);
         Song song = new Song(artist, songTitle, releaseTitle, releaseType, themes);
-        return List.of(song);
+        return song;
     }
 
     private List<String> parseThemes(String[] columns) {
