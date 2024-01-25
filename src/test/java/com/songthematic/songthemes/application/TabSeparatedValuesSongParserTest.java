@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class TabSeparatedValuesSongParserTest {
     @Test
@@ -40,6 +41,44 @@ class TabSeparatedValuesSongParserTest {
 
         assertThat(songs)
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
+    }
+
+    @Test
+    void handlesEmptyRow() throws Exception {
+        TsvSongParser tsvSongParser = new TsvSongParser();
+        assertThatExceptionOfType(NotEnoughColumns.class)
+                .isThrownBy(() -> tsvSongParser.parseSong(""))
+                .withMessage("Number of columns was: 1, must have at least 9, row contains: []");
+    }
+
+    @Test
+    void handlesRowsWithNotEnoughColumns() throws Exception {
+        String tsvTwoSongs = """
+                Artist\tSongTitle
+                """;
+
+        TsvSongParser tsvSongParser = new TsvSongParser();
+
+        assertThatExceptionOfType(NotEnoughColumns.class)
+                .isThrownBy(() -> tsvSongParser.parse(tsvTwoSongs))
+                .withMessage("Number of columns was: 2, must have at least 9, row contains: [Artist, SongTitle]");
+    }
+
+
+    @Test
+    void skipBlankRows() throws Exception {
+        String tsvThreeRows = """
+                Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
+                
+                Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
+                """;
+
+        TsvSongParser tsvSongParser = new TsvSongParser();
+        List<Song> songs = tsvSongParser.parse(tsvThreeRows);
+
+        assertThat(songs)
+                .as("expecting 2 songs")
+                .hasSize(2);
     }
 
     @Test

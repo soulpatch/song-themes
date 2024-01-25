@@ -50,14 +50,18 @@ class SongServiceTest {
 
     @Test
     void bulkAddSongUsingTsvFormat() throws Exception {
-        String row = "Artist\tSongTitle\tReleaseTitle\tReleaseType\tSkippedNotes\tTheme1\t\t\tContributor";
+        String row = """
+                Artist\tSongTitle\tReleaseTitle\tReleaseType\tSkippedNotes\tTheme1\t\t\tContributor
+                Artist2\tSongTitle2\tReleaseTitle2\tReleaseType2\tSkippedNotes2\tTheme12\t\t\tContributor2
+                """;
         SongRepository songRepository = SongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
         songService.importSongs(row);
 
         assertThat(songRepository.allSongs())
-                .containsExactly(SongFactory.createSong("Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1"));
+                .containsExactly(SongFactory.createSong("Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1"),
+                                 SongFactory.createSong("Artist2","SongTitle2","ReleaseTitle2","ReleaseType2","Theme12"));
     }
 
 }
