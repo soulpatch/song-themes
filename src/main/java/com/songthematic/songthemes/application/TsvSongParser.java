@@ -15,7 +15,7 @@ public class TsvSongParser {
 
     public List<Song> parse(String tsvSongs) {
         return tsvSongs.lines()
-                       .filter(not(String::isEmpty))
+                       .filter(not(String::isBlank))
                        .map(this::parseSong)
                        .toList();
     }
