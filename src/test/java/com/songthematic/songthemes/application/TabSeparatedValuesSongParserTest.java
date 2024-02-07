@@ -59,11 +59,13 @@ class TabSeparatedValuesSongParserTest {
 
     @Test
     void skipEmptyAndBlankRows() throws Exception {
-        String tsvThreeRows = "Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi\n" +
-                              "\n" +
-                              "\u0020\n" +
-                              "Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi\n" +
-                              "\t\n";
+        String tsvThreeRows = """
+                Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
+
+                \s
+                Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
+                \t
+                """;
 
         TsvSongParser tsvSongParser = new TsvSongParser();
         List<Song> songs = tsvSongParser.parse(tsvThreeRows);
