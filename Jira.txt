@@ -52,7 +52,7 @@ Increase Song Attributes
        [X] Test for only one theme column (generally, not enough columns)
        [X] Skip empty rows
        [X] Skip blank rows
->>     [ ] Ensure each song must have non-empty Artist, Song Title and Theme(s)
+>>     [X] Ensure each song must have non-empty Artist, Song Title and Theme(s)
        [ ] Hold onto parse errors to return them all at once.
        [ ] Skip header row(s) -- YAGNI until Contributors can perform bulk submissions
 

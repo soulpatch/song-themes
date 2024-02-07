@@ -5,14 +5,32 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class SongTest {
     @ParameterizedTest
     @ValueSource(strings={"", "\s"})
     void artistShouldNotBeEmptyNorBlank(String artist) throws Exception {
-        assertThatIllegalArgumentException()
-                .isThrownBy((()->new Song(artist, "songTitleDontCare", "releaseTitleDontCare", "releaseTypeDontCare", List.of("themeNameDontCare"))));
+        assertThatExceptionOfType(MissingSongAttribute.class)
+                .isThrownBy((() -> new Song(artist, "songTitleDontCare", "releaseTitleDontCare", "releaseTypeDontCare", List.of("themeNameDontCare"))))
+                .withMessage("These attributes were blank: artist");
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"", "\s"})
+    void songTitleShouldNotBeEmptyNorBlank(String songTitle) throws Exception {
+        assertThatExceptionOfType(MissingSongAttribute.class)
+                .isThrownBy((() -> new Song("artistDontCare", songTitle, "releaseTitleDontCare", "releaseTypeDontCare", List.of("themeNameDontCare"))))
+                .withMessage("These attributes were blank: song title");
+
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", "\s"})
+    void artistAndSongTitleShouldNotBeEmptyNorBlank(String attribute) throws Exception {
+        assertThatExceptionOfType(MissingSongAttribute.class)
+                .isThrownBy((() -> new Song(attribute, attribute, "releaseTitleDontCare", "releaseTypeDontCare", List.of(attribute))))
+                .withMessage("These attributes were blank: artist, song title, theme");
+
+    }
 }
