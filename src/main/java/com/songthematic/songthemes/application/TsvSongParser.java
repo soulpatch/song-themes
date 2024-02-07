@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.util.function.Predicate.not;
+
 public class TsvSongParser {
 
     public static final int MAX_COLUMNS_TO_PARSE = 10;
@@ -13,11 +15,12 @@ public class TsvSongParser {
 
     public List<Song> parse(String tsvSongs) {
         return tsvSongs.lines()
+                       .filter(not(String::isEmpty))
                        .map(this::parseSong)
                        .toList();
     }
 
-    public Song parseSong(String tsvSong) {
+    private Song parseSong(String tsvSong) {
         String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
         requireAtLeastNineColumns(columns);
 

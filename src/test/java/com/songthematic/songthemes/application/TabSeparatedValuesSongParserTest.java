@@ -44,14 +44,6 @@ class TabSeparatedValuesSongParserTest {
     }
 
     @Test
-    void handlesEmptyRow() throws Exception {
-        TsvSongParser tsvSongParser = new TsvSongParser();
-        assertThatExceptionOfType(NotEnoughColumns.class)
-                .isThrownBy(() -> tsvSongParser.parseSong(""))
-                .withMessage("Number of columns was: 1, must have at least 9, row contains: []");
-    }
-
-    @Test
     void handlesRowsWithNotEnoughColumns() throws Exception {
         String tsvTwoSongs = """
                 Artist\tSongTitle
