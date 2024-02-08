@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-public class SongThemesController {
+public class SongThemeSearcher {
 
     private final SongSearcher songSearcher;
 
     @Autowired
-    public SongThemesController(SongSearcher songSearcher) {
+    public SongThemeSearcher(SongSearcher songSearcher) {
         this.songSearcher = songSearcher;
     }
 

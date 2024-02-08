@@ -12,16 +12,16 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class SongThemesControllerTest {
+class SongThemeSearcherTest {
 
     @Test
     void searchReturnsModelWithEmptySearchResults() throws Exception {
         String theme = "new years";
         String songTitle = "auld lang syne";
-        SongThemesController songThemesController = createSongThemesController(SongFactory.createSong(songTitle, theme));
+        SongThemeSearcher songThemeSearcher = createSongThemesController(SongFactory.createSong(songTitle, theme));
 
         Model model = new ConcurrentModel();
-        String viewName = songThemesController.themeSearch("christmas", model);
+        String viewName = songThemeSearcher.themeSearch("christmas", model);
 
         assertThat(viewName)
                 .isEqualTo("theme-search-no-results");
@@ -30,11 +30,11 @@ class SongThemesControllerTest {
     @Test
     void searchReturnsModelWithNonEmptySearchResults() throws Exception {
         String theme = "new years";
-        SongThemesController songThemesController = createSongThemesController(SongFactory.createSong("auld lang syne", theme),
-                                                                               SongFactory.createSong("New Year's Eve In A Haunted House", theme));
+        SongThemeSearcher songThemeSearcher = createSongThemesController(SongFactory.createSong("auld lang syne", theme),
+                                                                         SongFactory.createSong("New Year's Eve In A Haunted House", theme));
 
         Model model = new ConcurrentModel();
-        String viewName = songThemesController.themeSearch("new years", model);
+        String viewName = songThemeSearcher.themeSearch("new years", model);
 
         List<SongView> searchResults = (List<SongView>) model.getAttribute("searchResults");
         assertThat(viewName)
@@ -44,8 +44,8 @@ class SongThemesControllerTest {
     }
 
     @NotNull
-    private static SongThemesController createSongThemesController(Song... songs) {
-        return new SongThemesController(
+    private static SongThemeSearcher createSongThemesController(Song... songs) {
+        return new SongThemeSearcher(
                 SongSearcher.createSongSearcher(songs));
     }
 }
