@@ -1,0 +1,18 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          kinde:
+            client-id: "755cbc90960540ea8632defc566df60c"
+            client-secret: client-secret-ignored-here-overriden-by-local-yaml
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: email, openid, profile
+        provider:
+          kinde:
+            authorization-uri: https://songthemes.kinde.com/oauth2/auth
+            token-uri: https://songthemes.kinde.com/oauth2/token
+            user-info-uri: https://songthemes.kinde.com/oauth2/v2/user_profile
+            user-name-attribute: sub
+            jwk-set-uri: https://songthemes.kinde.com/.well-known/jwks
