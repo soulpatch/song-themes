@@ -30,4 +30,14 @@ class SongImporterTest {
         assertThat(repository.allSongs())
                 .hasSize(1);
     }
+
+    @Test
+    void songImportHandlesNullText() throws Exception {
+        SongImporter songImporter = new SongImporter(SongService.createNull());
+
+        String redirectPage = songImporter.handleSongImport(null);
+
+        assertThat(redirectPage)
+                .isEqualTo("redirect:/song-import");
+    }
 }
