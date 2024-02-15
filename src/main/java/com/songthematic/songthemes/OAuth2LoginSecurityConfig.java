@@ -12,8 +12,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class OAuth2LoginSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorize ->
-                                           authorize.anyRequest().authenticated())
+        http.authorizeHttpRequests(authorize -> authorize
+                    .requestMatchers("/", "/theme-search").permitAll()
+                    .requestMatchers("/song-import").authenticated()
+            )
             .oauth2Login(Customizer.withDefaults());
         return http.build();
     }

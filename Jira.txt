@@ -51,16 +51,13 @@ Increase Song Attributes
        [ ] Hold onto parse errors to return them all at once from the TsvSongParser.parse() method (using Result pattern)
        [ ] Skip header row(s) -- YAGNI until Contributors can perform bulk submissions
 
->> [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
-        https://supabase.com/ -- combines auth with db, though we'll just use the Auth feature -- limit of 2 active projects, 50,000 monthly active users
-        Thomas Schuehley HTMX Spring boot
-        PAS don't seem to offer Auth out of the box
-        Routes and who can access them
+ [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
+        [X] OAuth configuration
+     >> [ ] explicitly protect admin endpoints
+        [ ] Deploy to production, update Kinde configuration URLs for redirect
 
-        [ ]
+   [ ] UI for bulk import, protected for admin role -- simple edit box for tab delimited Excel copy data source
 
-
-   [ ] UI for bulk import, protected for admin role
    [ ] Persist to DB
 
 
