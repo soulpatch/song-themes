@@ -53,7 +53,7 @@ Increase Song Attributes
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
-     >> [ ] explicitly protect admin endpoints
+        [X] explicitly protect admin endpoints
         [ ] Deploy to production, update Kinde configuration URLs for redirect
 
    [ ] UI for bulk import, protected for admin role -- simple edit box for tab delimited Excel copy data source

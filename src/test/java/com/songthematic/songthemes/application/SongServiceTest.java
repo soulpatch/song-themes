@@ -12,7 +12,7 @@ class SongServiceTest {
 
     @Test
     void multipleSongsAddedAreFoundByTheirTheme() throws Exception {
-        SongService songService = new SongService();
+        SongService songService = SongService.createNull();
 
         songService.addSong(SongFactory.createSong("This Will Be Our Year", "new years"));
         songService.addSong(SongFactory.createSong("Funky New Year", "new years"));

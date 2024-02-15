@@ -13,12 +13,12 @@ public class SongRepository {
         this.songs = songs;
     }
 
-    static SongRepository create(List<Song> songList) {
+    public static SongRepository create(List<Song> songList) {
         SongRepository songRepository = new SongRepository(songList);
         return songRepository;
     }
 
-    static SongRepository createEmpty() {
+    public static SongRepository createEmpty() {
         return create(new ArrayList<>());
     }
 
