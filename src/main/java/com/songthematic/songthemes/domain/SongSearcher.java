@@ -43,9 +43,10 @@ public class SongSearcher {
     public SongSearcher add(Song song) {
         Stream<Song> songStream = themeToSongsMap.values()
                                                  .stream()
-                                                 .flatMap(Collection::stream);
+                                                 .flatMap(Collection::stream)
+                                                 .distinct();
         Song[] songs = Stream.concat(songStream, Stream.of(song))
-                                      .toArray(Song[]::new);
+                             .toArray(Song[]::new);
         return createSongSearcher(songs);
     }
 }

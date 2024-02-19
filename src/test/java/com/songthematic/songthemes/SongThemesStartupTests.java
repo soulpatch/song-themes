@@ -1,10 +1,13 @@
 package com.songthematic.songthemes;
 
 import com.songthematic.songthemes.application.SongService;
+import com.songthematic.songthemes.domain.Song;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,10 +27,16 @@ class SongThemesStartupTests {
     void endToEndImportedSongsAreFound() throws Exception {
         // spring boot does the setup
 
-        String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor";
+        String tsvSongs = """
+                Lead Belly	The Bourgeois Blues				America	Politics	Protest		Rizzi
+                Blue Oyster Cult	Don't Fear The Reaper	Agents of Fortune			Halloween	Death			Rizzi
+                Beautiful South	Don't Fear The Reaper				Halloween	Death			Rizzi
+                                
+                """;
         songService.importSongs(tsvSongs);
 
-        assertThat(songService.searchByTheme("Thank You"))
+        List<Song> foundSongs = songService.searchByTheme("Protest");
+        assertThat(foundSongs)
                 .hasSize(1);
     }
 }

@@ -38,7 +38,7 @@ public class SongSearchByThemeTest {
     }
 
     @Test
-    void searchForThemeFindsMultipleMatchingSongs() throws Exception {
+    void searchForThemeFindsMultipleMatchingSongTitles() throws Exception {
         SongSearcher songSearcher = SongSearcher.createSongSearcher(
                 SongFactory.createSong("auld lang syne", "new years"),
                 SongFactory.createSong("New Year's Eve In A Haunted House", "new years"));
@@ -47,6 +47,20 @@ public class SongSearchByThemeTest {
         assertThat(foundSongs)
                 .containsExactly("auld lang syne",
                                  "New Year's Eve In A Haunted House");
+    }
+
+    @Test
+    void searchByThemeFindsMultipleMatchingSongs() throws Exception {
+        SongSearcher songSearcher = SongSearcher.createSongSearcher(
+                SongFactory.createSong("auld lang syne", "new years"),
+                SongFactory.createSong("New Year's Eve In A Haunted House", "new years"));
+
+        List<Song> foundSongs = songSearcher.byTheme("New Years");
+
+        assertThat(foundSongs)
+                .containsExactly(
+                        SongFactory.createSong("auld lang syne", "new years"),
+                        SongFactory.createSong("New Year's Eve In A Haunted House", "new years"));
     }
 
     @Test

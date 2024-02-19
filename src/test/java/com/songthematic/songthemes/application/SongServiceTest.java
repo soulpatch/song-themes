@@ -14,12 +14,12 @@ class SongServiceTest {
     void multipleSongsAddedAreFoundByTheirTheme() throws Exception {
         SongService songService = SongService.createNull();
 
-        songService.addSong(SongFactory.createSong("This Will Be Our Year", "new years"));
+        songService.addSong(SongFactory.createSong("This Will Be Our Year", List.of("new years", "2023", "OneMoreTheme")));
         songService.addSong(SongFactory.createSong("Funky New Year", "new years"));
 
         List<Song> songsFound = songService.searchByTheme("new years");
         assertThat(songsFound)
-                .containsExactly(SongFactory.createSong("This Will Be Our Year", "new years"),
+                .containsExactly(SongFactory.createSong("This Will Be Our Year", List.of("new years", "2023", "OneMoreTheme")),
                                  SongFactory.createSong("Funky New Year", "new years"));
     }
 
