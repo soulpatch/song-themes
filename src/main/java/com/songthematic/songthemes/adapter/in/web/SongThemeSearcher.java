@@ -20,11 +20,8 @@ public class SongThemeSearcher {
 
     @GetMapping("/theme-search")
     public String themeSearch(@RequestParam("requestedTheme") String requestedTheme, Model model) {
-        List<SongView> songViews = songService.searchByTheme(requestedTheme)
-                .stream()
-                                              .map(Song::songTitle)
-                .map(SongView::new)
-                .toList();
+        List<Song> foundSongs = songService.searchByTheme(requestedTheme);
+        List<SongView> songViews = SongView.from(foundSongs);
 
         model.addAttribute("searchResults", songViews);
 
@@ -34,4 +31,5 @@ public class SongThemeSearcher {
             return "theme-search-has-results";
         }
     }
+
 }

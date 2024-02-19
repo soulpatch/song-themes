@@ -54,7 +54,7 @@ Increase Song Attributes
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
         [X] explicitly protect admin endpoints
-        [ ] add
+        [X] add
             .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
         before the other requestMatchers to allow error page(s) and forward requests through.
         [ ] Deploy to production, update Kinde configuration URLs for redirect
@@ -62,10 +62,12 @@ Increase Song Attributes
     [ ] UI for bulk import, protected for admin role -- simple edit box for tab delimited Excel copy data source
     [ ] Persist to DB
 
+
 [ ] Add ArchUnit checking
-[ ] Move songThemesByTitle into the adapter
+[X] Move songThemesByTitle into the adapter
 [ ] Handle incorrect number of columns pasted?
 [ ] Add hidden spreadsheet columns? (Record Label, Radio Clean, Notes)
+
 
 
 UI
