@@ -1,13 +1,14 @@
 package com.songthematic.songthemes.adapter.in.web;
 
 import com.songthematic.songthemes.application.SongFactory;
+import com.songthematic.songthemes.application.SongService;
 import com.songthematic.songthemes.domain.Song;
-import com.songthematic.songthemes.domain.SongSearcher;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,7 +46,8 @@ class SongThemeSearcherTest {
 
     @NotNull
     private static SongThemeSearcher createSongThemesController(Song... songs) {
-        return new SongThemeSearcher(
-                SongSearcher.createSongSearcher(songs));
+        SongService songService = SongService.createNull();
+        Arrays.stream(songs).forEach(songService::addSong);
+        return new SongThemeSearcher(songService);
     }
 }

@@ -1,7 +1,7 @@
 package com.songthematic.songthemes.adapter.in.web;
 
-import com.songthematic.songthemes.domain.SongSearcher;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.songthematic.songthemes.application.SongService;
+import com.songthematic.songthemes.domain.Song;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,24 +12,23 @@ import java.util.List;
 @Controller
 public class SongThemeSearcher {
 
-    private final SongSearcher songSearcher;
+    private final SongService songService;
 
-    @Autowired
-    public SongThemeSearcher(SongSearcher songSearcher) {
-        this.songSearcher = songSearcher;
+    public SongThemeSearcher(SongService songService) {
+        this.songService = songService;
     }
 
     @GetMapping("/theme-search")
     public String themeSearch(@RequestParam("requestedTheme") String requestedTheme, Model model) {
-        List<String> foundSongs = songSearcher.songTitlesByTheme(requestedTheme);
-        List<SongView> songViews = foundSongs
+        List<SongView> songViews = songService.searchByTheme(requestedTheme)
                 .stream()
+                                              .map(Song::songTitle)
                 .map(SongView::new)
                 .toList();
 
         model.addAttribute("searchResults", songViews);
 
-        if (foundSongs.isEmpty()) {
+        if (songViews.isEmpty()) {
             return "theme-search-no-results";
         } else {
             return "theme-search-has-results";
