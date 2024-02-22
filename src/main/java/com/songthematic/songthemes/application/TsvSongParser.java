@@ -14,15 +14,24 @@ public class TsvSongParser {
     public static final int MINIMUM_COLUMNS = 9;
 
     public List<Song> parse(String tsvSongs) {
+        // goal: no partial parse, all or nothing
+        // return Result<List<Song>>
         return tsvSongs.lines()
                        .filter(not(String::isBlank))
                        .map(this::parseSong)
+                       .map(Result::value)
                        .toList();
     }
 
-    private Song parseSong(String tsvSong) {
+    public Result parseSong(String tsvSong) {
+        // have parseSong translate into a Result
+        // return Result<Song>
         String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
-        requireAtLeastNineColumns(columns);
+        try {
+            requireAtLeastNineColumns(columns);
+        } catch (NotEnoughColumns e) {
+            return Result.failure();
+        }
 
         String artist = columns[0];
         String songTitle = columns[1];
@@ -30,7 +39,7 @@ public class TsvSongParser {
         String releaseType = columns[3];
         List<String> themes = parseThemes(columns);
         Song song = new Song(artist, songTitle, releaseTitle, releaseType, themes);
-        return song;
+        return Result.success(song);
     }
 
     private void requireAtLeastNineColumns(String[] columns) {

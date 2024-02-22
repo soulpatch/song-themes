@@ -6,9 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-class TabSeparatedValuesSongParserTest {
+class TsvSongParserTest {
     @Test
     void parseSongFromTabSeparatedValues() throws Exception {
         // Artist\tSong Title\tRelease Title\tRelease Type\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
@@ -45,15 +44,14 @@ class TabSeparatedValuesSongParserTest {
 
     @Test
     void handlesRowsWithNotEnoughColumns() throws Exception {
-        String tsvTwoSongs = """
-                Artist\tSongTitle
-                """;
-
+        String tsvSong = "Artist\tSongTitle";
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        assertThatExceptionOfType(NotEnoughColumns.class)
-                .isThrownBy(() -> tsvSongParser.parse(tsvTwoSongs))
-                .withMessage("Number of columns was: 2, must have at least 9, row contains: [Artist, SongTitle]");
+        Result songResult = tsvSongParser.parseSong(tsvSong);
+
+        assertThat(songResult.isSuccess())
+                .isFalse();
+//                .withMessage("Number of columns was: 2, must have at least 9, row contains: [Artist, SongTitle]");
     }
 
 

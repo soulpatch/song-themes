@@ -43,13 +43,16 @@ Increase Song Attributes
 [ ] Adding Songs via the bulk load of TSV (text box instead of via file)
     [X] Decided to switch from CSV to TSV because copying from Excel produces tab separated columns
     [X] Add one line of Song information
-       [X] Process multiple songs
-       [X] Test for only one theme column (generally, not enough columns)
-       [X] Skip empty rows
-       [X] Skip blank rows
-       [X] Ensure each song must have non-empty Artist, Song Title and Theme(s)
-       [ ] Hold onto parse errors to return them all at once from the TsvSongParser.parse() method (using Result pattern)
-       [ ] Skip over unused columns (needs a header row)
+        [X] Process multiple songs
+        [X] Test for only one theme column (generally, not enough columns)
+        [X] Skip empty rows
+        [X] Skip blank rows
+        [X] Ensure each song must have non-empty Artist, Song Title and Theme(s)
+        [ ] Handle incorrect number of columns pasted -- having user friendly error messages
+            [ ] Hold onto parse errors to return them all at once from the TsvSongParser.parse() method (using Result pattern)
+                Parse should return an Either (Java does not have) -- command success or return failure with information on why it failed
+                    violates command query separation, but not really
+        [ ] Skip over unused columns (needs a header row)
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
@@ -61,10 +64,9 @@ Increase Song Attributes
 
     [X] UI for bulk import, protected for admin role -- simple edit box for tab delimited Excel copy data source
     [ ] Persist to DB
+    [ ] Rethink SongSearcher domain design (specifically it's immutability)
+    [ ] Add ArchUnit checking
 
-[ ] Rethink SongSearcher domain design (specifically it's immutability)
-[ ] Handle incorrect number of columns pasted -- having user friendly error messages
-[ ] Add ArchUnit checking
 [X] Move songThemesByTitle into the adapter
 
 
