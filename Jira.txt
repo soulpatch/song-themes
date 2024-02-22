@@ -49,7 +49,7 @@ Increase Song Attributes
        [X] Skip blank rows
        [X] Ensure each song must have non-empty Artist, Song Title and Theme(s)
        [ ] Hold onto parse errors to return them all at once from the TsvSongParser.parse() method (using Result pattern)
-       [ ] Skip header row(s) -- YAGNI until Contributors can perform bulk submissions
+       [ ] Skip over unused columns (needs a header row)
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
@@ -59,14 +59,13 @@ Increase Song Attributes
         before the other requestMatchers to allow error page(s) and forward requests through.
         [ ] Deploy to production, update Kinde configuration URLs for redirect
 
-    [ ] UI for bulk import, protected for admin role -- simple edit box for tab delimited Excel copy data source
+    [X] UI for bulk import, protected for admin role -- simple edit box for tab delimited Excel copy data source
     [ ] Persist to DB
 
-
+[ ] Rethink SongSearcher domain design (specifically it's immutability)
+[ ] Handle incorrect number of columns pasted -- having user friendly error messages
 [ ] Add ArchUnit checking
 [X] Move songThemesByTitle into the adapter
-[ ] Handle incorrect number of columns pasted?
-[ ] Add hidden spreadsheet columns? (Record Label, Radio Clean, Notes)
 
 
 Saff Squeeze
