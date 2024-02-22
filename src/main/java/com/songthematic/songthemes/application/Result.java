@@ -4,18 +4,23 @@ import com.songthematic.songthemes.domain.Song;
 
 public class Result {
 
-    private final Song value;
+    private Song value;
+    private String failureMessage;
 
     public Result(Song value) {
         this.value = value;
+    }
+
+    public Result(String failureMessage) {
+        this.failureMessage = failureMessage;
     }
 
     public static Result success(Song song) {
         return new Result(song);
     }
 
-    public static Result failure() {
-        return new Result(null);
+    public static Result failure(String message) {
+        return new Result(message);
     }
 
     public Song value() {
@@ -24,5 +29,9 @@ public class Result {
 
     public boolean isSuccess() {
         return false;
+    }
+
+    public String failureMessage() {
+        return failureMessage;
     }
 }

@@ -51,7 +51,8 @@ class TsvSongParserTest {
 
         assertThat(songResult.isSuccess())
                 .isFalse();
-//                .withMessage("Number of columns was: 2, must have at least 9, row contains: [Artist, SongTitle]");
+        assertThat(songResult.failureMessage())
+                .isEqualTo("Number of columns was: 2, must have at least 9, row contains: [Artist, SongTitle]");
     }
 
 

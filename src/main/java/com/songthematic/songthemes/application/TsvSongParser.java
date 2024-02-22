@@ -24,13 +24,12 @@ public class TsvSongParser {
     }
 
     public Result parseSong(String tsvSong) {
-        // have parseSong translate into a Result
-        // return Result<Song>
         String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
-        try {
-            requireAtLeastNineColumns(columns);
-        } catch (NotEnoughColumns e) {
-            return Result.failure();
+        if (columns.length < MINIMUM_COLUMNS) {
+            return Result.failure("Number of columns was: "
+                                          + columns.length
+                                          + ", must have at least " + MINIMUM_COLUMNS
+                                          + ", row contains: " + Arrays.toString(columns));
         }
 
         String artist = columns[0];
@@ -40,14 +39,6 @@ public class TsvSongParser {
         List<String> themes = parseThemes(columns);
         Song song = new Song(artist, songTitle, releaseTitle, releaseType, themes);
         return Result.success(song);
-    }
-
-    private void requireAtLeastNineColumns(String[] columns) {
-        if (columns.length < MINIMUM_COLUMNS) {
-            throw new NotEnoughColumns("Number of columns was: " + columns.length
-                                               + ", must have at least " + MINIMUM_COLUMNS
-                                               + ", row contains: " + Arrays.toString(columns));
-        }
     }
 
     private List<String> parseThemes(String[] columns) {
