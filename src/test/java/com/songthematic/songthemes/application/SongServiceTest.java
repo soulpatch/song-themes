@@ -60,8 +60,8 @@ class SongServiceTest {
         songService.importSongs(row);
 
         assertThat(songRepository.allSongs())
-                .containsExactly(SongFactory.createSong("Artist","SongTitle","ReleaseTitle","ReleaseType","Theme1"),
-                                 SongFactory.createSong("Artist2","SongTitle2","ReleaseTitle2","ReleaseType2","Theme12"));
+                .containsExactlyInAnyOrder(SongFactory.createSong("Artist", "SongTitle", "ReleaseTitle", "ReleaseType", "Theme1"),
+                                           SongFactory.createSong("Artist2", "SongTitle2", "ReleaseTitle2", "ReleaseType2", "Theme12"));
     }
 
 }

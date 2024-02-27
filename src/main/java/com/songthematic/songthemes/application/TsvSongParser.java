@@ -5,6 +5,8 @@ import com.songthematic.songthemes.domain.Song;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.not;
 
@@ -20,12 +22,24 @@ public class TsvSongParser {
     }
 
     public Result parseWithResult(String tsvSongs) {
-        List<Song> songs = tsvSongs.lines()
-                                   .filter(not(String::isBlank))
-                                   .map(this::parseSong)
-                                   .map(Result::song)
-                                   .toList();
-        return Result.success(songs);
+        Map<Boolean, List<Result>> partition = tsvSongs.lines()
+                                                       .filter(not(String::isBlank))
+                                                       .map(this::parseSong)
+                                                       .collect(Collectors.partitioningBy(Result::isSuccess));
+        if (partition.get(Boolean.FALSE).isEmpty()) {
+            List<Song> songs = partition
+                    .get(Boolean.TRUE)
+                    .stream()
+                    .map(Result::song)
+                    .toList();
+            return Result.success(songs);
+        }
+        List<String> failureMessages = partition
+                .get(Boolean.FALSE)
+                .stream()
+                .map(Result::failureMessage)
+                .toList();
+        return Result.failure(failureMessages);
     }
 
     public Result parseSong(String tsvSong) {

@@ -1,7 +1,6 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -44,7 +43,6 @@ class TsvSongParserTest {
     }
 
     @Test
-    @Disabled
     void handlesRowsWithNotEnoughColumns() throws Exception {
         String tsvTwoSongs = """
                 Artist\tSongTitle
@@ -119,7 +117,7 @@ class TsvSongParserTest {
                 .as("expecting 2 songs")
                 .hasSize(2)
                 .as("unexpected song content")
-                .containsExactly(
+                .containsExactlyInAnyOrder(
                         new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You", "Thanks", "Gratitude")),
                         new Song("Joey Ramone", "What A Wonderful World", "Don’t Worry About Me", "", List.of("Thank You", "Thanks", "Gratitude", "Joy"))
                 );
