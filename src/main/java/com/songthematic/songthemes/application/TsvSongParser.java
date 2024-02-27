@@ -5,6 +5,7 @@ import com.songthematic.songthemes.domain.Song;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.util.function.Predicate.not;
 
@@ -13,14 +14,19 @@ public class TsvSongParser {
     public static final int MAX_COLUMNS_TO_PARSE = 10;
     public static final int MINIMUM_COLUMNS = 9;
 
+    @Deprecated
     public List<Song> parse(String tsvSongs) {
         // goal: no partial parse, all or nothing
         // return Result<List<Song>>
-        return tsvSongs.lines()
-                       .filter(not(String::isBlank))
-                       .map(this::parseSong)
+        return parseWithResult(tsvSongs)
                        .map(Result::value)
                        .toList();
+    }
+
+    public Stream<Result> parseWithResult(String tsvSongs) {
+        return tsvSongs.lines()
+                       .filter(not(String::isBlank))
+                       .map(this::parseSong);
     }
 
     public Result parseSong(String tsvSong) {
