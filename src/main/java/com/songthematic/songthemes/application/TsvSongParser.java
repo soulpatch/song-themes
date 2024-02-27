@@ -26,20 +26,32 @@ public class TsvSongParser {
                                                        .filter(not(String::isBlank))
                                                        .map(this::parseSong)
                                                        .collect(Collectors.partitioningBy(Result::isSuccess));
-        if (partition.get(Boolean.FALSE).isEmpty()) {
-            List<Song> songs = partition
-                    .get(Boolean.TRUE)
-                    .stream()
-                    .map(Result::song)
-                    .toList();
+        if (hasNoFailures(partition)) {
+            List<Song> songs = mapToSongsFrom(partition);
             return Result.success(songs);
         }
-        List<String> failureMessages = partition
+        List<String> failureMessages = mapToFailureMessagesFrom(partition);
+        return Result.failure(failureMessages);
+    }
+
+    private List<String> mapToFailureMessagesFrom(Map<Boolean, List<Result>> partition) {
+        return partition
                 .get(Boolean.FALSE)
                 .stream()
                 .map(Result::failureMessage)
                 .toList();
-        return Result.failure(failureMessages);
+    }
+
+    private List<Song> mapToSongsFrom(Map<Boolean, List<Result>> partition) {
+        return partition
+                .get(Boolean.TRUE)
+                .stream()
+                .map(Result::song)
+                .toList();
+    }
+
+    private boolean hasNoFailures(Map<Boolean, List<Result>> partition) {
+        return partition.get(Boolean.FALSE).isEmpty();
     }
 
     public Result parseSong(String tsvSong) {
