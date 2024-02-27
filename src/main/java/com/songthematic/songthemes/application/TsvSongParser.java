@@ -5,7 +5,6 @@ import com.songthematic.songthemes.domain.Song;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static java.util.function.Predicate.not;
 
@@ -18,15 +17,16 @@ public class TsvSongParser {
     public List<Song> parse(String tsvSongs) {
         // goal: no partial parse, all or nothing
         // return Result<List<Song>>
-        return parseWithResult(tsvSongs)
-                .map(Result::song)
-                       .toList();
+        return parseWithResult(tsvSongs).songs();
     }
 
-    public Stream<Result> parseWithResult(String tsvSongs) {
-        return tsvSongs.lines()
-                       .filter(not(String::isBlank))
-                       .map(this::parseSong);
+    public Result parseWithResult(String tsvSongs) {
+        List<Song> songs = tsvSongs.lines()
+                                   .filter(not(String::isBlank))
+                                   .map(this::parseSong)
+                                   .map(Result::song)
+                                   .toList();
+        return Result.success(songs);
     }
 
     public Result parseSong(String tsvSong) {

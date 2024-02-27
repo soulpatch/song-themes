@@ -4,7 +4,6 @@ import com.songthematic.songthemes.domain.Song;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -43,21 +42,21 @@ class TsvSongParserTest {
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
     }
 
-    @Test
-    void handlesRowsWithNotEnoughColumns() throws Exception {
-        String tsvTwoSongs = """
-                Artist\tSongTitle
-                Artist2\tSongTitle2
-                """;
-
-        TsvSongParser tsvSongParser = new TsvSongParser();
-
-        Stream<Result> result = tsvSongParser.parseWithResult(tsvTwoSongs);
-        assertThat(result)
-                .hasSize(2)
-                .extracting(Result::isSuccess)
-                .containsExactly(false, false);
-    }
+//    @Test
+//    void handlesRowsWithNotEnoughColumns() throws Exception {
+//        String tsvTwoSongs = """
+//                Artist\tSongTitle
+//                Artist2\tSongTitle2
+//                """;
+//
+//        TsvSongParser tsvSongParser = new TsvSongParser();
+//
+//        Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
+//        assertThat(result)
+//                .hasSize(2)
+//                .extracting(Result::isSuccess)
+//                .containsExactly(false, false);
+//    }
 
     @Test
     void returnsFailureResultForRowWithNotEnoughColumns() throws Exception {

@@ -10,8 +10,8 @@ public class Result {
     private List<Song> songs = new ArrayList<>();
     private List<String> failureMessages = new ArrayList<>();
 
-    public Result(Song song) {
-        this.songs.add(song);
+    public Result(List<Song> songs) {
+        this.songs.addAll(songs);
     }
 
     public Result(String failureMessage) {
@@ -19,11 +19,19 @@ public class Result {
     }
 
     public static Result success(Song song) {
-        return new Result(song);
+        return new Result(List.of(song));
     }
 
     public static Result failure(String message) {
         return new Result(message);
+    }
+
+    public static Result success(List<Song> songs) {
+        return new Result(songs);
+    }
+
+    public List<Song> songs() {
+        return List.copyOf(songs);
     }
 
     public Song song() {
@@ -37,4 +45,9 @@ public class Result {
     public String failureMessage() {
         return failureMessages.getFirst();
     }
+
+    public List<String> failureMessages() {
+        return List.copyOf(failureMessages);
+    }
+
 }
