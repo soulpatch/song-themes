@@ -8,14 +8,14 @@ import java.util.List;
 public class Result {
 
     private List<Song> songs = new ArrayList<>();
-    private String failureMessage;
+    private List<String> failureMessages = new ArrayList<>();
 
     public Result(Song song) {
         this.songs.add(song);
     }
 
     public Result(String failureMessage) {
-        this.failureMessage = failureMessage;
+        this.failureMessages.add(failureMessage);
     }
 
     public static Result success(Song song) {
@@ -35,6 +35,6 @@ public class Result {
     }
 
     public String failureMessage() {
-        return failureMessage;
+        return failureMessages.getFirst();
     }
 }
