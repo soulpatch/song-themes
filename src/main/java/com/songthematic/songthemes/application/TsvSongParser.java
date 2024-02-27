@@ -19,7 +19,7 @@ public class TsvSongParser {
         // goal: no partial parse, all or nothing
         // return Result<List<Song>>
         return parseWithResult(tsvSongs)
-                       .map(Result::value)
+                .map(Result::song)
                        .toList();
     }
 

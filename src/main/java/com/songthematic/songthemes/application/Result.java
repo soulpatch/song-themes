@@ -2,13 +2,16 @@ package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Result {
 
-    private Song value;
+    private List<Song> songs = new ArrayList<>();
     private String failureMessage;
 
-    public Result(Song value) {
-        this.value = value;
+    public Result(Song song) {
+        this.songs.add(song);
     }
 
     public Result(String failureMessage) {
@@ -23,8 +26,8 @@ public class Result {
         return new Result(message);
     }
 
-    public Song value() {
-        return value;
+    public Song song() {
+        return songs.getFirst();
     }
 
     public boolean isSuccess() {
