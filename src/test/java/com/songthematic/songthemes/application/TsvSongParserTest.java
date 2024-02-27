@@ -1,6 +1,7 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -42,21 +43,20 @@ class TsvSongParserTest {
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
     }
 
-//    @Test
-//    void handlesRowsWithNotEnoughColumns() throws Exception {
-//        String tsvTwoSongs = """
-//                Artist\tSongTitle
-//                Artist2\tSongTitle2
-//                """;
-//
-//        TsvSongParser tsvSongParser = new TsvSongParser();
-//
-//        Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
-//        assertThat(result)
-//                .hasSize(2)
-//                .extracting(Result::isSuccess)
-//                .containsExactly(false, false);
-//    }
+    @Test
+    @Disabled
+    void handlesRowsWithNotEnoughColumns() throws Exception {
+        String tsvTwoSongs = """
+                Artist\tSongTitle
+                Artist2\tSongTitle2\tReleaseTitle
+                """;
+
+        TsvSongParser tsvSongParser = new TsvSongParser();
+
+        Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
+        assertThat(result.isSuccess())
+                .isFalse();
+    }
 
     @Test
     void returnsFailureResultForRowWithNotEnoughColumns() throws Exception {
@@ -88,6 +88,21 @@ class TsvSongParserTest {
         assertThat(songs)
                 .as("expecting 2 songs")
                 .hasSize(2);
+    }
+
+    @Test
+    void parseMultipleSongsWithSuccessfulResult() throws Exception {
+        String tsvTwoSongs = """
+                Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
+                Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
+                """;
+
+        TsvSongParser tsvSongParser = new TsvSongParser();
+        Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
+
+        assertThat(result.isSuccess())
+                .isTrue();
+
     }
 
     @Test

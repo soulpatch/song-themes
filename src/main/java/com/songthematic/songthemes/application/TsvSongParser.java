@@ -16,7 +16,6 @@ public class TsvSongParser {
     @Deprecated
     public List<Song> parse(String tsvSongs) {
         // goal: no partial parse, all or nothing
-        // return Result<List<Song>>
         return parseWithResult(tsvSongs).songs();
     }
 

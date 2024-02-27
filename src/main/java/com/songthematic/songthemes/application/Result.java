@@ -7,15 +7,18 @@ import java.util.List;
 
 public class Result {
 
+    private final boolean isSuccess;
     private List<Song> songs = new ArrayList<>();
     private List<String> failureMessages = new ArrayList<>();
 
     public Result(List<Song> songs) {
         this.songs.addAll(songs);
+        isSuccess = true;
     }
 
     public Result(String failureMessage) {
         this.failureMessages.add(failureMessage);
+        isSuccess = false;
     }
 
     public static Result success(Song song) {
@@ -39,7 +42,7 @@ public class Result {
     }
 
     public boolean isSuccess() {
-        return false;
+        return isSuccess;
     }
 
     public String failureMessage() {
