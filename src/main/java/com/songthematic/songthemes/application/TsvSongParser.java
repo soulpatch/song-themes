@@ -15,12 +15,6 @@ public class TsvSongParser {
     public static final int MAX_COLUMNS_TO_PARSE = 10;
     public static final int MINIMUM_COLUMNS = 9;
 
-    @Deprecated
-    public List<Song> parse(String tsvSongs) {
-        // goal: no partial parse, all or nothing
-        return parseWithResult(tsvSongs).songs();
-    }
-
     public Result parseWithResult(String tsvSongs) {
         Map<Boolean, List<Result>> partition = tsvSongs.lines()
                                                        .filter(not(String::isBlank))

@@ -52,9 +52,9 @@ Increase Song Attributes
             [X] Hold onto parse errors to return them all at once from the TsvSongParser.parse() method (using Result pattern)
                 Parse should return an Either (Java does not have) -- command success or return failure with information on why it failed
                     violates command query separation, but not really
-            [ ] Refactor parseWithResult
-            [ ] Split Result into two concrete subclasses for success and failure
+            [X] Refactor parseWithResult
             [ ] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
+            [ ] Split Result into two concrete subclasses for success and failure
         [ ] Skip over unused columns (needs a header row)
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)

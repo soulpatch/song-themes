@@ -14,9 +14,11 @@ class TsvSongParserTest {
         String tsvSongs = "Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        List<Song> songs = tsvSongParser.parse(tsvSongs);
+        Result result = tsvSongParser.parseWithResult(tsvSongs);
 
-        assertThat(songs)
+        assertThat(result.isSuccess())
+                .isTrue();
+        assertThat(result.songs())
                 .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "ReleaseTitle", "ReleaseType", List.of("Thank You", "Thanks", "Gratitude", "Theme4")));
     }
 
@@ -25,9 +27,11 @@ class TsvSongParserTest {
         String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        List<Song> songs = tsvSongParser.parse(tsvSongs);
+        Result result = tsvSongParser.parseWithResult(tsvSongs);
 
-        assertThat(songs)
+        assertThat(result.isSuccess())
+                .isTrue();
+        assertThat(result.songs())
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
     }
 
@@ -36,9 +40,11 @@ class TsvSongParserTest {
         String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\tIgnoredTheme\tDontCareContributor";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        List<Song> songs = tsvSongParser.parse(tsvSongs);
+        Result result = tsvSongParser.parseWithResult(tsvSongs);
 
-        assertThat(songs)
+        assertThat(result.isSuccess())
+                .isTrue();
+        assertThat(result.songs())
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
     }
 
@@ -48,10 +54,10 @@ class TsvSongParserTest {
                 Artist\tSongTitle
                 Artist2\tSongTitle2\tReleaseTitle
                 """;
-
         TsvSongParser tsvSongParser = new TsvSongParser();
 
         Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
+
         assertThat(result.isSuccess())
                 .isFalse();
     }
@@ -79,11 +85,13 @@ class TsvSongParserTest {
                 Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
                 \t
                 """;
-
         TsvSongParser tsvSongParser = new TsvSongParser();
-        List<Song> songs = tsvSongParser.parse(tsvThreeRows);
 
-        assertThat(songs)
+        Result result = tsvSongParser.parseWithResult(tsvThreeRows);
+
+        assertThat(result.isSuccess())
+                .isTrue();
+        assertThat(result.songs())
                 .as("expecting 2 songs")
                 .hasSize(2);
     }
@@ -94,8 +102,8 @@ class TsvSongParserTest {
                 Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
                 Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
                 """;
-
         TsvSongParser tsvSongParser = new TsvSongParser();
+
         Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
 
         assertThat(result.isSuccess())
@@ -109,11 +117,13 @@ class TsvSongParserTest {
                 Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
                 Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
                 """;
-
         TsvSongParser tsvSongParser = new TsvSongParser();
-        List<Song> songs = tsvSongParser.parse(tsvTwoSongs);
 
-        assertThat(songs)
+        Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
+
+        assertThat(result.isSuccess())
+                .isTrue();
+        assertThat(result.songs())
                 .as("expecting 2 songs")
                 .hasSize(2)
                 .as("unexpected song content")
