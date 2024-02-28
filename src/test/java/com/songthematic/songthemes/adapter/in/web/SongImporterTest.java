@@ -3,6 +3,10 @@ package com.songthematic.songthemes.adapter.in.web;
 import com.songthematic.songthemes.application.SongRepository;
 import com.songthematic.songthemes.application.SongService;
 import org.junit.jupiter.api.Test;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +29,7 @@ class SongImporterTest {
         SongImporter songImporter = new SongImporter(songService);
 
         String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor";
-        songImporter.handleSongImport(tsvSongs);
+        songImporter.handleSongImport(tsvSongs, new RedirectAttributesModelMap());
 
         assertThat(repository.allSongs())
                 .hasSize(1);
@@ -35,7 +39,7 @@ class SongImporterTest {
     void songImportHandlesNullText() throws Exception {
         SongImporter songImporter = new SongImporter(SongService.createNull());
 
-        String redirectPage = songImporter.handleSongImport(null);
+        String redirectPage = songImporter.handleSongImport(null, new RedirectAttributesModelMap());
 
         assertThat(redirectPage)
                 .isEqualTo("redirect:/song-import");
@@ -49,10 +53,13 @@ class SongImporterTest {
                 Artist2\tSongTitle2\tReleaseTitle
                 """;
 
-        String redirectPage = songImporter.handleSongImport(tsvTwoMalformedSongs);
+        RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
+        String redirectPage = songImporter.handleSongImport(tsvTwoMalformedSongs, redirectAttributes);
 
         assertThat(redirectPage)
                 .isEqualTo("redirect:/song-import");
-        // assert failure messages added to model
+        List<String> failureMessages = (List<String>) redirectAttributes.getFlashAttributes().get("failureMessages");
+        assertThat(failureMessages)
+                .hasSize(2);
     }
 }

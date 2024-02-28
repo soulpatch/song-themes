@@ -54,8 +54,11 @@ Increase Song Attributes
                     violates command query separation, but not really
             [X] Refactor parseWithResult
             [X] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
+            [X] Display failure messages in the UI
+            [ ] Put the bulk import string back into the import edit box upon failure
             [ ] Split Result into two concrete subclasses for success and failure
                 [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
+
             [ ] Write a custom assert for Result
         [ ] Skip over unused columns (needs a header row)
 

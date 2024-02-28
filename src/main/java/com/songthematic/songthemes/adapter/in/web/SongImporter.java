@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class SongImporter {
@@ -23,13 +24,16 @@ public class SongImporter {
     }
 
     @PostMapping("/song-import")
-    public String handleSongImport(String tsvSongs) {
+    public String handleSongImport(String tsvSongs, RedirectAttributes redirectAttributes) {
         if (tsvSongs == null) {
             return "redirect:/song-import";
         }
         Result result = songService.importSongs(tsvSongs);
-        return result.isSuccess()
-                ? "redirect:/"
-                : "redirect:/song-import";
+        if (result.isSuccess()) {
+            return "redirect:/";
+        }
+        redirectAttributes.addFlashAttribute("failureMessages", result.failureMessages());
+
+        return "redirect:/song-import";
     }
 }
