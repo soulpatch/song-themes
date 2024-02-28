@@ -57,11 +57,18 @@ class SongServiceTest {
         SongRepository songRepository = SongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
-        songService.importSongs(row);
+        Result result = songService.importSongs(row);
 
+        assertThat(result.isSuccess())
+                .isTrue();
         assertThat(songRepository.allSongs())
                 .containsExactlyInAnyOrder(SongFactory.createSong("Artist", "SongTitle", "ReleaseTitle", "ReleaseType", "Theme1"),
                                            SongFactory.createSong("Artist2", "SongTitle2", "ReleaseTitle2", "ReleaseType2", "Theme12"));
     }
 
+    @Test
+    void bulkAddSongFails() throws Exception {
+
+        // importSongs() will return a Result
+    }
 }

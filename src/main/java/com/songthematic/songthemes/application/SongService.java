@@ -28,9 +28,10 @@ public class SongService {
         songSearcher = songSearcher.add(song);
     }
 
-    public void importSongs(String tsvSongs) {
+    public Result importSongs(String tsvSongs) {
         TsvSongParser tsvSongParser = new TsvSongParser();
-        List<Song> songs = tsvSongParser.parse(tsvSongs).songs();
-        songs.forEach(this::addSong);
+        Result result = tsvSongParser.parse(tsvSongs);
+        result.songs().forEach(this::addSong);
+        return result;
     }
 }
