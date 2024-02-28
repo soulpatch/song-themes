@@ -15,7 +15,7 @@ public class TsvSongParser {
     public static final int MAX_COLUMNS_TO_PARSE = 10;
     public static final int MINIMUM_COLUMNS = 9;
 
-    public Result parseWithResult(String tsvSongs) {
+    public Result parse(String tsvSongs) {
         Map<Boolean, List<Result>> partition = tsvSongs.lines()
                                                        .filter(not(String::isBlank))
                                                        .map(this::parseSong)

@@ -30,7 +30,7 @@ public class SongService {
 
     public void importSongs(String tsvSongs) {
         TsvSongParser tsvSongParser = new TsvSongParser();
-        List<Song> songs = tsvSongParser.parseWithResult(tsvSongs).songs();
+        List<Song> songs = tsvSongParser.parse(tsvSongs).songs();
         songs.forEach(this::addSong);
     }
 }

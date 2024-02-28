@@ -53,7 +53,7 @@ Increase Song Attributes
                 Parse should return an Either (Java does not have) -- command success or return failure with information on why it failed
                     violates command query separation, but not really
             [X] Refactor parseWithResult
-            [ ] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
+            [X] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
             [ ] Split Result into two concrete subclasses for success and failure
         [ ] Skip over unused columns (needs a header row)
 

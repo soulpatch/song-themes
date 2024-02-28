@@ -14,7 +14,7 @@ class TsvSongParserTest {
         String tsvSongs = "Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parseWithResult(tsvSongs);
+        Result result = tsvSongParser.parse(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -27,7 +27,7 @@ class TsvSongParserTest {
         String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parseWithResult(tsvSongs);
+        Result result = tsvSongParser.parse(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -40,7 +40,7 @@ class TsvSongParserTest {
         String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\tIgnoredTheme\tDontCareContributor";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parseWithResult(tsvSongs);
+        Result result = tsvSongParser.parse(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -56,7 +56,7 @@ class TsvSongParserTest {
                 """;
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
+        Result result = tsvSongParser.parse(tsvTwoSongs);
 
         assertThat(result.isSuccess())
                 .isFalse();
@@ -87,7 +87,7 @@ class TsvSongParserTest {
                 """;
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        Result result = tsvSongParser.parseWithResult(tsvThreeRows);
+        Result result = tsvSongParser.parse(tsvThreeRows);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -104,7 +104,7 @@ class TsvSongParserTest {
                 """;
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
+        Result result = tsvSongParser.parse(tsvTwoSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -119,7 +119,7 @@ class TsvSongParserTest {
                 """;
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        Result result = tsvSongParser.parseWithResult(tsvTwoSongs);
+        Result result = tsvSongParser.parse(tsvTwoSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
