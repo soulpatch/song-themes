@@ -56,6 +56,7 @@ Increase Song Attributes
             [X] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
             [ ] Split Result into two concrete subclasses for success and failure
                 [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
+            [ ] Write a custom assert for Result
         [ ] Skip over unused columns (needs a header row)
 
 Command query separation applies at the doman object level to changing state of an existing object.

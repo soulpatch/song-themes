@@ -108,7 +108,6 @@ class TsvSongParserTest {
 
         assertThat(result.isSuccess())
                 .isTrue();
-
     }
 
     @Test
