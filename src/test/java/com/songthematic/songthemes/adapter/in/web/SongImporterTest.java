@@ -40,4 +40,19 @@ class SongImporterTest {
         assertThat(redirectPage)
                 .isEqualTo("redirect:/song-import");
     }
+
+    @Test
+    void songImportAddsFailureMessagesForFailedImport() throws Exception {
+        SongImporter songImporter = new SongImporter(SongService.createNull());
+        String tsvTwoMalformedSongs = """
+                Artist\tSongTitle
+                Artist2\tSongTitle2\tReleaseTitle
+                """;
+
+        String redirectPage = songImporter.handleSongImport(tsvTwoMalformedSongs);
+
+        assertThat(redirectPage)
+                .isEqualTo("redirect:/song-import");
+        // assert failure messages added to model
+    }
 }

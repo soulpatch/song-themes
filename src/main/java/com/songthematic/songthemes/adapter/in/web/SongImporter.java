@@ -1,5 +1,6 @@
 package com.songthematic.songthemes.adapter.in.web;
 
+import com.songthematic.songthemes.application.Result;
 import com.songthematic.songthemes.application.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,9 @@ public class SongImporter {
         if (tsvSongs == null) {
             return "redirect:/song-import";
         }
-        songService.importSongs(tsvSongs);
-        return "redirect:/";
+        Result result = songService.importSongs(tsvSongs);
+        return result.isSuccess()
+                ? "redirect:/"
+                : "redirect:/song-import";
     }
 }

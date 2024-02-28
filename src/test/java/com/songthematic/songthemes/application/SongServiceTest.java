@@ -68,14 +68,14 @@ class SongServiceTest {
 
     @Test
     void bulkAddSongFails() throws Exception {
-        String tsvTwoSongs = """
+        String tsvTwoMalformedSongs = """
                 Artist\tSongTitle
                 Artist2\tSongTitle2\tReleaseTitle
                 """;
         SongRepository songRepository = SongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
-        Result result = songService.importSongs(tsvTwoSongs);
+        Result result = songService.importSongs(tsvTwoMalformedSongs);
 
         assertThat(result.isSuccess())
                 .isFalse();
