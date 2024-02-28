@@ -13,29 +13,29 @@ public class Result {
     private List<Song> songs = new ArrayList<>();
     private List<String> failureMessages = new ArrayList<>();
 
-    public Result(Set<Song> songs) {
+    private Result(Set<Song> songs) {
         this.songs.addAll(songs);
         isSuccess = true;
     }
 
-    public Result(List<String> failureMessage) {
+    private Result(List<String> failureMessage) {
         this.failureMessages.addAll(failureMessage);
         isSuccess = false;
     }
 
-    public static Result success(Song song) {
+    static Result success(Song song) {
         return new Result(Set.of(song));
     }
 
-    public static Result failure(String message) {
+    static Result failure(String message) {
         return new Result(Collections.singletonList(message));
     }
 
-    public static Result success(List<Song> songs) {
+    static Result success(List<Song> songs) {
         return new Result(Set.copyOf(songs));
     }
 
-    public static Result failure(List<String> failureMessages) {
+    static Result failure(List<String> failureMessages) {
         return new Result(failureMessages);
     }
 
