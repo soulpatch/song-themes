@@ -1,7 +1,6 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -50,7 +49,6 @@ class SongServiceTest {
     }
 
     @Test
-    @Disabled("Re-enable when header rows are handled")
     void bulkAddSongUsingTsvFormat() throws Exception {
         String row = """
                 Artist\tSong Title\tRelease Title\tRelease Type\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor

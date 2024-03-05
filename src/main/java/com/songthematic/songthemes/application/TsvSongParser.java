@@ -17,6 +17,7 @@ public class TsvSongParser {
 
     public Result parse(String tsvSongs) {
         Map<Boolean, List<Result>> partition = tsvSongs.lines()
+                                                       .skip(1)
                                                        .filter(not(String::isBlank))
                                                        .map(this::parseSong)
                                                        .collect(Collectors.partitioningBy(Result::isSuccess));
