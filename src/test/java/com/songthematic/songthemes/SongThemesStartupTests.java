@@ -28,6 +28,7 @@ class SongThemesStartupTests {
         // spring boot does the setup
 
         String tsvSongs = """
+                Artist\tSong Title\tRelease Title\tRelease Type\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
                 Lead Belly	The Bourgeois Blues				America	Politics	Protest		Rizzi
                 Blue Oyster Cult	Don't Fear The Reaper	Agents of Fortune			Halloween	Death			Rizzi
                 Beautiful South	Don't Fear The Reaper				Halloween	Death			Rizzi

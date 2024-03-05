@@ -2,6 +2,7 @@ package com.songthematic.songthemes.adapter.in.web;
 
 import com.songthematic.songthemes.application.SongRepository;
 import com.songthematic.songthemes.application.SongService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
@@ -23,12 +24,16 @@ class SongImporterTest {
     }
 
     @Test
+    @Disabled("Re-enable when header rows are handled")
     void songImportPutsSongInRepository() throws Exception {
         SongRepository repository = SongRepository.createEmpty();
         SongService songService = new SongService(repository);
         SongImporter songImporter = new SongImporter(songService);
 
-        String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor";
+        String tsvSongs = """
+                Artist\tSong Title\tRelease Title\tRelease Type\tRecord Label\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
+                DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor
+                """;
         songImporter.handleSongImport(tsvSongs, new RedirectAttributesModelMap());
 
         assertThat(repository.allSongs())

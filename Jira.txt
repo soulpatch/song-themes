@@ -55,11 +55,12 @@ Increase Song Attributes
             [X] Refactor parseWithResult
             [X] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
             [X] Display failure messages in the UI
-        >>  [ ] Put the bulk import string back into the import edit box upon failure
+            [ ] Put the bulk import string back into the import edit box upon failure
             [ ] Split Result into two concrete subclasses for success and failure
             [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
             [ ] Write a custom assert for Result
-        [ ] Skip over unused columns (needs a header row)
+   >>>  [ ] Skip over unused columns (needs a header row)
+            [ ] Change all tests to include a header row (sentinel column is col 1 "Artist")
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration

@@ -19,4 +19,8 @@ public class SongFactory {
     public static Song createSong(String artist, String songTitle, String releaseTitle, String releaseType, String theme1) {
         return new Song(artist, songTitle, releaseTitle, releaseType, List.of(theme1));
     }
+
+    public static Song createSong(String artist, String songTitle, String releaseTitle, String releaseType, String theme1, String theme2) {
+        return new Song(artist, songTitle, releaseTitle, releaseType, List.of(theme1, theme2));
+    }
 }

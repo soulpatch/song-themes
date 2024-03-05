@@ -1,6 +1,7 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,7 +12,7 @@ class TsvSongParserTest {
     @Test
     void parseSongFromTabSeparatedValues() throws Exception {
         // Artist\tSong Title\tRelease Title\tRelease Type\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
-        String tsvSongs = "Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi";
+        String tsvSongs = createTsvSongsWithHeader("Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
         Result result = tsvSongParser.parse(tsvSongs);
@@ -22,9 +23,14 @@ class TsvSongParserTest {
                 .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "ReleaseTitle", "ReleaseType", List.of("Thank You", "Thanks", "Gratitude", "Theme4")));
     }
 
+    @NotNull
+    private String createTsvSongsWithHeader(String tsvSongs) {
+        return tsvSongs;
+    }
+
     @Test
     void parseSongWithOnlyOneThemeHasOneTheme() throws Exception {
-        String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor";
+        String tsvSongs = createTsvSongsWithHeader("DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
         Result result = tsvSongParser.parse(tsvSongs);
@@ -37,7 +43,7 @@ class TsvSongParserTest {
 
     @Test
     void stopAddingThemesWhenHitFirstBlankTheme() throws Exception {
-        String tsvSongs = "DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\tIgnoredTheme\tDontCareContributor";
+        String tsvSongs = createTsvSongsWithHeader("DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\tIgnoredTheme\tDontCareContributor");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
         Result result = tsvSongParser.parse(tsvSongs);
@@ -78,13 +84,13 @@ class TsvSongParserTest {
 
     @Test
     void skipEmptyAndBlankRows() throws Exception {
-        String tsvThreeRows = """
-                Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
-
-                \s
-                Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
-                \t
-                """;
+        String tsvThreeRows = createTsvSongsWithHeader("""
+                                                               Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
+                                                                       
+                                                               \s
+                                                               Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
+                                                               \t
+                                                               """);
         TsvSongParser tsvSongParser = new TsvSongParser();
 
         Result result = tsvSongParser.parse(tsvThreeRows);
@@ -97,25 +103,11 @@ class TsvSongParserTest {
     }
 
     @Test
-    void parseMultipleSongsWithSuccessfulResult() throws Exception {
-        String tsvTwoSongs = """
-                Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
-                Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
-                """;
-        TsvSongParser tsvSongParser = new TsvSongParser();
-
-        Result result = tsvSongParser.parse(tsvTwoSongs);
-
-        assertThat(result.isSuccess())
-                .isTrue();
-    }
-
-    @Test
     void parseMultipleSongs() throws Exception {
-        String tsvTwoSongs = """
-                Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
-                Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
-                """;
+        String tsvTwoSongs = createTsvSongsWithHeader("""
+                                                              Earth, Wind & Fire\tGratitude\t\t\t\tThank You\tThanks\tGratitude\t\tRizzi
+                                                              Joey Ramone\tWhat A Wonderful World\tDon’t Worry About Me\t\t\tThank You\tThanks\tGratitude\tJoy\tRizzi
+                                                              """);
         TsvSongParser tsvSongParser = new TsvSongParser();
 
         Result result = tsvSongParser.parse(tsvTwoSongs);

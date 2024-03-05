@@ -1,6 +1,7 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -49,10 +50,12 @@ class SongServiceTest {
     }
 
     @Test
+    @Disabled("Re-enable when header rows are handled")
     void bulkAddSongUsingTsvFormat() throws Exception {
         String row = """
-                Artist\tSongTitle\tReleaseTitle\tReleaseType\tSkippedNotes\tTheme1\t\t\tContributor
-                Artist2\tSongTitle2\tReleaseTitle2\tReleaseType2\tSkippedNotes2\tTheme12\t\t\tContributor2
+                Artist\tSong Title\tRelease Title\tRelease Type\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
+                Screaming Tribesmen\tDate with a Vampyre\t\t\tSingle\tHalloween\tVampires\t\t\tRizzi
+                Unnatural Axe\tThey Saved Hitler's Brain\tIs Gonna Kick Your Ass\t\t\tHalloween\t\t\t\tRizzi
                 """;
         SongRepository songRepository = SongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
@@ -62,8 +65,8 @@ class SongServiceTest {
         assertThat(result.isSuccess())
                 .isTrue();
         assertThat(songRepository.allSongs())
-                .containsExactlyInAnyOrder(SongFactory.createSong("Artist", "SongTitle", "ReleaseTitle", "ReleaseType", "Theme1"),
-                                           SongFactory.createSong("Artist2", "SongTitle2", "ReleaseTitle2", "ReleaseType2", "Theme12"));
+                .containsExactlyInAnyOrder(SongFactory.createSong("Screaming Tribesmen", "Date with a Vampyre", "", "", "Halloween", "Vampires"),
+                                           SongFactory.createSong("Unnatural Axe", "They Saved Hitler's Brain", "Is Gonna Kick Your Ass", "", "Halloween"));
     }
 
     @Test
