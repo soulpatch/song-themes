@@ -61,5 +61,8 @@ class SongImporterTest {
         List<String> failureMessages = (List<String>) redirectAttributes.getFlashAttributes().get("failureMessages");
         assertThat(failureMessages)
                 .hasSize(2);
+        String originalTextAreaContent = (String) redirectAttributes.getFlashAttributes().get("tsvSongs");
+        assertThat(originalTextAreaContent)
+                .isEqualTo(tsvTwoMalformedSongs);
     }
 }

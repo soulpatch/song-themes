@@ -55,15 +55,11 @@ Increase Song Attributes
             [X] Refactor parseWithResult
             [X] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
             [X] Display failure messages in the UI
-            [ ] Put the bulk import string back into the import edit box upon failure
+        >>  [ ] Put the bulk import string back into the import edit box upon failure
             [ ] Split Result into two concrete subclasses for success and failure
-                [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
-
+            [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
             [ ] Write a custom assert for Result
         [ ] Skip over unused columns (needs a header row)
-
-Command query separation applies at the doman object level to changing state of an existing object.
-However, not for creation...and bulk import is a form of creation
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration

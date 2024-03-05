@@ -29,6 +29,7 @@ public class SongImportMvcTest {
     @Test
     void postToSongImportEndpointRedirects() throws Exception {
         mockMvc.perform(post("/song-import")
+                                .param("tsvSongs", "")
                                 .with(csrf()))
                .andExpect(status().is3xxRedirection());
     }
