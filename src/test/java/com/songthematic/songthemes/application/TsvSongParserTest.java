@@ -10,7 +10,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TsvSongParserTest {
     @Test
     void parseSongFromTabSeparatedValues() throws Exception {
-
         String tsvSongs = TsvSongFactory.createTsvSongsWithHeader("Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi");
 
         TsvSongParser tsvSongParser = new TsvSongParser();

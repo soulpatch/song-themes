@@ -59,8 +59,14 @@ Increase Song Attributes
             [ ] Split Result into two concrete subclasses for success and failure
             [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
             [ ] Write a custom assert for Result
-   >>>  [ ] Skip over unused columns (needs a header row)
-            [ ] Change all tests to include a header row (sentinel column is col 1 "Artist")
+        [ ] Skip over unused columns (needs a header row)
+            [X] Change all tests to include a header row
+   >>>      [ ] Only parse columns that we want
+                    Must have at least these 8 columns, other columns are ignored
+                    Artist, Song Title, Release Title, Release Type, Theme1, Theme2, Theme3, Theme4
+                Failing test that uses only the above required 8 columns
+                TODO - decide whether to test at parse() or parseSong() level
+
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
