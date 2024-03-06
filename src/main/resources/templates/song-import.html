@@ -12,7 +12,7 @@
     <div>
         <label for="tsvSongs">Paste your tab separated songs here</label>
         <p></p>
-        <textarea th:value="${tsvSongs}" id="tsvSongs" name="tsvSongs" rows="20" cols="100"></textarea>
+        <textarea th:text="${tsvSongs}" id="tsvSongs" name="tsvSongs" rows="20" cols="100"></textarea>
     </div>
     <button type="submit">Import</button>
 </form>
