@@ -1,6 +1,7 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,12 +9,30 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TsvSongParserTest {
+
+    // * At least one line in addition to the header row
+    // * number of columns in header match number of columns for song data?
+    // * Does the header row have the 8 required columns
+    // * Song has required fields
+    // * Make sure Songs is not empty when Success is True
+
+    @Test
+    void parseAllReturnFailureWhenFewerThanTwoRows() throws Exception {
+        String tsvSongs = "Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi";
+
+        TsvSongParser tsvSongParser = new TsvSongParser();
+        Result result = tsvSongParser.parseAll(tsvSongs);
+
+        assertThat(result.isSuccess())
+                .isFalse();
+    }
+
     @Test
     void parseSongFromTabSeparatedValues() throws Exception {
         String tsvSongs = TsvSongFactory.createTsvSongsWithHeader("Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parse(tsvSongs);
+        Result result = tsvSongParser.parseAll(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -26,7 +45,7 @@ class TsvSongParserTest {
         String tsvSongs = TsvSongFactory.createTsvSongsWithHeader("DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parse(tsvSongs);
+        Result result = tsvSongParser.parseAll(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -39,7 +58,7 @@ class TsvSongParserTest {
         String tsvSongs = TsvSongFactory.createTsvSongsWithHeader("DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\tIgnoredTheme\tDontCareContributor");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parse(tsvSongs);
+        Result result = tsvSongParser.parseAll(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -55,25 +74,11 @@ class TsvSongParserTest {
                 """;
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        Result result = tsvSongParser.parse(tsvTwoSongs);
+        Result result = tsvSongParser.parseAll(tsvTwoSongs);
 
         assertThat(result.isSuccess())
                 .isFalse();
     }
-
-    @Test
-    void parseSingleSongReturnsFailureResultForRowWithNotEnoughColumns() throws Exception {
-        String tsvSong = "Husker Du\tGreen Eyes";
-        TsvSongParser tsvSongParser = new TsvSongParser();
-
-        Result songResult = tsvSongParser.parseSong(tsvSong);
-
-        assertThat(songResult.isSuccess())
-                .isFalse();
-        assertThat(songResult.failureMessage())
-                .isEqualTo("Number of columns was: 2, must have at least 9, row contains: [Husker Du, Green Eyes]");
-    }
-
 
     @Test
     void skipEmptyAndBlankRows() throws Exception {
@@ -86,7 +91,7 @@ class TsvSongParserTest {
                                                                """);
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        Result result = tsvSongParser.parse(tsvThreeRows);
+        Result result = tsvSongParser.parseAll(tsvThreeRows);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -103,7 +108,7 @@ class TsvSongParserTest {
                                                               """);
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        Result result = tsvSongParser.parse(tsvTwoSongs);
+        Result result = tsvSongParser.parseAll(tsvTwoSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -115,5 +120,21 @@ class TsvSongParserTest {
                         new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You", "Thanks", "Gratitude")),
                         new Song("Joey Ramone", "What A Wonderful World", "Don’t Worry About Me", "", List.of("Thank You", "Thanks", "Gratitude", "Joy"))
                 );
+    }
+
+    @Nested
+    class ParseSingleSongTest {
+        @Test
+        void returnsFailureResultForRowWithNotEnoughColumns() throws Exception {
+            String tsvSong = "Husker Du\tGreen Eyes";
+            TsvSongParser tsvSongParser = new TsvSongParser();
+
+            Result songResult = tsvSongParser.parseSong(tsvSong);
+
+            assertThat(songResult.isSuccess())
+                    .isFalse();
+            assertThat(songResult.failureMessages())
+                    .containsExactly("Number of columns was: 2, must have at least 9, row contains: [Husker Du, Green Eyes]");
+        }
     }
 }

@@ -15,7 +15,10 @@ public class TsvSongParser {
     public static final int MAX_COLUMNS_TO_PARSE = 10;
     public static final int MINIMUM_COLUMNS = 9;
 
-    public Result parse(String tsvSongs) {
+    public Result parseAll(String tsvSongs) {
+        if (tsvSongs.lines().count() <= 1) {
+            return Result.failure("");
+        }
         Map<Boolean, List<Result>> partition = tsvSongs.lines()
                                                        .skip(1)
                                                        .filter(not(String::isBlank))
@@ -33,7 +36,7 @@ public class TsvSongParser {
         return partition
                 .get(Boolean.FALSE)
                 .stream()
-                .map(Result::failureMessage)
+                .flatMap((Result result) -> result.failureMessages().stream())
                 .toList();
     }
 
@@ -41,7 +44,7 @@ public class TsvSongParser {
         return partition
                 .get(Boolean.TRUE)
                 .stream()
-                .map(Result::song)
+                .flatMap(result -> result.songs().stream())
                 .toList();
     }
 

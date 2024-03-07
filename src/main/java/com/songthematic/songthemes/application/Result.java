@@ -43,20 +43,11 @@ public class Result {
         return List.copyOf(songs);
     }
 
-    public Song song() {
-        return songs.getFirst();
-    }
-
     public boolean isSuccess() {
         return isSuccess;
-    }
-
-    public String failureMessage() {
-        return failureMessages.getFirst();
     }
 
     public List<String> failureMessages() {
         return List.copyOf(failureMessages);
     }
-
 }
