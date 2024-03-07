@@ -16,8 +16,8 @@ public class TsvSongParser {
     public static final int MINIMUM_COLUMNS = 9;
 
     public Result parseAll(String tsvSongs) {
-        if (tsvSongs.lines().count() <= 1) {
-            return Result.failure("");
+        if (tooFewLinesIn(tsvSongs)) {
+            return Result.failure("Must have at least two rows of import data");
         }
         Map<Boolean, List<Result>> partition = tsvSongs.lines()
                                                        .skip(1)
@@ -30,6 +30,10 @@ public class TsvSongParser {
         }
         List<String> failureMessages = mapToFailureMessagesFrom(partition);
         return Result.failure(failureMessages);
+    }
+
+    private boolean tooFewLinesIn(String tsvSongs) {
+        return tsvSongs.lines().count() <= 1;
     }
 
     private List<String> mapToFailureMessagesFrom(Map<Boolean, List<Result>> partition) {
