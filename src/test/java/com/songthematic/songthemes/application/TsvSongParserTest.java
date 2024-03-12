@@ -41,16 +41,17 @@ class TsvSongParserTest {
         Result result = tsvSongParser.parseAll(tsvTwoMalformedSongs);
 
         assertThat(result.isSuccess())
+                .as("Should not have succeeded but it did")
                 .isFalse();
         assertThat(result.failureMessages())
                 .hasSize(2)
-                .containsExactly("Number of columns was: 3, must have at least 4, row contains: [Blue Oyster Cult, Don't Fear The Reaper, Agents of Fortune]",
-                                 "Number of columns was: 3, must have at least 4, row contains: [Kinks, Around the Dial, Give The People What They Want]");
+                .containsExactly("Number of columns was: 3, must have at least 5, row contains: [Blue Oyster Cult, Don't Fear The Reaper, Agents of Fortune]",
+                                 "Number of columns was: 3, must have at least 5, row contains: [Kinks, Around the Dial, Give The People What They Want]");
     }
 
     // * Does the header row have the 8 required columns
     @Test
-    @Disabled("Enable when ready to start changing functionality")
+    @Disabled("Disabled until parseSong tests work")
     void parseAllReturnsSuccessWhenHeaderRowHasRequiredColumns() throws Exception {
         String header = "Artist\tSong Title\tTheme1\n";
         String tsvSongs = header + "Earth, Wind & Fire\tGratitude\tThank You";
@@ -58,10 +59,10 @@ class TsvSongParserTest {
         TsvSongParser tsvSongParser = new TsvSongParser();
         Result result = tsvSongParser.parseAll(tsvSongs);
 
-        assertThat(result.failureMessages())
-                .isEmpty();
         assertThat(result.isSuccess())
                 .isTrue();
+        assertThat(result.failureMessages())
+                .isEmpty();
     }
 
     @Test
@@ -164,7 +165,20 @@ class TsvSongParserTest {
             assertThat(songResult.isSuccess())
                     .isFalse();
             assertThat(songResult.failureMessages())
-                    .containsExactly("Number of columns was: 2, must have at least 4, row contains: [Husker Du, Green Eyes]");
+                    .containsExactly("Number of columns was: 2, must have at least 3, row contains: [Husker Du, Green Eyes]");
+        }
+
+        @Test
+        void returnsSuccessForRowWithRequiredColumns() throws Exception {
+//            String header = "Artist\tSong Title\tTheme1\n";
+            String tsvSong = "Earth, Wind & Fire\tGratitude\tThank You";
+            TsvSongParser tsvSongParser = new TsvSongParser();
+
+            Result songResult = tsvSongParser.parseSong(tsvSong);
+
+            assertThat(songResult.isSuccess())
+                    .as("Song with required columns should have succeeded, but did not.")
+                    .isTrue();
         }
     }
 }

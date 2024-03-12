@@ -13,7 +13,7 @@ import static java.util.function.Predicate.not;
 public class TsvSongParser {
 
     public static final int MAX_COLUMNS_TO_PARSE = 10;
-    public static final int MINIMUM_COLUMNS = 4;
+    public static final int MINIMUM_COLUMNS = 3;
 
     public Result parseAll(String tsvSongs) {
         if (tooFewLinesIn(tsvSongs)) {
@@ -68,10 +68,19 @@ public class TsvSongParser {
         String artist = columns[0];
         String songTitle = columns[1];
         String releaseTitle = columns[2];
-        String releaseType = columns[3];
-        List<String> themes = parseThemes(columns);
-        Song song = new Song(artist, songTitle, releaseTitle, releaseType, themes);
-        return Result.success(song);
+        String releaseType = "";
+        if (columns.length > 3) {
+            releaseType = columns[3];
+        }
+        if (columns.length > 4) {
+            List<String> themes = parseThemes(columns);
+            Song song = new Song(artist, songTitle, releaseTitle, releaseType, themes);
+            return Result.success(song);
+        } else {
+            return Result.failure("Number of columns was: "
+                                          + columns.length
+                                          + ", must have at least 5, row contains: " + Arrays.toString(columns));
+        }
     }
 
     private List<String> parseThemes(String[] columns) {
