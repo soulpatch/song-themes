@@ -160,7 +160,7 @@ class TsvSongParserTest {
             String tsvSong = "Husker Du\tGreen Eyes";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result songResult = tsvSongParser.parseSong(tsvSong);
+            Result songResult = tsvSongParser.parseSong("", tsvSong);
 
             assertThat(songResult.isSuccess())
                     .isFalse();
@@ -170,15 +170,32 @@ class TsvSongParserTest {
 
         @Test
         void returnsSuccessForRowWithRequiredColumns() throws Exception {
-//            String header = "Artist\tSong Title\tTheme1\n";
+            String header = "Artist\tSong Title\tTheme1";
             String tsvSong = "Earth, Wind & Fire\tGratitude\tThank You";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result songResult = tsvSongParser.parseSong(tsvSong);
+            Result songResult = tsvSongParser.parseSong(header, tsvSong);
 
             assertThat(songResult.isSuccess())
                     .as("Song with required columns should have succeeded, but did not.")
                     .isTrue();
+            assertThat(songResult.songs())
+                    .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You")));
+        }
+
+        @Test
+        void returnsSuccessForRowWithRequiredColumnsInDifferentOrder() throws Exception {
+            String header = "Song Title\tTheme1\tArtist";
+            String tsvSong = "Gratitude\tThank You\tEarth, Wind & Fire";
+            TsvSongParser tsvSongParser = new TsvSongParser();
+
+            Result songResult = tsvSongParser.parseSong(header, tsvSong);
+
+            assertThat(songResult.isSuccess())
+                    .as("Song with required columns should have succeeded, but did not.")
+                    .isTrue();
+            assertThat(songResult.songs())
+                    .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You")));
         }
     }
 }
