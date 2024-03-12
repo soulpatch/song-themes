@@ -62,10 +62,17 @@ Increase Song Attributes
         [ ] Skip over unused columns (needs a header row)
             [X] Change all tests to include a header row
    >>>      [ ] Only parse columns that we want
-                    Must have at least these 8 columns, other columns are ignored
-                    Artist, Song Title, Release Title, Release Type, Theme1, Theme2, Theme3, Theme4
-                Failing test that uses only the above required 8 columns
-                TODO - decide whether to test at parse() or parseSong() level
+                    Must have at least these 3 columns
+                        Artist, Song Title, Theme1
+                    We support these 8 columns, other columns are ignored
+                        Artist, Song Title, Release Title, Release Type, Theme1, Theme2, Theme3, Theme4
+
+    What is a song? (which episode did we discuss this?) -- * means Required data
+        Theme(s) *  (require at least one)
+        Artist *
+        Song Title *
+        Release Title  (UI could say something Album or Single Title)
+        Release Type (Compilation, Soundtrack) - consider better name later
 
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)

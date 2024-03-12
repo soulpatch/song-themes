@@ -13,7 +13,7 @@ import static java.util.function.Predicate.not;
 public class TsvSongParser {
 
     public static final int MAX_COLUMNS_TO_PARSE = 10;
-    public static final int MINIMUM_COLUMNS = 9;
+    public static final int MINIMUM_COLUMNS = 4;
 
     public Result parseAll(String tsvSongs) {
         if (tooFewLinesIn(tsvSongs)) {

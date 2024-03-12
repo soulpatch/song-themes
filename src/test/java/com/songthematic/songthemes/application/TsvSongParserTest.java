@@ -1,6 +1,7 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -10,9 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class TsvSongParserTest {
 
-    // * At least one line in addition to the header row
     // * number of columns in header match number of columns for song data?
-    // * Does the header row have the 8 required columns
     // * Song has required fields
     // * Make sure Songs is not empty when Success is True
 
@@ -25,6 +24,51 @@ class TsvSongParserTest {
 
         assertThat(result.isSuccess())
                 .isFalse();
+        assertThat(result.failureMessages())
+                .containsExactly("Must have at least two rows of import data");
+    }
+
+    @Test
+    void parseAllReturnsMultipleFailureMessages() throws Exception {
+        String tsvTwoMalformedSongs =
+                """
+                        Artist\tSong Title\tRelease Title
+                        Blue Oyster Cult\tDon't Fear The Reaper\tAgents of Fortune
+                        Kinks\tAround the Dial\tGive The People What They Want
+                        """;
+
+        TsvSongParser tsvSongParser = new TsvSongParser();
+        Result result = tsvSongParser.parseAll(tsvTwoMalformedSongs);
+
+        assertThat(result.isSuccess())
+                .isFalse();
+        assertThat(result.failureMessages())
+                .hasSize(2)
+                .containsExactly("Number of columns was: 3, must have at least 4, row contains: [Blue Oyster Cult, Don't Fear The Reaper, Agents of Fortune]",
+                                 "Number of columns was: 3, must have at least 4, row contains: [Kinks, Around the Dial, Give The People What They Want]");
+    }
+
+    // * Does the header row have the 8 required columns
+    @Test
+    @Disabled("Enable when ready to start changing functionality")
+    void parseAllReturnsSuccessWhenHeaderRowHasRequiredColumns() throws Exception {
+        String header = "Artist\tSong Title\tTheme1\n";
+        String tsvSongs = header + "Earth, Wind & Fire\tGratitude\tThank You";
+
+        TsvSongParser tsvSongParser = new TsvSongParser();
+        Result result = tsvSongParser.parseAll(tsvSongs);
+
+        assertThat(result.failureMessages())
+                .isEmpty();
+        assertThat(result.isSuccess())
+                .isTrue();
+    }
+
+    @Test
+    @Disabled
+    void parseAllReturnsFailureWhenMissingRequiredHeaderColumns() throws Exception {
+
+        // assert? isFailure
     }
 
     @Test
@@ -64,20 +108,6 @@ class TsvSongParserTest {
                 .isTrue();
         assertThat(result.songs())
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
-    }
-
-    @Test
-    void handlesRowsWithNotEnoughColumns() throws Exception {
-        String tsvTwoSongs = """
-                Husker Du\tGreen Eyes
-                Kinks\tAround the Dial\tGive The People What They Want
-                """;
-        TsvSongParser tsvSongParser = new TsvSongParser();
-
-        Result result = tsvSongParser.parseAll(tsvTwoSongs);
-
-        assertThat(result.isSuccess())
-                .isFalse();
     }
 
     @Test
@@ -134,7 +164,7 @@ class TsvSongParserTest {
             assertThat(songResult.isSuccess())
                     .isFalse();
             assertThat(songResult.failureMessages())
-                    .containsExactly("Number of columns was: 2, must have at least 9, row contains: [Husker Du, Green Eyes]");
+                    .containsExactly("Number of columns was: 2, must have at least 4, row contains: [Husker Du, Green Eyes]");
         }
     }
 }
