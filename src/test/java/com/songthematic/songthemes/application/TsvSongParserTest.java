@@ -51,7 +51,7 @@ class TsvSongParserTest {
 
     // * Does the header row have the 8 required columns
     @Test
-    @Disabled("Disabled until parseSong tests work")
+    @Disabled("Can enable once the header is fully parsed")
     void parseAllReturnsSuccessWhenHeaderRowHasRequiredColumns() throws Exception {
         String header = "Artist\tSong Title\tTheme1\n";
         String tsvSongs = header + "Earth, Wind & Fire\tGratitude\tThank You";

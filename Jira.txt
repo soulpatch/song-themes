@@ -61,11 +61,13 @@ Increase Song Attributes
             [ ] Write a custom assert for Result
         [ ] Skip over unused columns (needs a header row)
             [X] Change all tests to include a header row
-   >>>      [ ] Only parse columns that we want
+            [X] Only parse columns that we want
                     Must have at least these 3 columns
                         Artist, Song Title, Theme1
-                    We support these 8 columns, other columns are ignored
-                        Artist, Song Title, Release Title, Release Type, Theme1, Theme2, Theme3, Theme4
+            [ ] Support these remaining columns, other columns are ignored
+                 Note: Theme1 already implemented
+                        Release Title, Release Type, Theme2, Theme3, Theme4
+   >>>         [ ] Solve primitive obsession with header in parseSong - columnIndexOf(header...
 
     What is a song? (which episode did we discuss this?) -- * means Required data
         Theme(s) *  (require at least one)
