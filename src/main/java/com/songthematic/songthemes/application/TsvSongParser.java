@@ -26,8 +26,9 @@ public class TsvSongParser {
                 .stream()
                 .skip(1)
                 .filter(not(String::isBlank))
-                .map(tsvSong -> parseSong(header, tsvSong, columnMapper))
+                .map(tsvSong -> parseSong(tsvSong, columnMapper))
                 .collect(Collectors.partitioningBy(Result::isSuccess));
+
         if (hasNoFailures(partition)) {
             List<Song> songs = mapToSongsFrom(partition);
             return Result.success(songs);
@@ -36,19 +37,15 @@ public class TsvSongParser {
         return Result.failure(failureMessages);
     }
 
-    public Result parseSong(String header, String tsvSong, ColumnMapper columnMapper) {
-        if (header.isEmpty()) { // TEMPORARY if-test until all callers "fixed"
-            return parseSongWithoutHeader(tsvSong);
-        } else {
-            String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
+    public Result parseSong(String tsvSong, ColumnMapper columnMapper) {
+        String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
 
-            String artist = columnMapper.extractColumn(columns, "Artist");
-            String songTitle = columnMapper.extractColumn(columns, "Song Title");
-            String releaseTitle = columnMapper.extractColumn(columns, "Release Title");
-            String releaseType = columnMapper.extractColumn(columns, "Release Type");
-            List<String> themes = extractThemes(columnMapper, columns);
-            return Result.success(new Song(artist, songTitle, releaseTitle, releaseType, themes));
-        }
+        String artist = columnMapper.extractColumn(columns, "Artist");
+        String songTitle = columnMapper.extractColumn(columns, "Song Title");
+        String releaseTitle = columnMapper.extractColumn(columns, "Release Title");
+        String releaseType = columnMapper.extractColumn(columns, "Release Type");
+        List<String> themes = extractThemes(columnMapper, columns);
+        return Result.success(new Song(artist, songTitle, releaseTitle, releaseType, themes));
     }
 
     private List<String> extractThemes(ColumnMapper columnMapper, String[] columns) {
