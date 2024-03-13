@@ -21,11 +21,12 @@ public class TsvSongParser {
         }
         List<String> streamList = tsvSongs.lines().toList();
         String header = "";
+        ColumnMapper columnMapper = new ColumnMapper(header);
         Map<Boolean, List<Result>> partition = streamList
                 .stream()
                 .skip(1)
                 .filter(not(String::isBlank))
-                .map(tsvSong -> parseSong(header, tsvSong))
+                .map(tsvSong -> parseSong(header, tsvSong, columnMapper))
                 .collect(Collectors.partitioningBy(Result::isSuccess));
         if (hasNoFailures(partition)) {
             List<Song> songs = mapToSongsFrom(partition);
@@ -35,29 +36,18 @@ public class TsvSongParser {
         return Result.failure(failureMessages);
     }
 
-    public Result parseSong(String header, String tsvSong) {
-        if (header.isEmpty()) {
+    public Result parseSong(String header, String tsvSong, ColumnMapper columnMapper) {
+        if (header.isEmpty()) { // TEMPORARY if-test until all callers "fixed"
             return parseSongWithoutHeader(tsvSong);
         } else {
             String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
 
-            String artist = extractColumn(header, columns, "Artist");
-            String songTitle = extractColumn(header, columns, "Song Title");
-            String theme1 = extractColumn(header, columns, "Theme1");
+            String artist = columnMapper.extractColumn(columns, "Artist");
+            String songTitle = columnMapper.extractColumn(columns, "Song Title");
+            String theme1 = columnMapper.extractColumn(columns, "Theme1");
             return Result.success(new Song(artist, songTitle, "", "", List.of(theme1)));
         }
     }
-
-    private String extractColumn(String header, String[] columns, String columnName) {
-        return columns[columnIndexOf(header, columnName)];
-    }
-
-    private int columnIndexOf(String header, String columnName) {
-        String[] headerColumns = header.split("\t", MAX_COLUMNS_TO_PARSE);
-        List<String> list = Arrays.asList(headerColumns);
-        return list.indexOf(columnName);
-    }
-
 
     private boolean tooFewLinesIn(String tsvSongs) {
         return tsvSongs.lines().count() <= 1;

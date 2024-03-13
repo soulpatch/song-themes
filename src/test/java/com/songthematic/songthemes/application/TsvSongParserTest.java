@@ -160,7 +160,7 @@ class TsvSongParserTest {
             String tsvSong = "Husker Du\tGreen Eyes";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result songResult = tsvSongParser.parseSong("", tsvSong);
+            Result songResult = tsvSongParser.parseSong("", tsvSong, new ColumnMapper(""));
 
             assertThat(songResult.isSuccess())
                     .isFalse();
@@ -174,7 +174,7 @@ class TsvSongParserTest {
             String tsvSong = "Earth, Wind & Fire\tGratitude\tThank You";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result songResult = tsvSongParser.parseSong(header, tsvSong);
+            Result songResult = tsvSongParser.parseSong(header, tsvSong, new ColumnMapper(header));
 
             assertThat(songResult.isSuccess())
                     .as("Song with required columns should have succeeded, but did not.")
@@ -189,7 +189,7 @@ class TsvSongParserTest {
             String tsvSong = "Gratitude\tThank You\tEarth, Wind & Fire";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result songResult = tsvSongParser.parseSong(header, tsvSong);
+            Result songResult = tsvSongParser.parseSong(header, tsvSong, new ColumnMapper(header));
 
             assertThat(songResult.isSuccess())
                     .as("Song with required columns should have succeeded, but did not.")
