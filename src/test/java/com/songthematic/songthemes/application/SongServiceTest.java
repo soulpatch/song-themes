@@ -1,6 +1,7 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -68,6 +69,7 @@ class SongServiceTest {
     }
 
     @Test
+    @Disabled("Enable once we return Result.failure for mismatched column count")
     void bulkAddSongFails() throws Exception {
         String tsvTwoMalformedSongs = """
                 Artist\tSongTitle

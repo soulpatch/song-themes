@@ -20,7 +20,7 @@ public class TsvSongParser {
             return Result.failure("Must have at least two rows of import data");
         }
         List<String> streamList = tsvSongs.lines().toList();
-        String header = "";
+        String header = streamList.getFirst();
         ColumnMapper columnMapper = new ColumnMapper(header);
         Map<Boolean, List<Result>> partition = streamList
                 .stream()
@@ -44,9 +44,19 @@ public class TsvSongParser {
 
             String artist = columnMapper.extractColumn(columns, "Artist");
             String songTitle = columnMapper.extractColumn(columns, "Song Title");
-            String theme1 = columnMapper.extractColumn(columns, "Theme1");
-            return Result.success(new Song(artist, songTitle, "", "", List.of(theme1)));
+            String releaseTitle = columnMapper.extractColumn(columns, "Release Title");
+            String releaseType = columnMapper.extractColumn(columns, "Release Type");
+            List<String> themes = extractThemes(columnMapper, columns);
+            return Result.success(new Song(artist, songTitle, releaseTitle, releaseType, themes));
         }
+    }
+
+    private List<String> extractThemes(ColumnMapper columnMapper, String[] columns) {
+        List<String> themeHeaders = List.of("Theme1", "Theme2", "Theme3", "Theme4");
+        return themeHeaders.stream()
+                           .map(themeHeader -> columnMapper.extractColumn(columns, themeHeader))
+                           .filter(not(String::isEmpty))
+                           .toList();
     }
 
     private boolean tooFewLinesIn(String tsvSongs) {

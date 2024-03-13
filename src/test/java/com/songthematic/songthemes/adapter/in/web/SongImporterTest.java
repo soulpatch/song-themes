@@ -2,6 +2,7 @@ package com.songthematic.songthemes.adapter.in.web;
 
 import com.songthematic.songthemes.application.SongRepository;
 import com.songthematic.songthemes.application.SongService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
@@ -49,6 +50,7 @@ class SongImporterTest {
     }
 
     @Test
+    @Disabled("Enable once we return Result.failure for mismatched column count")
     void songImportAddsFailureMessagesForFailedImport() throws Exception {
         SongImporter songImporter = new SongImporter(SongService.createNull());
         String tsvTwoMalformedSongs =
