@@ -59,7 +59,7 @@ class SongServiceTest {
         SongRepository songRepository = SongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
-        Result result = songService.importSongs(row);
+        Result<Song> result = songService.importSongs(row);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -78,7 +78,7 @@ class SongServiceTest {
         SongRepository songRepository = SongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
-        Result result = songService.importSongs(tsvTwoMalformedSongs);
+        Result<Song> result = songService.importSongs(tsvTwoMalformedSongs);
 
         assertThat(result.isSuccess())
                 .isFalse();

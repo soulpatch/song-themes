@@ -1,5 +1,6 @@
 package com.songthematic.songthemes.application;
 
+import com.songthematic.songthemes.domain.Song;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +27,8 @@ class ColumnMapperTest {
 
         String[] columns = {"1", "2", "3", "4", "5", "6"};
 
-        // assert that extractColumn returns a failure Result instead of an exception
-        Result result = null;
+        // assert that extractColumn returns a failure Result<Song> instead of an exception
+        Result<Song> result = null;
         try {
             String column = columnMapper.extractColumn(columns, "Three");
 //            result = Result.success();

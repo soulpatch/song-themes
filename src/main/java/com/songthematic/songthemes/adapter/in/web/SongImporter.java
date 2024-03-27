@@ -2,6 +2,7 @@ package com.songthematic.songthemes.adapter.in.web;
 
 import com.songthematic.songthemes.application.Result;
 import com.songthematic.songthemes.application.SongService;
+import com.songthematic.songthemes.domain.Song;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,7 @@ public class SongImporter {
         if (tsvSongs == null) {
             return "redirect:/song-import";
         }
-        Result result = songService.importSongs(tsvSongs);
+        Result<Song> result = songService.importSongs(tsvSongs);
         if (result.isSuccess()) {
             return "redirect:/";
         }

@@ -15,14 +15,14 @@ public class TsvSongParser {
     public static final int MAX_COLUMNS_TO_PARSE = 10;
     public static final int MINIMUM_COLUMNS = 3;
 
-    public Result parseAll(String tsvSongs) {
+    public Result<Song> parseAll(String tsvSongs) {
         if (tooFewLinesIn(tsvSongs)) {
             return Result.failure("Must have at least two rows of import data");
         }
         List<String> streamList = tsvSongs.lines().toList();
         String header = streamList.getFirst();
         ColumnMapper columnMapper = new ColumnMapper(header);
-        Map<Boolean, List<Result>> partition = streamList
+        Map<Boolean, List<Result<Song>>> partition = streamList
                 .stream()
                 .skip(1)
                 .filter(not(String::isBlank))
@@ -37,7 +37,7 @@ public class TsvSongParser {
         return Result.failure(failureMessages);
     }
 
-    public Result parseSong(String tsvSong, ColumnMapper columnMapper) {
+    public Result<Song> parseSong(String tsvSong, ColumnMapper columnMapper) {
         String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
 
         String artist = columnMapper.extractColumn(columns, "Artist");
@@ -60,15 +60,15 @@ public class TsvSongParser {
         return tsvSongs.lines().count() <= 1;
     }
 
-    private List<String> mapToFailureMessagesFrom(Map<Boolean, List<Result>> partition) {
+    private List<String> mapToFailureMessagesFrom(Map<Boolean, List<Result<Song>>> partition) {
         return partition
                 .get(Boolean.FALSE)
                 .stream()
-                .flatMap((Result result) -> result.failureMessages().stream())
+                .flatMap((Result<Song> result) -> result.failureMessages().stream())
                 .toList();
     }
 
-    private List<Song> mapToSongsFrom(Map<Boolean, List<Result>> partition) {
+    private List<Song> mapToSongsFrom(Map<Boolean, List<Result<Song>>> partition) {
         return partition
                 .get(Boolean.TRUE)
                 .stream()
@@ -76,11 +76,11 @@ public class TsvSongParser {
                 .toList();
     }
 
-    private boolean hasNoFailures(Map<Boolean, List<Result>> partition) {
+    private boolean hasNoFailures(Map<Boolean, List<Result<Song>>> partition) {
         return partition.get(Boolean.FALSE).isEmpty();
     }
 
-    private Result parseSongWithoutHeader(String tsvSong) {
+    private Result<Song> parseSongWithoutHeader(String tsvSong) {
         String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
         if (columns.length < MINIMUM_COLUMNS) {
             return Result.failure("Number of columns was: "

@@ -20,7 +20,7 @@ class TsvSongParserTest {
         String tsvSongs = "Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parseAll(tsvSongs);
+        Result<Song> result = tsvSongParser.parseAll(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isFalse();
@@ -39,7 +39,7 @@ class TsvSongParserTest {
                         """;
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parseAll(tsvTwoMalformedSongs);
+        Result<Song> result = tsvSongParser.parseAll(tsvTwoMalformedSongs);
 
         assertThat(result.isSuccess())
                 .as("Should not have succeeded but it did")
@@ -58,7 +58,7 @@ class TsvSongParserTest {
         String tsvSongs = header + "Earth, Wind & Fire\tGratitude\tThank You";
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parseAll(tsvSongs);
+        Result<Song> result = tsvSongParser.parseAll(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -78,7 +78,7 @@ class TsvSongParserTest {
         String tsvSongs = TsvSongFactory.createTsvSongsWithHeader("Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parseAll(tsvSongs);
+        Result<Song> result = tsvSongParser.parseAll(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -91,7 +91,7 @@ class TsvSongParserTest {
         String tsvSongs = TsvSongFactory.createTsvSongsWithHeader("DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parseAll(tsvSongs);
+        Result<Song> result = tsvSongParser.parseAll(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -104,7 +104,7 @@ class TsvSongParserTest {
         String tsvSongs = TsvSongFactory.createTsvSongsWithHeader("DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\tNo Thanks\tDontCareContributor");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
-        Result result = tsvSongParser.parseAll(tsvSongs);
+        Result<Song> result = tsvSongParser.parseAll(tsvSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -123,7 +123,7 @@ class TsvSongParserTest {
                                                                """);
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        Result result = tsvSongParser.parseAll(tsvThreeRows);
+        Result<Song> result = tsvSongParser.parseAll(tsvThreeRows);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -140,7 +140,7 @@ class TsvSongParserTest {
                                                               """);
         TsvSongParser tsvSongParser = new TsvSongParser();
 
-        Result result = tsvSongParser.parseAll(tsvTwoSongs);
+        Result<Song> result = tsvSongParser.parseAll(tsvTwoSongs);
 
         assertThat(result.isSuccess())
                 .isTrue();
@@ -162,7 +162,7 @@ class TsvSongParserTest {
             String tsvSong = "Husker Du\tGreen Eyes";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result songResult = tsvSongParser.parseSong(tsvSong, new ColumnMapper("Artist\tSong Title\tTheme1"));
+            Result<Song> songResult = tsvSongParser.parseSong(tsvSong, new ColumnMapper("Artist\tSong Title\tTheme1"));
 
             assertThat(songResult.isSuccess())
                     .isFalse();
@@ -176,7 +176,7 @@ class TsvSongParserTest {
             String tsvSong = "Earth, Wind & Fire\tGratitude\tThank You";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result songResult = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
+            Result<Song> songResult = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
 
             assertThat(songResult.isSuccess())
                     .as("Song with required columns should have succeeded, but did not.")
@@ -191,7 +191,7 @@ class TsvSongParserTest {
             String tsvSong = "Gratitude\tThank You\tEarth, Wind & Fire";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result songResult = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
+            Result<Song> songResult = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
 
             assertThat(songResult.isSuccess())
                     .as("Song with required columns should have succeeded, but did not.")

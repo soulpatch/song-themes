@@ -28,7 +28,7 @@ public class SongService {
         songSearcher = songSearcher.add(song);
     }
 
-    public Result importSongs(String tsvSongs) {
+    public Result<Song> importSongs(String tsvSongs) {
         TsvSongParser tsvSongParser = new TsvSongParser();
         Result<Song> result = tsvSongParser.parseAll(tsvSongs);
         result.values().forEach(this::addSong);
