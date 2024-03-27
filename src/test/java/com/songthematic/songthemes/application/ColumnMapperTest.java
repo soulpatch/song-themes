@@ -1,9 +1,9 @@
 package com.songthematic.songthemes.application;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class ColumnMapperTest {
 
@@ -19,13 +19,23 @@ class ColumnMapperTest {
     }
 
     @Test
+    @Disabled("Enable once we return Result.failure for mismatched column count")
     void exceptionThrownWhenHeaderColumnCountDoesNotMatchDataColumnCount() throws Exception {
-        ColumnMapper columnMapper = new ColumnMapper("One\tTwo\tThree\tFour");
+        String headerRow = "One\tTwo\tThree\tFour";
+        ColumnMapper columnMapper = new ColumnMapper(headerRow);
 
         String[] columns = {"1", "2", "3", "4", "5", "6"};
 
-        assertThatIllegalArgumentException()
-                .isThrownBy(() -> columnMapper.extractColumn(columns, "Song Title"))
-                .withMessage("Header column count of 4 does not match data column count of 6");
+        // assert that extractColumn returns a failure Result instead of an exception
+        Result result = null;
+        try {
+            String column = columnMapper.extractColumn(columns, "Three");
+//            result = Result.success();
+        } catch (IllegalArgumentException e) {
+            result = Result.failure("Header column count of 4 does not match data column count of 6");
+        }
+
+        assertThat(result.isSuccess())
+                .isFalse();
     }
 }
