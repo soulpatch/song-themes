@@ -72,7 +72,7 @@ public class TsvSongParser {
         return partition
                 .get(Boolean.TRUE)
                 .stream()
-                .flatMap(result -> result.songs().stream())
+                .flatMap(result -> result.values().stream())
                 .toList();
     }
 

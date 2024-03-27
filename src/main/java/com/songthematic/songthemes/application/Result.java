@@ -37,7 +37,7 @@ public class Result<T> {
         return new Result<>(failureMessages);
     }
 
-    public List<T> songs() {
+    public List<T> values() {
         return List.copyOf(values);
     }
 
