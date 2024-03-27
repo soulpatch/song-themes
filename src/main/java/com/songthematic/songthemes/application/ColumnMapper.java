@@ -1,5 +1,7 @@
 package com.songthematic.songthemes.application;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +21,18 @@ public final class ColumnMapper {
             return columns[index];
         }
         return "";
+    }
+
+    @NotNull
+    Result<String> extractColumnWithResult(String[] columns, String columnName) {
+        Result<String> result;
+        try {
+            String column = extractColumn(columns, columnName);
+            result = Result.success(column);
+        } catch (IllegalArgumentException e) {
+            result = Result.failure(e.getMessage());
+        }
+        return result;
     }
 
     private void requireMatchingColumnCount(String[] columns) {

@@ -5,13 +5,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class Result<T> {
+public class Result<SUCCESS> {
 
     private final boolean isSuccess;
-    private List<T> values = new ArrayList<>();
+    private List<SUCCESS> values = new ArrayList<>();
     private List<String> failureMessages = new ArrayList<>();
 
-    private Result(Set<T> values) {
+    private Result(Set<SUCCESS> values) {
         this.values.addAll(values);
         isSuccess = true;
     }
@@ -21,23 +21,23 @@ public class Result<T> {
         isSuccess = false;
     }
 
-    static <T> Result<T> success(T value) {
+    static <SUCCESS> Result<SUCCESS> success(SUCCESS value) {
         return new Result<>(Set.of(value));
     }
 
-    static <T> Result<T> success(List<T> values) {
+    static <SUCCESS> Result<SUCCESS> success(List<SUCCESS> values) {
         return new Result<>(Set.copyOf(values));
     }
 
-    static <T> Result<T> failure(String message) {
+    static <SUCCESS> Result<SUCCESS> failure(String message) {
         return new Result<>(Collections.singletonList(message));
     }
 
-    static <T> Result<T> failure(List<String> failureMessages) {
+    static <SUCCESS> Result<SUCCESS> failure(List<String> failureMessages) {
         return new Result<>(failureMessages);
     }
 
-    public List<T> values() {
+    public List<SUCCESS> values() {
         return List.copyOf(values);
     }
 
