@@ -31,9 +31,10 @@ public final class ColumnMapper {
         return result;
     }
 
-    private void requireMatchingColumnCount(String[] columns) {
-        if (headerColumns.size() != columns.length) {
-            throw new IllegalArgumentException("Header column count of %s does not match data column count of %s".formatted(headerColumns.size(), columns.length));
+    private void requireMatchingColumnCount(String[] columnsForRow) {
+        if (headerColumns.size() != columnsForRow.length) {
+            throw new IllegalArgumentException("Number of columns was: %s, must have at least %s, row contains: %s"
+                                                       .formatted(columnsForRow.length, headerColumns.size(), Arrays.toString(columnsForRow)));
         }
     }
 }

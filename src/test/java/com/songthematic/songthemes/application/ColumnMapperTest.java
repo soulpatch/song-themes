@@ -29,7 +29,7 @@ class ColumnMapperTest {
         assertThat(result.isSuccess())
                 .isFalse();
         assertThat(result.failureMessages())
-                .containsExactly("Header column count of 4 does not match data column count of 6");
+                .containsExactly("Number of columns was: 6, must have at least 4, row contains: [1, 2, 3, 4, 5, 6]");
     }
 
 }

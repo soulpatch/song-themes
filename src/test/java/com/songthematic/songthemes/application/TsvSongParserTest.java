@@ -157,7 +157,6 @@ class TsvSongParserTest {
     @Nested
     class ParseSingleSongTest {
         @Test
-        @Disabled("Enable once we return Result.failure for mismatched column count")
         void returnsFailureResultForRowWithNotEnoughColumns() throws Exception {
             String tsvSong = "Husker Du\tGreen Eyes";
             TsvSongParser tsvSongParser = new TsvSongParser();
