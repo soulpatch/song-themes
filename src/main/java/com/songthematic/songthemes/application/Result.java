@@ -1,20 +1,18 @@
 package com.songthematic.songthemes.application;
 
-import com.songthematic.songthemes.domain.Song;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class Result {
+public class Result<T> {
 
     private final boolean isSuccess;
-    private List<Song> songs = new ArrayList<>();
+    private List<T> values = new ArrayList<>();
     private List<String> failureMessages = new ArrayList<>();
 
-    private Result(Set<Song> songs) {
-        this.songs.addAll(songs);
+    private Result(Set<T> values) {
+        this.values.addAll(values);
         isSuccess = true;
     }
 
@@ -23,24 +21,24 @@ public class Result {
         isSuccess = false;
     }
 
-    static Result success(Song song) {
-        return new Result(Set.of(song));
+    static <T> Result<T> success(T value) {
+        return new Result<>(Set.of(value));
     }
 
-    static Result failure(String message) {
-        return new Result(Collections.singletonList(message));
+    static <T> Result<T> success(List<T> values) {
+        return new Result<>(Set.copyOf(values));
     }
 
-    static Result success(List<Song> songs) {
-        return new Result(Set.copyOf(songs));
+    static <T> Result<T> failure(String message) {
+        return new Result<>(Collections.singletonList(message));
     }
 
-    static Result failure(List<String> failureMessages) {
-        return new Result(failureMessages);
+    static <T> Result<T> failure(List<String> failureMessages) {
+        return new Result<>(failureMessages);
     }
 
-    public List<Song> songs() {
-        return List.copyOf(songs);
+    public List<T> songs() {
+        return List.copyOf(values);
     }
 
     public boolean isSuccess() {
