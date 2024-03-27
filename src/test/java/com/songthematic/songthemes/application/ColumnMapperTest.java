@@ -11,10 +11,10 @@ class ColumnMapperTest {
         ColumnMapper columnMapper = new ColumnMapper("Artist\tSong Title\tRelease Title\tRelease Type\tTheme1");
 
         String[] columns = {"Earth, Wind & Fire", "Gratitude", "ReleaseTitle", "ReleaseType", "Thank You"}; // array literal form
-        String column = columnMapper.extractColumn(columns, "ColumnThatDoesNotExist");
+        Result<String> result = columnMapper.extractColumn(columns, "ColumnThatDoesNotExist");
 
-        assertThat(column)
-                .isEmpty();
+        assertThat(result.values())
+                .containsExactly("");
     }
 
     @Test
@@ -24,7 +24,7 @@ class ColumnMapperTest {
 
         String[] columns = {"1", "2", "3", "4", "5", "6"};
 
-        Result<String> result = columnMapper.extractColumnWithResult(columns, "Three");
+        Result<String> result = columnMapper.extractColumn(columns, "Three");
 
         assertThat(result.isSuccess())
                 .isFalse();

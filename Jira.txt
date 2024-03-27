@@ -70,6 +70,7 @@ Increase Song Attributes
                         Release Title, Release Type, Theme2, Theme3, Theme4
             [X] Solve primitive obsession with header in parseSong - columnIndexOf(header...
         >>> [ ] Convert IllegalArgumentException to a Result failure, then enable the Disabled tests
+            [ ] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
 
 [ ] Persist to DB
 

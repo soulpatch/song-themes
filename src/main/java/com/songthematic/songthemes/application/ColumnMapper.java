@@ -13,21 +13,17 @@ public final class ColumnMapper {
         headerColumns = Arrays.asList(parsedHeaderColumns);
     }
 
-    String extractColumn(String[] columns, String columnName) {
-        requireMatchingColumnCount(columns);
-
-        if (headerColumns.contains(columnName)) {
-            int index = headerColumns.indexOf(columnName);
-            return columns[index];
-        }
-        return "";
-    }
-
     @NotNull
-    Result<String> extractColumnWithResult(String[] columns, String columnName) {
+    Result<String> extractColumn(String[] columns, String columnName) {
         Result<String> result;
         try {
-            String column = extractColumn(columns, columnName);
+            String column = "";
+            requireMatchingColumnCount(columns);
+
+            if (headerColumns.contains(columnName)) {
+                int index = headerColumns.indexOf(columnName);
+                column = columns[index];
+            }
             result = Result.success(column);
         } catch (IllegalArgumentException e) {
             result = Result.failure(e.getMessage());

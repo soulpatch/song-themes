@@ -40,18 +40,23 @@ public class TsvSongParser {
     public Result<Song> parseSong(String tsvSong, ColumnMapper columnMapper) {
         String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
 
-        String artist = columnMapper.extractColumn(columns, "Artist");
-        String songTitle = columnMapper.extractColumn(columns, "Song Title");
-        String releaseTitle = columnMapper.extractColumn(columns, "Release Title");
-        String releaseType = columnMapper.extractColumn(columns, "Release Type");
+        Result<String> artist = columnMapper.extractColumn(columns, "Artist");
+        Result<String> songTitle = columnMapper.extractColumn(columns, "Song Title");
+        Result<String> releaseTitle = columnMapper.extractColumn(columns, "Release Title");
+        Result<String> releaseType = columnMapper.extractColumn(columns, "Release Type");
         List<String> themes = extractThemes(columnMapper, columns);
-        return Result.success(new Song(artist, songTitle, releaseTitle, releaseType, themes));
+        return Result.success(new Song(artist.values().getFirst(),
+                                       songTitle.values().getFirst(),
+                                       releaseTitle.values().getFirst(),
+                                       releaseType.values().getFirst(), themes));
     }
 
     private List<String> extractThemes(ColumnMapper columnMapper, String[] columns) {
         List<String> themeHeaders = List.of("Theme1", "Theme2", "Theme3", "Theme4");
         return themeHeaders.stream()
                            .map(themeHeader -> columnMapper.extractColumn(columns, themeHeader))
+                           .filter(Result::isSuccess)
+                           .flatMap(stringResult -> stringResult.values().stream())
                            .filter(not(String::isEmpty))
                            .toList();
     }
