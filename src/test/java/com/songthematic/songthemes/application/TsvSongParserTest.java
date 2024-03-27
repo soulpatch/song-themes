@@ -29,11 +29,10 @@ class TsvSongParserTest {
     }
 
     @Test
-    @Disabled("Enable once we return Result.failure for mismatched column count")
     void parseAllReturnsMultipleFailureMessages() throws Exception {
         String tsvTwoMalformedSongs =
                 """
-                        Artist\tSong Title\tRelease Title
+                        Artist\tSong Title\tRelease Title\tTheme1\tTheme2
                         Blue Oyster Cult\tDon't Fear The Reaper\tAgents of Fortune
                         Kinks\tAround the Dial\tGive The People What They Want
                         """;
@@ -67,7 +66,7 @@ class TsvSongParserTest {
     }
 
     @Test
-    @Disabled
+    @Disabled("Desired functionality, not yet implemented")
     void parseAllReturnsFailureWhenMissingRequiredHeaderColumns() throws Exception {
 
         // assert? isFailure

@@ -14,27 +14,22 @@ public final class ColumnMapper {
     }
 
     @NotNull
-    Result<String> extractColumn(String[] columns, String columnName) {
-        Result<String> result;
-        try {
-            String column = "";
-            requireMatchingColumnCount(columns);
-
-            if (headerColumns.contains(columnName)) {
-                int index = headerColumns.indexOf(columnName);
-                column = columns[index];
-            }
-            result = Result.success(column);
-        } catch (IllegalArgumentException e) {
-            result = Result.failure(e.getMessage());
+    Result<String> extractColumn(String[] rowColumns, String columnName) {
+        if (headerColumnsDoNotMatch(rowColumns)) {
+            return Result.failure("Number of columns was: %s, must have at least %s, row contains: %s"
+                                          .formatted(rowColumns.length, headerColumns.size(), Arrays.toString(rowColumns)));
         }
-        return result;
+
+        String column = "";
+        if (headerColumns.contains(columnName)) {
+            int index = headerColumns.indexOf(columnName);
+            column = rowColumns[index];
+        }
+        return Result.success(column);
     }
 
-    private void requireMatchingColumnCount(String[] columnsForRow) {
-        if (headerColumns.size() != columnsForRow.length) {
-            throw new IllegalArgumentException("Number of columns was: %s, must have at least %s, row contains: %s"
-                                                       .formatted(columnsForRow.length, headerColumns.size(), Arrays.toString(columnsForRow)));
-        }
+    private boolean headerColumnsDoNotMatch(String[] columns) {
+        return headerColumns.size() != columns.length;
     }
+
 }

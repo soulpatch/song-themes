@@ -58,7 +58,6 @@ Increase Song Attributes
             [X] Put the bulk import string back into the import edit box upon failure
             [ ] Split Result into two concrete subclasses for success and failure
             [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
-    >       [ ] Write a custom assert for Result
         [ ] Skip over unused columns (needs a header row)
             [X] Change all tests to include a header row
             [X] Only parse columns that we want
@@ -69,8 +68,10 @@ Increase Song Attributes
                  Note: Theme1 already implemented
                         Release Title, Release Type, Theme2, Theme3, Theme4
             [X] Solve primitive obsession with header in parseSong - columnIndexOf(header...
-        >>> [ ] Convert IllegalArgumentException to a Result failure, then enable the Disabled tests
+            [X] Convert IllegalArgumentException to a Result failure, then enable the Disabled tests
+        >>> [ ] Write a custom assert for Result
             [ ] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
+            [ ] Require that header rows have specific columns
 
 [ ] Persist to DB
 

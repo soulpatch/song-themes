@@ -31,5 +31,4 @@ class ColumnMapperTest {
         assertThat(result.failureMessages())
                 .containsExactly("Number of columns was: 6, must have at least 4, row contains: [1, 2, 3, 4, 5, 6]");
     }
-
 }
