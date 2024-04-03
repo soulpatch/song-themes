@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static com.songthematic.songthemes.application.ResultAssertions.assertThat;
+
 
 class SongServiceTest {
 
@@ -60,8 +61,8 @@ class SongServiceTest {
 
         Result<Song> result = songService.importSongs(row);
 
-        assertThat(result.isSuccess())
-                .isTrue();
+        assertThat(result)
+                .isSuccess();
         assertThat(songRepository.allSongs())
                 .containsExactlyInAnyOrder(SongFactory.createSong("Screaming Tribesmen", "Date with a Vampyre", "", "", "Halloween", "Vampires"),
                                            SongFactory.createSong("Unnatural Axe", "They Saved Hitler's Brain", "Is Gonna Kick Your Ass", "", "Halloween"));
@@ -79,7 +80,7 @@ class SongServiceTest {
 
         Result<Song> result = songService.importSongs(tsvTwoMalformedSongs);
 
-        assertThat(result.isSuccess())
-                .isFalse();
+        assertThat(result)
+                .isFailure();
     }
 }
