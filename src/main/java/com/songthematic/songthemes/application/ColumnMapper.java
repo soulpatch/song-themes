@@ -4,11 +4,14 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public final class ColumnMapper {
     private final List<String> headerColumns;
+    private final Set<String> requiredColumns;
 
     public ColumnMapper(String header) {
+        requiredColumns = Set.of("Artist", "Song Title", "Theme1");
         String[] parsedHeaderColumns = header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE);
         headerColumns = Arrays.asList(parsedHeaderColumns);
     }
@@ -20,12 +23,18 @@ public final class ColumnMapper {
                                           .formatted(rowColumns.length, headerColumns.size(), Arrays.toString(rowColumns)));
         }
 
-        String column = "";
         if (headerColumns.contains(columnName)) {
             int index = headerColumns.indexOf(columnName);
-            column = rowColumns[index];
+            String column = rowColumns[index];
+            return Result.success(column);
+        } else if (isOptionalColumn(columnName)) {
+            return Result.success("");
         }
-        return Result.success(column);
+        return Result.failure("");
+    }
+
+    private boolean isOptionalColumn(String columnName) {
+        return !requiredColumns.contains(columnName);
     }
 
     private boolean headerColumnsDoNotMatch(String[] columns) {

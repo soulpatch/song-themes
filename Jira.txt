@@ -71,9 +71,11 @@ Increase Song Attributes
             [X] Convert IllegalArgumentException to a Result failure, then enable the Disabled tests
                     If validating user input, return a Result like object
                     Otherwise, throw an exception
-        >>> [ ] Write a custom assert for Result
-            [ ] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
-            [ ] Require that header rows have specific columns
+            [X] Write a custom assert for Result
+            [X] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
+        >>> [ ] Require that header rows have specific columns
+                [ ] Handle missing Song Title at the TsvSongParser level
+            [ ] If Release Type is Compilation, then Release Title becomes required
 
 [ ] Persist to DB
 
