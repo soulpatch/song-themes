@@ -169,8 +169,8 @@ class TsvSongParserTest {
 
             assertThat(songResult)
                     .as("Song with required columns should have succeeded, but did not.")
-                    .isSuccess();
-            assertThat(songResult.values())
+                    .isSuccess()
+                    .values()
                     .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You")));
         }
 
