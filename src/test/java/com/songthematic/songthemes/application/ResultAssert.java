@@ -34,4 +34,8 @@ public class ResultAssert extends AbstractAssert<ResultAssert, Result<Song>> {
     public CollectionAssert<Song> values() {
         return new CollectionAssert<>(actual.values());
     }
+
+    public CollectionAssert<String> messages() {
+        return new CollectionAssert<>(actual.failureMessages());
+    }
 }

@@ -20,8 +20,8 @@ class TsvSongParserTest {
         Result<Song> result = tsvSongParser.parseAll(tsvSongs);
 
         assertThat(result)
-                .isFailure();
-        assertThat(result.failureMessages())
+                .isFailure()
+                .messages()
                 .containsExactly("Must have at least two rows of import data");
     }
 
@@ -38,8 +38,8 @@ class TsvSongParserTest {
         Result<Song> result = tsvSongParser.parseAll(tsvTwoMalformedSongs);
 
         assertThat(result)
-                .isFailure();
-        assertThat(result.failureMessages())
+                .isFailure()
+                .messages()
                 .hasSize(2)
                 .containsExactly("Number of columns was: 3, must have at least 5, row contains: [Blue Oyster Cult, Don't Fear The Reaper, Agents of Fortune]",
                                  "Number of columns was: 3, must have at least 5, row contains: [Kinks, Around the Dial, Give The People What They Want]");
@@ -73,8 +73,9 @@ class TsvSongParserTest {
         TsvSongParser tsvSongParser = new TsvSongParser();
         Result<Song> result = tsvSongParser.parseAll(tsvSongs);
 
-        assertThat(result).isSuccess();
-        assertThat(result.values())
+        assertThat(result)
+                .isSuccess()
+                .values()
                 .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "ReleaseTitle", "ReleaseType", List.of("Thank You", "Thanks", "Gratitude", "Theme4")));
     }
 
@@ -85,8 +86,9 @@ class TsvSongParserTest {
         TsvSongParser tsvSongParser = new TsvSongParser();
         Result<Song> result = tsvSongParser.parseAll(tsvSongs);
 
-        assertThat(result).isSuccess();
-        assertThat(result.values())
+        assertThat(result)
+                .isSuccess()
+                .values()
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
     }
 
@@ -97,8 +99,9 @@ class TsvSongParserTest {
         TsvSongParser tsvSongParser = new TsvSongParser();
         Result<Song> result = tsvSongParser.parseAll(tsvSongs);
 
-        assertThat(result).isSuccess();
-        assertThat(result.values())
+        assertThat(result)
+                .isSuccess()
+                .values()
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You", "No Thanks")));
     }
 
@@ -115,8 +118,9 @@ class TsvSongParserTest {
 
         Result<Song> result = tsvSongParser.parseAll(tsvThreeRows);
 
-        assertThat(result).isSuccess();
-        assertThat(result.values())
+        assertThat(result)
+                .isSuccess()
+                .values()
                 .as("expecting 2 songs")
                 .hasSize(2);
     }
@@ -132,8 +136,8 @@ class TsvSongParserTest {
         Result<Song> result = tsvSongParser.parseAll(tsvTwoSongs);
 
         assertThat(result)
-                .isSuccess();
-        assertThat(result.values())
+                .isSuccess()
+                .values()
                 .as("expecting 2 songs")
                 .hasSize(2)
                 .as("unexpected song content")
@@ -154,8 +158,8 @@ class TsvSongParserTest {
 
 
             assertThat(songResult)
-                    .isFailure();
-            assertThat(songResult.failureMessages())
+                    .isFailure()
+                    .messages()
                     .containsExactly("Number of columns was: 2, must have at least 3, row contains: [Husker Du, Green Eyes]");
         }
 
@@ -184,8 +188,8 @@ class TsvSongParserTest {
 
             assertThat(songResult)
                     .as("Song with required columns should have succeeded, but did not.")
-                    .isSuccess();
-            assertThat(songResult.values())
+                    .isSuccess()
+                    .values()
                     .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You")));
         }
     }
