@@ -11,10 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class TsvSongParserTest {
 
-    // * number of columns in header match number of columns for song data?
-    // * Song has required fields
-    // * Make sure Songs is not empty when Success is True
-
     @Test
     void parseAllReturnFailureWhenFewerThanTwoRows() throws Exception {
         String tsvSongs = "Earth, Wind & Fire\tGratitude\tReleaseTitle\tReleaseType\tSkippedNotes\tThank You\tThanks\tGratitude\tTheme4\tRizzi";
@@ -49,9 +45,7 @@ class TsvSongParserTest {
                                  "Number of columns was: 3, must have at least 5, row contains: [Kinks, Around the Dial, Give The People What They Want]");
     }
 
-    // * Does the header row have the 8 required columns
     @Test
-//    @Disabled("Can enable once the header is fully parsed")
     void parseAllReturnsSuccessWhenHeaderRowHasRequiredColumns() throws Exception {
         String header = "Artist\tSong Title\tTheme1\n";
         String tsvSongs = header + "Earth, Wind & Fire\tGratitude\tThank You";

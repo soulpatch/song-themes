@@ -69,6 +69,8 @@ Increase Song Attributes
                         Release Title, Release Type, Theme2, Theme3, Theme4
             [X] Solve primitive obsession with header in parseSong - columnIndexOf(header...
             [X] Convert IllegalArgumentException to a Result failure, then enable the Disabled tests
+                    If validating user input, return a Result like object
+                    Otherwise, throw an exception
         >>> [ ] Write a custom assert for Result
             [ ] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
             [ ] Require that header rows have specific columns
