@@ -39,18 +39,13 @@ class ColumnMapperTest {
     }
 
     @Test
-    void twoFailureMessagesWhenMissingTwoRequiredColumns() throws Exception {
-
-    }
-
-    @Test
     void failureWhenHeaderColumnCountDoesNotMatchDataColumnCount() throws Exception {
         String headerRow = "One\tTwo\tThree\tFour";
         ColumnMapper columnMapper = new ColumnMapper(headerRow);
 
         String[] columns = {"1", "2", "3", "4", "5", "6"};
 
-        Result<String> result = columnMapper.extractColumn(columns, "Three");
+        Result<String> result = columnMapper.validateColumnsMatch(columns);
 
         assertThat(result.isSuccess())
                 .isFalse();

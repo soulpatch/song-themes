@@ -76,6 +76,8 @@ Increase Song Attributes
             [X] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
         >>> [ ] Require that header rows have specific columns
                 [ ] Handle missing Song Title at the TsvSongParser level
+                [ ] parseAllReturnsMultipleFailureMessages() - fix failure message ...5?
+                    [ ] returnsFailureResultForRowWithNotEnoughColumns()
                 [ ] Handle multiple themes
             [ ] If Release Type is Compilation, then Release Title becomes required
 

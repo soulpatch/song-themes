@@ -18,10 +18,6 @@ public final class ColumnMapper {
 
     @NotNull
     Result<String> extractColumn(String[] rowColumns, String columnName) {
-        if (headerColumnsDoNotMatch(rowColumns)) {
-            return Result.failure("Number of columns was: %s, must have at least %s, row contains: %s"
-                                          .formatted(rowColumns.length, headerColumns.size(), Arrays.toString(rowColumns)));
-        }
 
         if (headerColumns.contains(columnName)) {
             int index = headerColumns.indexOf(columnName);
@@ -31,6 +27,14 @@ public final class ColumnMapper {
             return Result.success("");
         }
         return Result.failure("Missing required column: \"" + columnName + "\"");
+    }
+
+    public Result<String> validateColumnsMatch(String[] rowColumns) {
+        if (headerColumnsDoNotMatch(rowColumns)) {
+            return Result.failure("Number of columns was: %s, must have at least %s, row contains: %s"
+                                          .formatted(rowColumns.length, headerColumns.size(), Arrays.toString(rowColumns)));
+        }
+        return Result.success("");
     }
 
     private boolean isOptionalColumn(String columnName) {

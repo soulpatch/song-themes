@@ -2,8 +2,6 @@ package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,7 +11,6 @@ import static java.util.function.Predicate.not;
 public class TsvSongParser {
 
     public static final int MAX_COLUMNS_TO_PARSE = 10;
-    public static final int MINIMUM_COLUMNS = 3;
 
     public Result<Song> parseAll(String tsvSongs) {
         if (tooFewLinesIn(tsvSongs)) {
@@ -40,17 +37,21 @@ public class TsvSongParser {
     public Result<Song> parseSong(String tsvSong, ColumnMapper columnMapper) {
         String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
 
+        Result<String> result = columnMapper.validateColumnsMatch(columns);
+        if (!result.isSuccess()) {
+            return Result.failure(result.failureMessages());
+        }
+
         Result<String> artist = columnMapper.extractColumn(columns, "Artist");
         Result<String> songTitle = columnMapper.extractColumn(columns, "Song Title");
         Result<String> releaseTitle = columnMapper.extractColumn(columns, "Release Title");
         Result<String> releaseType = columnMapper.extractColumn(columns, "Release Type");
         List<String> themes = extractThemes(columnMapper, columns);
-        if (artist.isSuccess()) {
+        if (artist.isSuccess() && songTitle.isSuccess()) {
             return Result.success(new Song(artist.values().getFirst(),
                                            songTitle.values().getFirst(),
                                            releaseTitle.values().getFirst(),
                                            releaseType.values().getFirst(), themes));
-
         }
         return Result.failure(artist.failureMessages());
     }
@@ -89,42 +90,4 @@ public class TsvSongParser {
         return partition.get(Boolean.FALSE).isEmpty();
     }
 
-    private Result<Song> parseSongWithoutHeader(String tsvSong) {
-        String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
-        if (columns.length < MINIMUM_COLUMNS) {
-            return Result.failure("Number of columns was: "
-                                          + columns.length
-                                          + ", must have at least " + MINIMUM_COLUMNS
-                                          + ", row contains: " + Arrays.toString(columns));
-        }
-
-        String artist = columns[0];
-        String songTitle = columns[1];
-        String releaseTitle = columns[2];
-        String releaseType = "";
-        if (columns.length > 3) {
-            releaseType = columns[3];
-        }
-        if (columns.length > 4) {
-            List<String> themes = parseThemes(columns);
-            Song song = new Song(artist, songTitle, releaseTitle, releaseType, themes);
-            return Result.success(song);
-        } else {
-            return Result.failure("Number of columns was: "
-                                          + columns.length
-                                          + ", must have at least 5, row contains: " + Arrays.toString(columns));
-        }
-    }
-
-    private List<String> parseThemes(String[] columns) {
-        List<String> themes = new ArrayList<>();
-
-        for (int i = 5; i <= 8; i++) {
-            if (columns[i].isEmpty()) {
-                break;
-            }
-            themes.add(columns[i]);
-        }
-        return themes;
-    }
 }

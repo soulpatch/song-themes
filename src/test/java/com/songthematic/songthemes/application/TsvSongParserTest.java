@@ -80,7 +80,7 @@ class TsvSongParserTest {
     }
 
     @Test
-    void parseSongWithOnlyOneThemeHasOneTheme() throws Exception {
+    void parseAllForSongWithOnlyOneThemeHasOneTheme() throws Exception {
         String tsvSongs = TsvSongFactory.createTsvSongsWithHeader("DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor");
 
         TsvSongParser tsvSongParser = new TsvSongParser();
@@ -154,10 +154,9 @@ class TsvSongParserTest {
             String tsvSong = "Husker Du\tGreen Eyes";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result<Song> songResult = tsvSongParser.parseSong(tsvSong, new ColumnMapper("Artist\tSong Title\tTheme1"));
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, new ColumnMapper("Artist\tSong Title\tTheme1"));
 
-
-            assertThat(songResult)
+            assertThat(result)
                     .isFailure()
                     .messages()
                     .containsExactly("Number of columns was: 2, must have at least 3, row contains: [Husker Du, Green Eyes]");
@@ -169,9 +168,9 @@ class TsvSongParserTest {
             String tsvSong = "Earth, Wind & Fire\tGratitude\tThank You";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result<Song> songResult = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
 
-            assertThat(songResult)
+            assertThat(result)
                     .as("Song with required columns should have succeeded, but did not.")
                     .isSuccess()
                     .values()
@@ -184,13 +183,45 @@ class TsvSongParserTest {
             String tsvSong = "Gratitude\tThank You\tEarth, Wind & Fire";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result<Song> songResult = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
 
-            assertThat(songResult)
+            assertThat(result)
                     .as("Song with required columns should have succeeded, but did not.")
                     .isSuccess()
                     .values()
                     .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You")));
         }
+
+        @Test
+        void oneFailureMessageWhenOneRequiredColumnMissing() throws Exception {
+            String header = "Song Title\tTheme1";
+            String tsvSong = "Gratitude\tThank You";
+            TsvSongParser tsvSongParser = new TsvSongParser();
+
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
+
+            assertThat(result)
+                    .isFailure()
+                    .messages()
+                    .containsExactly("Missing required column: \"Artist\"");
+        }
+
+        @Test
+        @Disabled("need to fix required column failure collection")
+        void twoFailureMessagesWhenMissingTwoRequiredColumns() throws Exception {
+            String header = "Theme1";
+            String tsvSong = "Thank You";
+            TsvSongParser tsvSongParser = new TsvSongParser();
+
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
+
+            assertThat(result)
+                    .isFailure()
+                    .messages()
+                    .hasSize(2)
+                    .containsExactlyInAnyOrder("Missing required column: \"Artist\"",
+                                               "Missing required column: \"Song Title\"");
+        }
+
     }
 }
