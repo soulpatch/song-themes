@@ -41,8 +41,8 @@ class TsvSongParserTest {
                 .isFailure()
                 .messages()
                 .hasSize(2)
-                .containsExactly("Number of columns was: 3, must have at least 5, row contains: [Blue Oyster Cult, Don't Fear The Reaper, Agents of Fortune]",
-                                 "Number of columns was: 3, must have at least 5, row contains: [Kinks, Around the Dial, Give The People What They Want]");
+                .containsExactly("Number of columns was 3, row contains: [Blue Oyster Cult, Don't Fear The Reaper, Agents of Fortune]. Must have columns matching the 5 header columns [Artist, Song Title, Release Title, Theme1, Theme2].",
+                                 "Number of columns was 3, row contains: [Kinks, Around the Dial, Give The People What They Want]. Must have columns matching the 5 header columns [Artist, Song Title, Release Title, Theme1, Theme2].");
     }
 
     @Test
@@ -159,7 +159,7 @@ class TsvSongParserTest {
             assertThat(result)
                     .isFailure()
                     .messages()
-                    .containsExactly("Number of columns was: 2, must have at least 3, row contains: [Husker Du, Green Eyes]");
+                    .containsExactly("Number of columns was 2, row contains: [Husker Du, Green Eyes]. Must have columns matching the 3 header columns [Artist, Song Title, Theme1].");
         }
 
         @Test

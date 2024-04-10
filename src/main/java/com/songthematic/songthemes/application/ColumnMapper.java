@@ -31,8 +31,8 @@ public final class ColumnMapper {
 
     public Result<String> validateColumnsMatch(String[] rowColumns) {
         if (headerColumnsDoNotMatch(rowColumns)) {
-            return Result.failure("Number of columns was: %s, must have at least %s, row contains: %s"
-                                          .formatted(rowColumns.length, headerColumns.size(), Arrays.toString(rowColumns)));
+            return Result.failure("Number of columns was %s, row contains: %s. Must have columns matching the %s header columns %s."
+                                          .formatted(rowColumns.length, Arrays.toString(rowColumns), headerColumns.size(), headerColumns));
         }
         return Result.success("");
     }

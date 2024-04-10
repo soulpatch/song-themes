@@ -50,6 +50,6 @@ class ColumnMapperTest {
         assertThat(result.isSuccess())
                 .isFalse();
         assertThat(result.failureMessages())
-                .containsExactly("Number of columns was: 6, must have at least 4, row contains: [1, 2, 3, 4, 5, 6]");
+                .containsExactly("Number of columns was 6, row contains: [1, 2, 3, 4, 5, 6]. Must have columns matching the 4 header columns [One, Two, Three, Four].");
     }
 }
