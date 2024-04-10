@@ -78,7 +78,7 @@ Increase Song Attributes
                 [X] Handle missing Song Title at the TsvSongParser level
                 [X] parseAllReturnsMultipleFailureMessages() - fix failure message ...5?
                     [X] returnsFailureResultForRowWithNotEnoughColumns()
-                [ ] Handle multiple themes
+        >>>>    [ ] Handle multiple themes -- currently failureWhenMissingTheme1()
             [ ] If Release Type is Compilation, then Release Title becomes required
 
 [ ] Persist to DB

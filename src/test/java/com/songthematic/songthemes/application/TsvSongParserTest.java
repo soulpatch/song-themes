@@ -223,7 +223,6 @@ class TsvSongParserTest {
         }
 
         @Test
-        @Disabled("need to figure out what's up with blerg")
         void failureWhenMissingTheme1() throws Exception {
             String header = "Artist\tSong Title";
             String tsvSong = "Earth, Wind & Fire\tGratitude";
