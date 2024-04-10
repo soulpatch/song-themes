@@ -2,6 +2,7 @@ package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -53,7 +54,10 @@ public class TsvSongParser {
                                            releaseTitle.values().getFirst(),
                                            releaseType.values().getFirst(), themes));
         }
-        return Result.failure(artist.failureMessages());
+        List<String> failureMessages = new ArrayList<>();
+        failureMessages.addAll(artist.failureMessages());
+        failureMessages.addAll(songTitle.failureMessages());
+        return Result.failure(failureMessages);
     }
 
     private List<String> extractThemes(ColumnMapper columnMapper, String[] columns) {

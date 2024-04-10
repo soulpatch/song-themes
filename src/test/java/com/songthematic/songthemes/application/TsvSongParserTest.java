@@ -207,7 +207,6 @@ class TsvSongParserTest {
         }
 
         @Test
-        @Disabled("need to fix required column failure collection")
         void twoFailureMessagesWhenMissingTwoRequiredColumns() throws Exception {
             String header = "Theme1";
             String tsvSong = "Thank You";
