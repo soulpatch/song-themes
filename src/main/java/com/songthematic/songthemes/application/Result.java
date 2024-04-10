@@ -3,49 +3,76 @@ package com.songthematic.songthemes.application;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
-public class Result<SUCCESS> {
-
-    private final boolean isSuccess;
-    private List<SUCCESS> values = new ArrayList<>();
-    private List<String> failureMessages = new ArrayList<>();
-
-    private Result(Set<SUCCESS> values) {
-        this.values.addAll(values);
-        isSuccess = true;
-    }
-
-    private Result(List<String> failureMessage) {
-        this.failureMessages.addAll(failureMessage);
-        isSuccess = false;
-    }
+public sealed abstract class Result<SUCCESS>
+//        permits Result.SuccessResult, Result.FailureResult
+{
 
     static <SUCCESS> Result<SUCCESS> success(SUCCESS value) {
-        return new Result<>(Set.of(value));
+        return new SuccessResult<>(List.of(value));
     }
 
     static <SUCCESS> Result<SUCCESS> success(List<SUCCESS> values) {
-        return new Result<>(Set.copyOf(values));
+        return new SuccessResult<>(List.copyOf(values));
     }
 
     static <SUCCESS> Result<SUCCESS> failure(String message) {
-        return new Result<>(Collections.singletonList(message));
+        return new FailureResult<>(Collections.singletonList(message));
     }
 
     static <SUCCESS> Result<SUCCESS> failure(List<String> failureMessages) {
-        return new Result<>(failureMessages);
+        return new FailureResult<>(failureMessages);
     }
 
-    public List<SUCCESS> values() {
-        return List.copyOf(values);
+    private static final class SuccessResult<SUCCESS> extends Result<SUCCESS> {
+        private final List<SUCCESS> values = new ArrayList<>();
+
+        private SuccessResult(List<SUCCESS> values) {
+            this.values.addAll(values);
+        }
+
+        @Override
+        public boolean isSuccess() {
+            return true;
+        }
+
+        @Override
+        public List<SUCCESS> values() {
+            return values;
+        }
+
+        @Override
+        public List<String> failureMessages() {
+            return Collections.emptyList();
+        }
     }
 
-    public boolean isSuccess() {
-        return isSuccess;
+    private static final class FailureResult<SUCCESS> extends Result<SUCCESS> {
+        private final List<String> failureMessages = new ArrayList<>();
+
+        private FailureResult(List<String> failureMessage) {
+            this.failureMessages.addAll(failureMessage);
+        }
+
+        @Override
+        public boolean isSuccess() {
+            return false;
+        }
+
+        @Override
+        public List<SUCCESS> values() {
+            return Collections.emptyList();
+        }
+
+        @Override
+        public List<String> failureMessages() {
+            return List.copyOf(failureMessages);
+        }
     }
 
-    public List<String> failureMessages() {
-        return List.copyOf(failureMessages);
-    }
+    public abstract List<SUCCESS> values();
+
+    public abstract boolean isSuccess();
+
+    public abstract List<String> failureMessages();
 }

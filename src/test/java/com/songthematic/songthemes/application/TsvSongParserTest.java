@@ -150,7 +150,7 @@ class TsvSongParserTest {
     @Nested
     class ParseSingleSongTest {
         @Test
-        void returnsFailureResultForRowWithNotEnoughColumns() throws Exception {
+        void failureResultForRowWithNotEnoughColumns() throws Exception {
             String tsvSong = "Husker Du\tGreen Eyes";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
@@ -163,7 +163,7 @@ class TsvSongParserTest {
         }
 
         @Test
-        void returnsSuccessForRowWithRequiredColumns() throws Exception {
+        void successForRowWithRequiredColumns() throws Exception {
             String header = "Artist\tSong Title\tTheme1";
             String tsvSong = "Earth, Wind & Fire\tGratitude\tThank You";
             TsvSongParser tsvSongParser = new TsvSongParser();
@@ -178,7 +178,7 @@ class TsvSongParserTest {
         }
 
         @Test
-        void returnsSuccessForRowWithRequiredColumnsInDifferentOrder() throws Exception {
+        void successForRowWithRequiredColumnsInDifferentOrder() throws Exception {
             String header = "Song Title\tTheme1\tArtist";
             String tsvSong = "Gratitude\tThank You\tEarth, Wind & Fire";
             TsvSongParser tsvSongParser = new TsvSongParser();
@@ -222,5 +222,17 @@ class TsvSongParserTest {
                                                "Missing required column: \"Song Title\"");
         }
 
+        @Test
+        @Disabled("need to figure out what's up with blerg")
+        void failureWhenMissingTheme1() throws Exception {
+            String header = "Artist\tSong Title";
+            String tsvSong = "Earth, Wind & Fire\tGratitude";
+            TsvSongParser tsvSongParser = new TsvSongParser();
+
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
+
+            assertThat(result)
+                    .isFailure();
+        }
     }
 }

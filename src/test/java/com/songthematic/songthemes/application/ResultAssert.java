@@ -25,7 +25,7 @@ public class ResultAssert extends AbstractAssert<ResultAssert, Result<Song>> {
     public ResultAssert isFailure() {
         isNotNull();
 
-        describedAs("Should not have succeeded but it did");
+        describedAs("Succeeded, but should have failed");
         Booleans.instance().assertEqual(info, actual.isSuccess(), false);
 
         return myself;

@@ -18,7 +18,6 @@ public final class ColumnMapper {
 
     @NotNull
     Result<String> extractColumn(String[] rowColumns, String columnName) {
-
         if (headerColumns.contains(columnName)) {
             int index = headerColumns.indexOf(columnName);
             String column = rowColumns[index];
@@ -44,5 +43,4 @@ public final class ColumnMapper {
     private boolean headerColumnsDoNotMatch(String[] columns) {
         return headerColumns.size() != columns.length;
     }
-
 }
