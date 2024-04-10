@@ -1,6 +1,8 @@
 package com.songthematic.songthemes.application;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,21 +20,31 @@ class ColumnMapperTest {
                 .containsExactly("");
     }
 
-    @Test
-    void failureWhenRequiredColumnDoesNotExist() throws Exception {
-        ColumnMapper columnMapper = new ColumnMapper("Artist\tRelease Title\tTheme1");
+    @ParameterizedTest
+    @CsvSource({
+            "Song Title, Missing required column: \"Song Title\", Artist\tRelease Title\tTheme1",
+            "Artist, Missing required column: \"Artist\", Song Title\tRelease Title\tTheme1"
+    })
+    void failureWhenMissingOneRequiredColumn(String requiredColumnName, String failureMessage, String header) throws Exception {
+        ColumnMapper columnMapper = new ColumnMapper(header);
 
         String[] columns = {"Earth, Wind & Fire", "Greatest Hits", "Thank You"};
-        String requiredColumnName = "Song Title";
         Result<String> result = columnMapper.extractColumn(columns, requiredColumnName);
 
         assertThat(result.isSuccess())
                 .as("Expected success to be false because required column is missing")
                 .isFalse();
+        assertThat(result.failureMessages())
+                .containsExactly(failureMessage);
     }
 
     @Test
-    void returnFailureWhenHeaderColumnCountDoesNotMatchDataColumnCount() throws Exception {
+    void twoFailureMessagesWhenMissingTwoRequiredColumns() throws Exception {
+
+    }
+
+    @Test
+    void failureWhenHeaderColumnCountDoesNotMatchDataColumnCount() throws Exception {
         String headerRow = "One\tTwo\tThree\tFour";
         ColumnMapper columnMapper = new ColumnMapper(headerRow);
 

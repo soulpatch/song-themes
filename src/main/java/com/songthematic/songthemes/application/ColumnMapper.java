@@ -30,7 +30,7 @@ public final class ColumnMapper {
         } else if (isOptionalColumn(columnName)) {
             return Result.success("");
         }
-        return Result.failure("");
+        return Result.failure("Missing required column: \"" + columnName + "\"");
     }
 
     private boolean isOptionalColumn(String columnName) {

@@ -22,6 +22,7 @@ Adapter
 
 [X] Package up according to Hexagonal Architecture
 [X] First push of behavior to production!
+[X] Move songThemesByTitle into the adapter
 
 Add a Song with a Theme
 [X] Add a song that doesn't exist to the database
@@ -75,18 +76,10 @@ Increase Song Attributes
             [X] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
         >>> [ ] Require that header rows have specific columns
                 [ ] Handle missing Song Title at the TsvSongParser level
+                [ ] Handle multiple themes
             [ ] If Release Type is Compilation, then Release Title becomes required
 
 [ ] Persist to DB
-
-
-    What is a song? (which episode did we discuss this?) -- * means Required data
-        Theme(s) *  (require at least one)
-        Artist *
-        Song Title *
-        Release Title  (UI could say something Album or Single Title)
-        Release Type (Compilation, Soundtrack) - consider better name later
-
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
@@ -99,11 +92,6 @@ Increase Song Attributes
     [X] UI for bulk import, protected for admin role -- simple edit box for tab delimited Excel copy data source
     [ ] Rethink SongSearcher domain design (specifically it's immutability)
     [ ] Add ArchUnit checking
-
-[X] Move songThemesByTitle into the adapter
-
-
-Saff Squeeze
 
 UI
 [ ] Adding Song via the UI
@@ -122,6 +110,16 @@ V0.4 -
 
 
 STREAM AD HOC NOTES
+    What is a song? (which episode did we discuss this?) -- * means Required data
+        Theme(s) *  (require at least one)
+        Artist *
+        Song Title *
+        Release Title  (UI could say something Album or Single Title)
+        Release Type (Compilation, Soundtrack) - consider better name later
+
+Saff Squeeze
+
+
 2024 Jan 6 - Episode #10
 
 2024 Jan 3 - Episode #9
