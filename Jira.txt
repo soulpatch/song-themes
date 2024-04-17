@@ -74,14 +74,23 @@ Increase Song Attributes
                     Otherwise, throw an exception
             [X] Write a custom assert for Result
             [X] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
-        >>> [ ] Require that header rows have specific columns
+        >>> [X] Require that header rows have specific columns
                 [X] Handle missing Song Title at the TsvSongParser level
                 [X] parseAllReturnsMultipleFailureMessages() - fix failure message ...5?
                     [X] returnsFailureResultForRowWithNotEnoughColumns()
-        >>>>    [ ] Handle multiple themes -- currently failureWhenMissingTheme1()
+                [X] Handle multiple themes -- currently failureWhenMissingTheme1()
+
             [ ] If Release Type is Compilation, then Release Title becomes required
 
+        [ ] Create Result combinator to help refactor the HUGE parseSong() method -- which has lots of duplication
+
 [ ] Persist to DB
+    [ ] Move SongSearcher searching into SongRepository
+    [ ] Extract a port interface for SongRepository
+    [ ] Implement a JDBC Adapter
+
+
+[ ] Add ArchUnit checking
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
@@ -93,7 +102,6 @@ Increase Song Attributes
 
     [X] UI for bulk import, protected for admin role -- simple edit box for tab delimited Excel copy data source
     [ ] Rethink SongSearcher domain design (specifically it's immutability)
-    [ ] Add ArchUnit checking
 
 UI
 [ ] Adding Song via the UI

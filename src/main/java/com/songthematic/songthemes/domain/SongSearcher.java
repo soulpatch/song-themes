@@ -8,7 +8,11 @@ public class SongSearcher {
     private final Map<String, List<Song>> themeToSongsMap = new HashMap<>();
 
     private SongSearcher(Song... songs) {
-        for (Song song : songs) {
+        index(Arrays.asList(songs));
+    }
+
+    private void index(List<Song> songList) {
+        for (Song song : songList) {
             for (String theme : song.themes()) {
                 themeToSongsMap.computeIfAbsent(theme.toLowerCase(), ignored -> new ArrayList<>())
                                .add(song);
