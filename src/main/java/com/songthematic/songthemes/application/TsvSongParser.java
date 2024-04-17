@@ -39,7 +39,7 @@ public class TsvSongParser {
         String[] columns = tsvSong.split("\t", MAX_COLUMNS_TO_PARSE);
 
         Result<String> result = columnMapper.validateColumnsMatch(columns);
-        if (!result.isSuccess()) {
+        if (result.isFailure()) {
             return Result.failure(result.failureMessages());
         }
 

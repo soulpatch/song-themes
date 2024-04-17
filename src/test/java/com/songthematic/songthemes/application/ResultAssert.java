@@ -31,11 +31,11 @@ public class ResultAssert extends AbstractAssert<ResultAssert, Result<Song>> {
         return myself;
     }
 
-    public CollectionAssert<Song> values() {
+    public CollectionAssert<Song> successValues() {
         return new CollectionAssert<>(actual.values());
     }
 
-    public CollectionAssert<String> messages() {
+    public CollectionAssert<String> failureMessages() {
         return new CollectionAssert<>(actual.failureMessages());
     }
 }

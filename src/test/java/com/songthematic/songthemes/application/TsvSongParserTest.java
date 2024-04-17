@@ -21,7 +21,7 @@ class TsvSongParserTest {
 
         assertThat(result)
                 .isFailure()
-                .messages()
+                .failureMessages()
                 .containsExactly("Must have at least two rows of import data");
     }
 
@@ -39,7 +39,7 @@ class TsvSongParserTest {
 
         assertThat(result)
                 .isFailure()
-                .messages()
+                .failureMessages()
                 .hasSize(2)
                 .containsExactly("Number of columns was 3, row contains: [Blue Oyster Cult, Don't Fear The Reaper, Agents of Fortune]. Must have columns matching the 5 header columns [Artist, Song Title, Release Title, Theme1, Theme2].",
                                  "Number of columns was 3, row contains: [Kinks, Around the Dial, Give The People What They Want]. Must have columns matching the 5 header columns [Artist, Song Title, Release Title, Theme1, Theme2].");
@@ -75,7 +75,7 @@ class TsvSongParserTest {
 
         assertThat(result)
                 .isSuccess()
-                .values()
+                .successValues()
                 .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "ReleaseTitle", "ReleaseType", List.of("Thank You", "Thanks", "Gratitude", "Theme4")));
     }
 
@@ -88,7 +88,7 @@ class TsvSongParserTest {
 
         assertThat(result)
                 .isSuccess()
-                .values()
+                .successValues()
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You")));
     }
 
@@ -101,7 +101,7 @@ class TsvSongParserTest {
 
         assertThat(result)
                 .isSuccess()
-                .values()
+                .successValues()
                 .containsExactly(new Song("DontCareArtist", "DontCareSongTitle", "DontCareReleaseTitle", "DontCareReleaseType", List.of("Thank You", "No Thanks")));
     }
 
@@ -120,7 +120,7 @@ class TsvSongParserTest {
 
         assertThat(result)
                 .isSuccess()
-                .values()
+                .successValues()
                 .as("expecting 2 songs")
                 .hasSize(2);
     }
@@ -137,7 +137,7 @@ class TsvSongParserTest {
 
         assertThat(result)
                 .isSuccess()
-                .values()
+                .successValues()
                 .as("expecting 2 songs")
                 .hasSize(2)
                 .as("unexpected song content")
@@ -158,7 +158,7 @@ class TsvSongParserTest {
 
             assertThat(result)
                     .isFailure()
-                    .messages()
+                    .failureMessages()
                     .containsExactly("Number of columns was 2, row contains: [Husker Du, Green Eyes]. Must have columns matching the 3 header columns [Artist, Song Title, Theme1].");
         }
 
@@ -173,7 +173,7 @@ class TsvSongParserTest {
             assertThat(result)
                     .as("Song with required columns should have succeeded, but did not.")
                     .isSuccess()
-                    .values()
+                    .successValues()
                     .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You")));
         }
 
@@ -188,7 +188,7 @@ class TsvSongParserTest {
             assertThat(result)
                     .as("Song with required columns should have succeeded, but did not.")
                     .isSuccess()
-                    .values()
+                    .successValues()
                     .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You")));
         }
 
@@ -202,7 +202,7 @@ class TsvSongParserTest {
 
             assertThat(result)
                     .isFailure()
-                    .messages()
+                    .failureMessages()
                     .containsExactly("Missing required column: \"Artist\"");
         }
 
@@ -216,7 +216,7 @@ class TsvSongParserTest {
 
             assertThat(result)
                     .isFailure()
-                    .messages()
+                    .failureMessages()
                     .hasSize(2)
                     .containsExactlyInAnyOrder("Missing required column: \"Artist\"",
                                                "Missing required column: \"Song Title\"");
@@ -231,7 +231,8 @@ class TsvSongParserTest {
             Result<Song> result = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
 
             assertThat(result)
-                    .isFailure();
+                    .isFailure()
+                    .failureMessages();
         }
     }
 }
