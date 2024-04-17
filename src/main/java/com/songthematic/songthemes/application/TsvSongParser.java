@@ -49,12 +49,9 @@ public class TsvSongParser {
         Result<String> releaseType = columnMapper.extractColumn(columns, "Release Type");
 
         Result<String> theme1Result = columnMapper.extractColumn(columns, "Theme1");
-        if (theme1Result.isFailure()) {
-            return Result.failure(theme1Result.failureMessages());
-        }
 
         List<String> themes = extractThemes(columnMapper, columns);
-        if (artist.isSuccess() && songTitle.isSuccess()) {
+        if (artist.isSuccess() && songTitle.isSuccess() && theme1Result.isSuccess()) {
             return Result.success(new Song(artist.values().getFirst(),
                                            songTitle.values().getFirst(),
                                            releaseTitle.values().getFirst(),
@@ -63,6 +60,7 @@ public class TsvSongParser {
         List<String> failureMessages = new ArrayList<>();
         failureMessages.addAll(artist.failureMessages());
         failureMessages.addAll(songTitle.failureMessages());
+        failureMessages.addAll(theme1Result.failureMessages());
         return Result.failure(failureMessages);
     }
 

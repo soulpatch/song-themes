@@ -207,9 +207,9 @@ class TsvSongParserTest {
         }
 
         @Test
-        void twoFailureMessagesWhenMissingTwoRequiredColumns() throws Exception {
-            String header = "Theme1";
-            String tsvSong = "Thank You";
+        void multipleFailureMessagesWhenMissingAllRequiredColumns() throws Exception {
+            String header = "Notes";
+            String tsvSong = "written by Burt Bacharach";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
             Result<Song> result = tsvSongParser.parseSong(tsvSong, new ColumnMapper(header));
@@ -217,8 +217,9 @@ class TsvSongParserTest {
             assertThat(result)
                     .isFailure()
                     .failureMessages()
-                    .hasSize(2)
-                    .containsExactlyInAnyOrder("Missing required column: \"Artist\"",
+                    .hasSize(3)
+                    .containsExactlyInAnyOrder("Missing required column: \"Theme1\"",
+                                               "Missing required column: \"Artist\"",
                                                "Missing required column: \"Song Title\"");
         }
 
