@@ -1,5 +1,6 @@
 package com.songthematic.songthemes.application;
 
+import com.songthematic.songthemes.application.port.SongRepository;
 import com.songthematic.songthemes.domain.Song;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ class SongServiceTest {
         List<Song> songList = new ArrayList<>();
         songList.add(SongFactory.createSong("Baby's on Fire", "Fire"));
 
-        SongRepository songRepository = SongRepository.create(songList);
+        SongRepository songRepository = InMemorySongRepository.create(songList);
         SongService songService = new SongService(songRepository);
 
         assertThat(songService.searchByTheme("fire"))
@@ -40,7 +41,7 @@ class SongServiceTest {
     void addedSongsAreSavedToRepository() throws Exception {
         List<Song> songList = new ArrayList<>();
         songList.add(SongFactory.createSong("Baby's on Fire", "Fire"));
-        SongRepository songRepository = SongRepository.create(songList);
+        InMemorySongRepository songRepository = InMemorySongRepository.create(songList);
         SongService songService = new SongService(songRepository);
 
         songService.addSong(SongFactory.createSong("Smokestack Lightning", "Fire"));
@@ -56,7 +57,7 @@ class SongServiceTest {
                 Screaming Tribesmen\tDate with a Vampyre\t\t\tSingle\tHalloween\tVampires\t\t\tRizzi
                 Unnatural Axe\tThey Saved Hitler's Brain\tIs Gonna Kick Your Ass\t\t\tHalloween\t\t\t\tRizzi
                 """;
-        SongRepository songRepository = SongRepository.createEmpty();
+        InMemorySongRepository songRepository = InMemorySongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
         Result<Song> result = songService.importSongs(row);
@@ -75,7 +76,7 @@ class SongServiceTest {
                 Screaming Tribesmen\tDate with a Vampyre
                 Unnatural Axe\tThey Saved Hitler's Brain
                 """;
-        SongRepository songRepository = SongRepository.createEmpty();
+        SongRepository songRepository = InMemorySongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
         Result<Song> result = songService.importSongs(tsvTwoMalformedSongs);

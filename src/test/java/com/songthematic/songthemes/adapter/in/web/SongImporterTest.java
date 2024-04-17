@@ -1,6 +1,6 @@
 package com.songthematic.songthemes.adapter.in.web;
 
-import com.songthematic.songthemes.application.SongRepository;
+import com.songthematic.songthemes.application.InMemorySongRepository;
 import com.songthematic.songthemes.application.SongService;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,7 +24,7 @@ class SongImporterTest {
 
     @Test
     void songImportPutsSongInRepository() throws Exception {
-        SongRepository repository = SongRepository.createEmpty();
+        InMemorySongRepository repository = InMemorySongRepository.createEmpty();
         SongService songService = new SongService(repository);
         SongImporter songImporter = new SongImporter(songService);
 

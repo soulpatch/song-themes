@@ -1,6 +1,6 @@
 package com.songthematic.songthemes;
 
-import com.songthematic.songthemes.application.SongRepository;
+import com.songthematic.songthemes.application.InMemorySongRepository;
 import com.songthematic.songthemes.application.SongService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,6 +15,6 @@ public class SongThemesStartup {
 
     @Bean
     public SongService songService() {
-        return new SongService(SongRepository.createEmpty());
+        return new SongService(InMemorySongRepository.createEmpty());
     }
 }

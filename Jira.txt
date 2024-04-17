@@ -85,8 +85,9 @@ Increase Song Attributes
         [ ] Create Result combinator to help refactor the HUGE parseSong() method -- which has lots of duplication
 
 [ ] Persist to DB
-    [ ] Move SongSearcher searching into SongRepository
-    [ ] Extract a port interface for SongRepository
+    [X] Move SongSearcher searching into SongRepository
+    [X] Extract a port interface for SongRepository
+    [ ] Make in memory version act a little more like the real thing. Meaning...TBD
     [ ] Implement a JDBC Adapter
 
 

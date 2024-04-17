@@ -1,5 +1,6 @@
 package com.songthematic.songthemes.application;
 
+import com.songthematic.songthemes.application.port.SongRepository;
 import com.songthematic.songthemes.domain.Song;
 
 import java.util.List;
@@ -13,11 +14,11 @@ public class SongService {
     }
 
     public static SongService createNull() {
-        return new SongService(SongRepository.createEmpty());
+        return new SongService(InMemorySongRepository.createEmpty());
     }
 
     public List<Song> searchByTheme(String theme) {
-        return songRepository.byTheme(theme);
+        return songRepository.findByTheme(theme);
     }
 
     public void addSong(Song song) {
