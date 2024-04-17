@@ -232,7 +232,8 @@ class TsvSongParserTest {
 
             assertThat(result)
                     .isFailure()
-                    .failureMessages();
+                    .failureMessages()
+                    .containsExactly("Missing required column: \"Theme1\"");
         }
     }
 }
