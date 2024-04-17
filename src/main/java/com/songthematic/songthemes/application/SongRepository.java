@@ -11,6 +11,7 @@ public class SongRepository {
 
     private SongRepository(List<Song> songs) {
         this.songs = songs;
+        index();
     }
 
     private void index() {

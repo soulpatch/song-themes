@@ -1,17 +1,14 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
-import com.songthematic.songthemes.domain.SongSearcher;
 
 import java.util.List;
 
 public class SongService {
 
     private final SongRepository songRepository;
-    private SongSearcher songSearcher;
 
     public SongService(SongRepository songRepository) {
-        songSearcher = SongSearcher.createSongSearcher(songRepository.allSongs());
         this.songRepository = songRepository;
     }
 
@@ -20,12 +17,11 @@ public class SongService {
     }
 
     public List<Song> searchByTheme(String theme) {
-        return songSearcher.byTheme(theme);
+        return songRepository.byTheme(theme);
     }
 
     public void addSong(Song song) {
         songRepository.add(song);
-        songSearcher = songSearcher.add(song);
     }
 
     public Result<Song> importSongs(String tsvSongs) {
