@@ -47,6 +47,12 @@ public class TsvSongParser {
         Result<String> songTitle = columnMapper.extractColumn(columns, "Song Title");
         Result<String> releaseTitle = columnMapper.extractColumn(columns, "Release Title");
         Result<String> releaseType = columnMapper.extractColumn(columns, "Release Type");
+
+        Result<String> theme1Result = columnMapper.extractColumn(columns, "Theme1");
+        if (theme1Result.isFailure()) {
+            return Result.failure(theme1Result.failureMessages());
+        }
+
         List<String> themes = extractThemes(columnMapper, columns);
         if (artist.isSuccess() && songTitle.isSuccess()) {
             return Result.success(new Song(artist.values().getFirst(),

@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public sealed abstract class Result<SUCCESS>
-//        permits Result.SuccessResult, Result.FailureResult
-{
+public sealed abstract class Result<SUCCESS> {
 
     static <SUCCESS> Result<SUCCESS> success(SUCCESS value) {
         return new SuccessResult<>(List.of(value));
@@ -23,6 +21,17 @@ public sealed abstract class Result<SUCCESS>
     static <SUCCESS> Result<SUCCESS> failure(List<String> failureMessages) {
         return new FailureResult<>(failureMessages);
     }
+
+    public abstract List<SUCCESS> values();
+
+    public abstract boolean isSuccess();
+
+    public boolean isFailure() {
+        return !isSuccess();
+    }
+
+    public abstract List<String> failureMessages();
+
 
     private static final class SuccessResult<SUCCESS> extends Result<SUCCESS> {
         private final List<SUCCESS> values = new ArrayList<>();
@@ -70,9 +79,4 @@ public sealed abstract class Result<SUCCESS>
         }
     }
 
-    public abstract List<SUCCESS> values();
-
-    public abstract boolean isSuccess();
-
-    public abstract List<String> failureMessages();
 }

@@ -57,7 +57,7 @@ Increase Song Attributes
             [X] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
             [X] Display failure messages in the UI
             [X] Put the bulk import string back into the import edit box upon failure
-            [ ] Split Result into two concrete subclasses for success and failure
+            [X] Split Result into two concrete subclasses for success and failure
             [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
         [ ] Skip over unused columns (needs a header row)
             [X] Change all tests to include a header row
