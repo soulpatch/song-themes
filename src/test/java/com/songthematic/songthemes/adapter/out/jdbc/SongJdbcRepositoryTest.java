@@ -1,5 +1,6 @@
 package com.songthematic.songthemes.adapter.out.jdbc;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -17,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         "spring.test.database.replace=NONE"
 })
 @Testcontainers(disabledWithoutDocker = true)
+@Tag("database")
 class SongJdbcRepositoryTest {
     @Container
     @ServiceConnection
@@ -44,5 +46,23 @@ class SongJdbcRepositoryTest {
                 .get()
                 .extracting(SongDbo::getSongTitle)
                 .isEqualTo("Donate Money!");
+    }
+
+    @Test
+    void findByThemeWorksRegardlessOfCase() throws Exception {
+        SongDbo songDbo = new SongDbo("Yellowman", "Donate Money", "Fantastic Yellowman", "", List.of("Money", "Donate"));
+        SongDbo songDbo2 = new SongDbo("Mojo Nixon", "Where the Hell's My Money?", "Frenzy", "", List.of("Money"));
+        SongDbo songDbo3 = new SongDbo("Peggy Lee", "My Heart Belongs To Daddy", "The Best Of Peggy Lee 1952-1956", "", List.of("Daddy"));
+
+        songJdbcRepository.save(songDbo);
+        songJdbcRepository.save(songDbo2);
+        songJdbcRepository.save(songDbo3);
+
+        List<SongDbo> foundSongs = songJdbcRepository.findByThemeIgnoreCase("money");
+
+        assertThat(foundSongs)
+                .hasSize(2)
+                .extracting(SongDbo::getSongTitle)
+                .containsExactlyInAnyOrder("Donate Money", "Where the Hell's My Money?");
     }
 }
