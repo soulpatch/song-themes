@@ -59,7 +59,7 @@ Increase Song Attributes
             [X] Put the bulk import string back into the import edit box upon failure
             [X] Split Result into two concrete subclasses for success and failure
             [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
-        [ ] Skip over unused columns (needs a header row)
+        [X] Skip over unused columns (needs a header row)
             [X] Change all tests to include a header row
             [X] Only parse columns that we want
                     Must have at least these 3 columns
@@ -74,21 +74,28 @@ Increase Song Attributes
                     Otherwise, throw an exception
             [X] Write a custom assert for Result
             [X] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
-        >>> [X] Require that header rows have specific columns
+            [X] Require that header rows have specific columns
                 [X] Handle missing Song Title at the TsvSongParser level
                 [X] parseAllReturnsMultipleFailureMessages() - fix failure message ...5?
                     [X] returnsFailureResultForRowWithNotEnoughColumns()
                 [X] Handle multiple themes -- currently failureWhenMissingTheme1()
-
-            [ ] If Release Type is Compilation, then Release Title becomes required
-
+        [ ] If Release Type is Compilation, then Release Title becomes required
         [ ] Create Result combinator to help refactor the HUGE parseSong() method -- which has lots of duplication
 
 [ ] Persist to DB
     [X] Move SongSearcher searching into SongRepository
     [X] Extract a port interface for SongRepository
-    [ ] Make in memory version act a little more like the real thing. Meaning...TBD
+    [ ] Make in memory version act a little more like the real thing. If Song is modified, it shouldn't be reflected back into InMemorySongRepository because that is not how databases work -- DO NOT NEED TO TACKLE YET, because we are not updating songs yet -- If Song were mutable and there is more behavior, we'd use the Snapshot pattern
     [ ] Implement a JDBC Adapter
+        [ ] Add database dependencies
+        [ ] Use Flyway for database management migration
+            [ ] Create schema
+        [ ] Create database object that represents the schema in memory -- will be annotated with ORM annotations
+        [ ] Write a couple tests to ensure we are reading and writing the table correctly
+        [ ] Write concrete adapter that implements SongRepository
+        [ ] Modify use case layer test to also be able to use concrete database adapter
+                [ ] run tests against both concrete and fake
+        [ ] Wire up concrete database adapter to the application
 
 
 [ ] Add ArchUnit checking
