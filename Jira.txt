@@ -93,7 +93,7 @@ Increase Song Attributes
         [X] Create database object that represents the schema in memory -- will be annotated with ORM annotations
         [X] Create Spring Data JDBC repository
         [X] Write a couple tests to ensure we are reading and writing the table correctly
-        [ ] Write concrete adapter that implements SongRepository
+    >>> [ ] Write concrete adapter that implements SongRepository
         [ ] Modify use case layer test to also be able to use concrete database adapter
                 [ ] run tests against both concrete and fake
         [ ] Wire up concrete database adapter to the application
