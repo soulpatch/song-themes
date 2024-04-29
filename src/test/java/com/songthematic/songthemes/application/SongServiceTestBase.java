@@ -10,7 +10,7 @@ import java.util.List;
 import static com.songthematic.songthemes.application.ResultAssertions.assertThat;
 
 
-abstract class SongServiceTest {
+public abstract class SongServiceTestBase {
 
     @Test
     void multipleSongsAddedAreFoundByTheirTheme() throws Exception {
