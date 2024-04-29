@@ -82,21 +82,23 @@ Increase Song Attributes
         [ ] If Release Type is Compilation, then Release Title becomes required
         [ ] Create Result combinator to help refactor the HUGE parseSong() method -- which has lots of duplication
 
-[ ] Persist to DB
+[X] Persist to DB
     [X] Move SongSearcher searching into SongRepository
     [X] Extract a port interface for SongRepository
-    [ ] Make in memory version act a little more like the real thing. If Song is modified, it shouldn't be reflected back into InMemorySongRepository because that is not how databases work -- DO NOT NEED TO TACKLE YET, because we are not updating songs yet -- If Song were mutable and there is more behavior, we'd use the Snapshot pattern
-    [ ] Implement a JDBC Adapter
+    [X] Implement a JDBC Adapter
         [X] Add database dependencies
         [X] Use Flyway for database management migration
             [X] Create schema
         [X] Create database object that represents the schema in memory -- will be annotated with ORM annotations
         [X] Create Spring Data JDBC repository
         [X] Write a couple tests to ensure we are reading and writing the table correctly
-    >>> [ ] Write concrete adapter that implements SongRepository
-        [ ] Modify use case layer test to also be able to use concrete database adapter
-                [ ] run tests against both concrete and fake
-        [ ] Wire up concrete database adapter to the application
+        [X] Write concrete adapter that implements SongRepository
+        [X] Modify use case layer test to also be able to use concrete database adapter
+                [X] run tests against both concrete and fake
+        [X] Wire up concrete database adapter to the application
+
+[ ] Add Search page to UI
+[ ] Deploy to Production
 
 [ ] Add ArchUnit checking
 
@@ -113,11 +115,12 @@ RIZZI Tab Shifter
         [ ] Deploy to production, update Kinde configuration URLs for redirect
 
     [X] UI for bulk import, protected for admin role -- simple edit box for tab delimited Excel copy data source
-    [ ] Rethink SongSearcher domain design (specifically it's immutability)
+    [X] Rethink SongSearcher domain design (specifically it's immutability) -- NOT DOING since using DB for searching
+
+[ ] Make in memory version act a little more like the real thing. If Song is modified, it shouldn't be reflected back into InMemorySongRepository because that is not how databases work -- DO NOT NEED TO TACKLE YET, because we are not updating songs yet -- If Song were mutable and there is more behavior, we'd use the Snapshot pattern
 
 UI
 [ ] Adding Song via the UI
-[ ] Adding Songs via the UI
 [ ]
 
 UI Theme Sketch

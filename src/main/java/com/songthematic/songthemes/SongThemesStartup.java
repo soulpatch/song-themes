@@ -1,7 +1,9 @@
 package com.songthematic.songthemes;
 
-import com.songthematic.songthemes.application.InMemorySongRepository;
+import com.songthematic.songthemes.adapter.out.jdbc.SongJdbcAdapter;
+import com.songthematic.songthemes.adapter.out.jdbc.SongJdbcRepository;
 import com.songthematic.songthemes.application.SongService;
+import com.songthematic.songthemes.application.port.SongRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +16,8 @@ public class SongThemesStartup {
     }
 
     @Bean
-    public SongService songService() {
-        return new SongService(InMemorySongRepository.createEmpty());
+    public SongService songService(SongJdbcRepository songJdbcRepository) {
+        SongRepository songJdbcAdapter = new SongJdbcAdapter(songJdbcRepository);
+        return new SongService(songJdbcAdapter);
     }
 }
