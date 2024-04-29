@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Tag("io")
-@Disabled
+@Disabled("Ted to fill in workaround for this")
 class SongThemesStartupTests {
 
     @Autowired

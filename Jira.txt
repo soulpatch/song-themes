@@ -98,10 +98,11 @@ Increase Song Attributes
                 [ ] run tests against both concrete and fake
         [ ] Wire up concrete database adapter to the application
 
+[ ] Add ArchUnit checking
+
 RIZZI PostFix Plugin
 RIZZI Tab Shifter
 
-[ ] Add ArchUnit checking
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration

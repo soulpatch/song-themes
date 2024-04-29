@@ -4,7 +4,6 @@ import com.songthematic.songthemes.application.port.SongRepository;
 import com.songthematic.songthemes.domain.Song;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.songthematic.songthemes.application.ResultAssertions.assertThat;
@@ -14,7 +13,8 @@ class SongServiceTest {
 
     @Test
     void multipleSongsAddedAreFoundByTheirTheme() throws Exception {
-        SongService songService = SongService.createNull();
+        InMemorySongRepository songRepository = InMemorySongRepository.createEmpty();
+        SongService songService = new SongService(songRepository);
 
         songService.addSong(SongFactory.createSong("This Will Be Our Year", List.of("new years", "2023", "OneMoreTheme")));
         songService.addSong(SongFactory.createSong("Funky New Year", "new years"));
@@ -27,10 +27,8 @@ class SongServiceTest {
 
     @Test
     void savedSongsLoadedOnStartup() throws Exception {
-        List<Song> songList = new ArrayList<>();
-        songList.add(SongFactory.createSong("Baby's on Fire", "Fire"));
-
-        SongRepository songRepository = InMemorySongRepository.create(songList);
+        SongRepository songRepository = InMemorySongRepository.createEmpty();
+        songRepository.add(SongFactory.createSong("Baby's on Fire", "Fire"));
         SongService songService = new SongService(songRepository);
 
         assertThat(songService.searchByTheme("fire"))
@@ -39,9 +37,8 @@ class SongServiceTest {
 
     @Test
     void addedSongsAreSavedToRepository() throws Exception {
-        List<Song> songList = new ArrayList<>();
-        songList.add(SongFactory.createSong("Baby's on Fire", "Fire"));
-        InMemorySongRepository songRepository = InMemorySongRepository.create(songList);
+        InMemorySongRepository songRepository = InMemorySongRepository.createEmpty();
+        songRepository.add(SongFactory.createSong("Baby's on Fire", "Fire"));
         SongService songService = new SongService(songRepository);
 
         songService.addSong(SongFactory.createSong("Smokestack Lightning", "Fire"));
