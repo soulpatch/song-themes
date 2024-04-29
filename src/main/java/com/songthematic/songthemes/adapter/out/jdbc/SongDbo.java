@@ -1,5 +1,6 @@
 package com.songthematic.songthemes.adapter.out.jdbc;
 
+import com.songthematic.songthemes.domain.Song;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.relational.core.mapping.Table;
@@ -34,6 +35,14 @@ public class SongDbo {
         this.releaseTitle = releaseTitle;
         this.releaseType = releaseType;
         this.themes = themes;
+    }
+
+    static SongDbo from(Song song) {
+        return new SongDbo(song.artist(), song.songTitle(), song.releaseTitle(), song.releaseType(), song.themes());
+    }
+
+    public Song toDomain() {
+        return new Song(artist, songTitle, releaseTitle, releaseType, themes);
     }
 
     public Long getId() {

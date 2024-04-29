@@ -9,7 +9,6 @@ import java.util.List;
 
 import static com.songthematic.songthemes.application.ResultAssertions.assertThat;
 
-
 public abstract class SongServiceTestBase {
 
     @Test
@@ -30,13 +29,22 @@ public abstract class SongServiceTestBase {
     protected abstract SongRepository songRepository();
 
     @Test
-    void savedSongsLoadedOnStartup() throws Exception {
+    void newRepositoryHasNoSongs() throws Exception {
         SongRepository songRepository = songRepository();
-        songRepository.add(SongFactory.createSong("Baby's on Fire", "Fire"));
+
+        assertThat(songRepository.allSongs())
+                .isEmpty();
+    }
+
+    @Test
+    void addSongToEmptyRepositoryIsSaved() throws Exception {
+        SongRepository songRepository = songRepository();
         SongService songService = new SongService(songRepository);
 
-        assertThat(songService.searchByTheme("fire"))
-                .containsExactly(SongFactory.createSong("Baby's on Fire", "Fire"));
+        songService.addSong(SongFactory.createSong("Smokestack Lightning", "Fire"));
+
+        assertThat(songRepository.allSongs())
+                .hasSize(1);
     }
 
     @Test

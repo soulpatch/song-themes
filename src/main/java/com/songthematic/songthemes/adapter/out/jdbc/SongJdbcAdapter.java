@@ -7,18 +7,30 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class SongJdbcAdapter implements SongRepository {
+    private final SongJdbcRepository songJdbcRepository;
+
+    public SongJdbcAdapter(SongJdbcRepository songJdbcRepository) {
+
+        this.songJdbcRepository = songJdbcRepository;
+    }
+
     @Override
     public Stream<Song> allSongs() {
-        return Stream.empty();
+        return songJdbcRepository.findAll()
+                                 .stream()
+                                 .map(SongDbo::toDomain);
     }
 
     @Override
     public void add(Song song) {
-
+        songJdbcRepository.save(SongDbo.from(song));
     }
 
     @Override
     public List<Song> findByTheme(String requestedTheme) {
-        return List.of();
+        return songJdbcRepository.findByThemeIgnoreCase(requestedTheme)
+                                 .stream()
+                                 .map(SongDbo::toDomain)
+                                 .toList();
     }
 }

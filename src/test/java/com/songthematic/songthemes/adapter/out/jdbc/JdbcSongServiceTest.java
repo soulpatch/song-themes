@@ -3,6 +3,7 @@ package com.songthematic.songthemes.adapter.out.jdbc;
 import com.songthematic.songthemes.application.SongServiceTestBase;
 import com.songthematic.songthemes.application.port.SongRepository;
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
@@ -25,8 +26,13 @@ public class JdbcSongServiceTest extends SongServiceTestBase {
     @Autowired
     SongJdbcRepository songJdbcRepository;
 
+    @BeforeEach
+    void beforeEach() {
+        songJdbcRepository.deleteAll();
+    }
+
     @Override
     protected @NotNull SongRepository songRepository() {
-        return new SongJdbcAdapter();
+        return new SongJdbcAdapter(songJdbcRepository);
     }
 }
