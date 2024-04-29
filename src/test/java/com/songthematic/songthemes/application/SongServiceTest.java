@@ -2,6 +2,7 @@ package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.application.port.SongRepository;
 import com.songthematic.songthemes.domain.Song;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -9,11 +10,11 @@ import java.util.List;
 import static com.songthematic.songthemes.application.ResultAssertions.assertThat;
 
 
-class SongServiceTest {
+abstract class SongServiceTest {
 
     @Test
     void multipleSongsAddedAreFoundByTheirTheme() throws Exception {
-        SongRepository songRepository = InMemorySongRepository.createEmpty();
+        SongRepository songRepository = songRepository();
         SongService songService = new SongService(songRepository);
 
         songService.addSong(SongFactory.createSong("This Will Be Our Year", List.of("new years", "2023", "OneMoreTheme")));
@@ -25,9 +26,12 @@ class SongServiceTest {
                                  SongFactory.createSong("Funky New Year", "new years"));
     }
 
+    @NotNull
+    protected abstract SongRepository songRepository();
+
     @Test
     void savedSongsLoadedOnStartup() throws Exception {
-        SongRepository songRepository = InMemorySongRepository.createEmpty();
+        SongRepository songRepository = songRepository();
         songRepository.add(SongFactory.createSong("Baby's on Fire", "Fire"));
         SongService songService = new SongService(songRepository);
 
@@ -37,7 +41,7 @@ class SongServiceTest {
 
     @Test
     void addedSongsAreSavedToRepository() throws Exception {
-        SongRepository songRepository = InMemorySongRepository.createEmpty();
+        SongRepository songRepository = songRepository();
         songRepository.add(SongFactory.createSong("Baby's on Fire", "Fire"));
         SongService songService = new SongService(songRepository);
 
@@ -54,7 +58,7 @@ class SongServiceTest {
                 Screaming Tribesmen\tDate with a Vampyre\t\t\tSingle\tHalloween\tVampires\t\t\tRizzi
                 Unnatural Axe\tThey Saved Hitler's Brain\tIs Gonna Kick Your Ass\t\t\tHalloween\t\t\t\tRizzi
                 """;
-        SongRepository songRepository = InMemorySongRepository.createEmpty();
+        SongRepository songRepository = songRepository();
         SongService songService = new SongService(songRepository);
 
         Result<Song> result = songService.importSongs(row);
@@ -73,7 +77,7 @@ class SongServiceTest {
                 Screaming Tribesmen\tDate with a Vampyre
                 Unnatural Axe\tThey Saved Hitler's Brain
                 """;
-        SongRepository songRepository = InMemorySongRepository.createEmpty();
+        SongRepository songRepository = songRepository();
         SongService songService = new SongService(songRepository);
 
         Result<Song> result = songService.importSongs(tsvTwoMalformedSongs);
