@@ -35,6 +35,7 @@ public class InMemorySongRepository implements SongRepository {
         return create(new ArrayList<>());
     }
 
+    @Override
     public Stream<Song> allSongs() {
         return songs.stream();
     }

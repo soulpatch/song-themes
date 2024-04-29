@@ -13,7 +13,7 @@ class SongServiceTest {
 
     @Test
     void multipleSongsAddedAreFoundByTheirTheme() throws Exception {
-        InMemorySongRepository songRepository = InMemorySongRepository.createEmpty();
+        SongRepository songRepository = InMemorySongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
         songService.addSong(SongFactory.createSong("This Will Be Our Year", List.of("new years", "2023", "OneMoreTheme")));
@@ -37,7 +37,7 @@ class SongServiceTest {
 
     @Test
     void addedSongsAreSavedToRepository() throws Exception {
-        InMemorySongRepository songRepository = InMemorySongRepository.createEmpty();
+        SongRepository songRepository = InMemorySongRepository.createEmpty();
         songRepository.add(SongFactory.createSong("Baby's on Fire", "Fire"));
         SongService songService = new SongService(songRepository);
 
@@ -54,7 +54,7 @@ class SongServiceTest {
                 Screaming Tribesmen\tDate with a Vampyre\t\t\tSingle\tHalloween\tVampires\t\t\tRizzi
                 Unnatural Axe\tThey Saved Hitler's Brain\tIs Gonna Kick Your Ass\t\t\tHalloween\t\t\t\tRizzi
                 """;
-        InMemorySongRepository songRepository = InMemorySongRepository.createEmpty();
+        SongRepository songRepository = InMemorySongRepository.createEmpty();
         SongService songService = new SongService(songRepository);
 
         Result<Song> result = songService.importSongs(row);
