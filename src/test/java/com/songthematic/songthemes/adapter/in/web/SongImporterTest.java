@@ -51,8 +51,7 @@ class SongImporterTest {
     @Test
     void songImportAddsFailureMessagesForFailedImport() throws Exception {
         SongImporter songImporter = new SongImporter(SongService.createNull());
-        String tsvTwoMalformedSongs =
-                """
+        String tsvTwoMalformedSongs = """
                         Artist\tSong Title\tRelease Title\tTheme1\tTheme2
                         Blue Oyster Cult\tDon't Fear The Reaper\tAgents of Fortune
                         Kinks\tAround the Dial\tGive The People What They Want
@@ -67,6 +66,30 @@ class SongImporterTest {
                 .hasSize(2);
         assertThat(originalTextAreaContent(redirectAttributes))
                 .isEqualTo(tsvTwoMalformedSongs);
+    }
+
+    // 1a) completely missing header row -> one failure message
+    // 1b) missing a required column
+    // 2) if header row correct, missing required cell(s) -> one failure message row?
+    // artist, title, theme1
+    // "", "foo", ""
+
+    // shift toward test naming format: expectationWhenContext
+
+    @Test
+    void singleFailureMessageWhenMissingHeaderRow() throws Exception {
+        SongImporter songImporter = new SongImporter(SongService.createNull());
+
+        String missingHeaderRow = """
+                Blue Oyster Cult\tDon't Fear The Reaper\tAgents of Fortune
+                Kinks\tAround the Dial\tGive The People What They Want
+                """;
+
+        RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
+        songImporter.handleSongImport(missingHeaderRow, redirectAttributes);
+
+        assertThat(failureMessages(redirectAttributes))
+                .hasSize(1);
     }
 
     private String originalTextAreaContent(RedirectAttributes redirectAttributes) {

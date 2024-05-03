@@ -100,6 +100,13 @@ Increase Song Attributes
 [X] Add Search page to UI
 [X] Display Artist - Song Title - Release Title [Theme(s)]
 [ ] Single error message when bulk import is missing the header row
+    [ ] completely missing header row -> one failure message
+    [ ] missing a required column
+[ ] if header row correct, missing required cell(s) -> one failure message row?
+    // artist, title, theme1
+    // "", "foo", "politics"
+    // "", "foo", ""            << one failure message for this scenario
+
 [ ] redirect after Import currently goes to /, want to show import success instead (e.g. 25 songs imported)
 [ ] Deploy to Production
 
