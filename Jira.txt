@@ -28,7 +28,7 @@ Add a Song with a Theme
 [X] Add a song that doesn't exist to the database
     [X] just below UI
     [X] Create in-memory repository
-    [ ] Create database repository adapter
+    [X] Create database repository adapter
 
 Songs with Multiple Themes
     [X] Find a Song if one of its Themes match
@@ -58,7 +58,7 @@ Increase Song Attributes
             [X] Display failure messages in the UI
             [X] Put the bulk import string back into the import edit box upon failure
             [X] Split Result into two concrete subclasses for success and failure
-            [ ] Change partitionBy to use custom reducer (maybe try out tee as well)
+            [X] Change partitionBy to use custom reducer (maybe try out tee as well) - OBSOLETED by using better Result class
         [X] Skip over unused columns (needs a header row)
             [X] Change all tests to include a header row
             [X] Only parse columns that we want
@@ -97,13 +97,11 @@ Increase Song Attributes
                 [X] run tests against both concrete and fake
         [X] Wire up concrete database adapter to the application
 
-[ ] Add Search page to UI
+>>>[ ] Add Search page to UI
 [ ] Deploy to Production
 
 [ ] Add ArchUnit checking
 
-RIZZI PostFix Plugin
-RIZZI Tab Shifter
 
 
  [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)

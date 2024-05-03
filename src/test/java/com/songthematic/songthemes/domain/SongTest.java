@@ -8,7 +8,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 class SongTest {
-    @ParameterizedTest
+    @ParameterizedTest(name = "requestedTheme is \"{0}\"")
     @ValueSource(strings={"", "\s"})
     void artistShouldNotBeEmptyNorBlank(String artist) throws Exception {
         assertThatExceptionOfType(MissingSongAttribute.class)
@@ -16,7 +16,7 @@ class SongTest {
                 .withMessage("These attributes were blank: artist");
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "songTitle is \"{0}\"")
     @ValueSource(strings = {"", "\s"})
     void songTitleShouldNotBeEmptyNorBlank(String songTitle) throws Exception {
         assertThatExceptionOfType(MissingSongAttribute.class)
@@ -25,7 +25,7 @@ class SongTest {
 
     }
 
-    @ParameterizedTest
+    @ParameterizedTest(name = "attribute is \"{0}\"")
     @ValueSource(strings = {"", "\s"})
     void artistAndSongTitleShouldNotBeEmptyNorBlank(String attribute) throws Exception {
         assertThatExceptionOfType(MissingSongAttribute.class)
