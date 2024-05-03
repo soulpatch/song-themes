@@ -8,6 +8,21 @@
 </head>
 <body>
 <h1>Songs</h1>
-<p th:each="song : ${searchResults}" th:text="${song.title()}">placeholder song title</p>
+<p th:each="song : ${searchResults}">
+    <span th:text="${song.artist()}" style="font-weight: bold">
+    Artist
+    </span>
+    -
+    <span th:text="${song.title()}" style="font-style: italic">
+    Song Title
+    </span>
+    -
+    <span th:text="${song.releaseTitle()}">
+    Release Title
+    </span>
+    <span th:text="${song.themes()}">
+    [Theme1, Theme2]
+    </span>
+</p>
 </body>
 </html>

@@ -1,6 +1,5 @@
 package com.songthematic.songthemes.adapter.in.web;
 
-import com.songthematic.songthemes.application.SongFactory;
 import com.songthematic.songthemes.domain.Song;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +11,13 @@ class SongViewTest {
 
     @Test
     void convertsFoundSongsToSongViews() throws Exception {
-        List<Song> songs = List.of(SongFactory.createSong("This Will Be Our Year", "new years"),
-                                   SongFactory.createSong("Funky New Year", "new years"));
+
+        List<Song> songs = List.of(new Song("Flesh Eaters", "Digging My Grave", "A Minute To Pray A Second To Die", "IrrelevantReleaseType", List.of("Halloween", "Death", "Graveyards")),
+                                   new Song("Revillos", "Jack The Ripper", "From The Freezer", "IrrelevantReleaseType", List.of("Halloween")));
         List<SongView> songViews = SongView.from(songs);
 
         assertThat(songViews)
-                .containsExactly(new SongView("This Will Be Our Year"),
-                                 new SongView("Funky New Year"));
+                .containsExactly(new SongView("Flesh Eaters", "Digging My Grave", "A Minute To Pray A Second To Die", "[Halloween, Death, Graveyards]"),
+                                 new SongView("Revillos", "Jack The Ripper", "From The Freezer", "[Halloween]"));
     }
 }

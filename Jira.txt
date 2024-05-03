@@ -97,7 +97,10 @@ Increase Song Attributes
                 [X] run tests against both concrete and fake
         [X] Wire up concrete database adapter to the application
 
->>>[ ] Add Search page to UI
+[X] Add Search page to UI
+[ ] Display Artist - Song Title - Release Title [Theme(s)]
+[ ] Single error message when bulk import is missing the header row
+[ ] redirect after Import currently goes to /, want to show import success instead (e.g. 25 songs imported)
 [ ] Deploy to Production
 
 [ ] Add ArchUnit checking
