@@ -63,11 +63,17 @@ class SongImporterTest {
 
         assertThat(redirectPage)
                 .isEqualTo("redirect:/song-import");
-        List<String> failureMessages = (List<String>) redirectAttributes.getFlashAttributes().get("failureMessages");
-        assertThat(failureMessages)
+        assertThat(failureMessages(redirectAttributes))
                 .hasSize(2);
-        String originalTextAreaContent = (String) redirectAttributes.getFlashAttributes().get("tsvSongs");
-        assertThat(originalTextAreaContent)
+        assertThat(originalTextAreaContent(redirectAttributes))
                 .isEqualTo(tsvTwoMalformedSongs);
+    }
+
+    private String originalTextAreaContent(RedirectAttributes redirectAttributes) {
+        return (String) redirectAttributes.getFlashAttributes().get("tsvSongs");
+    }
+
+    private List<String> failureMessages(RedirectAttributes redirectAttributes) {
+        return (List<String>) redirectAttributes.getFlashAttributes().get("failureMessages");
     }
 }
