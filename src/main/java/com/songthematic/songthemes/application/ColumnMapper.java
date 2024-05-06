@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class ColumnMapper {
     private final List<String> headerColumns;
@@ -14,6 +16,16 @@ public final class ColumnMapper {
         requiredColumns = Set.of("Artist", "Song Title", "Theme1");
         String[] parsedHeaderColumns = header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE);
         headerColumns = Arrays.asList(parsedHeaderColumns);
+    }
+
+    static Result<ColumnMapper> create(String header) {
+        Set<String> requiredColumns = Set.of("Artist", "Song Title", "Theme1");
+        String[] parsedHeaderColumns = header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE);
+        Set<String> parsedHeader = Stream.of(parsedHeaderColumns).collect(Collectors.toSet());
+        if (parsedHeader.containsAll(requiredColumns)) {
+            return Result.success(new ColumnMapper(header));
+        }
+        return Result.failure("");
     }
 
     @NotNull

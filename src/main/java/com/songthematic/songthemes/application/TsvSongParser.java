@@ -19,7 +19,11 @@ public class TsvSongParser {
         }
         List<String> streamList = tsvSongs.lines().toList();
         String header = streamList.getFirst();
-        ColumnMapper columnMapper = new ColumnMapper(header);
+        Result<ColumnMapper> result = ColumnMapper.create(header);
+        if (result.isFailure()) {
+            return Result.failure(result.failureMessages());
+        }
+        ColumnMapper columnMapper = result.values().getFirst();
         Map<Boolean, List<Result<Song>>> partition = streamList
                 .stream()
                 .skip(1)

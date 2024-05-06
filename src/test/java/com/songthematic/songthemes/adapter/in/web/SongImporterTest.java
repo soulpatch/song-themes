@@ -83,6 +83,7 @@ class SongImporterTest {
         String missingHeaderRow = """
                 Blue Oyster Cult\tDon't Fear The Reaper\tAgents of Fortune
                 Kinks\tAround the Dial\tGive The People What They Want
+                Howlin' Wolf\tEvil\tHis Best: The Chess 50th Anniversary Collection
                 """;
 
         RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
