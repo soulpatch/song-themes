@@ -10,22 +10,24 @@ import java.util.stream.Stream;
 
 public final class ColumnMapper {
     private final List<String> headerColumns;
-    private final Set<String> requiredColumns;
+    private static Set<String> requiredColumns = Set.of("Artist", "Song Title", "Theme1");
 
-    public ColumnMapper(String header) {
-        requiredColumns = Set.of("Artist", "Song Title", "Theme1");
-        String[] parsedHeaderColumns = header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE);
+    private ColumnMapper(String[] parsedHeaderColumns) {
         headerColumns = Arrays.asList(parsedHeaderColumns);
     }
 
     static Result<ColumnMapper> create(String header) {
-        Set<String> requiredColumns = Set.of("Artist", "Song Title", "Theme1");
         String[] parsedHeaderColumns = header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE);
         Set<String> parsedHeader = Stream.of(parsedHeaderColumns).collect(Collectors.toSet());
         if (parsedHeader.containsAll(requiredColumns)) {
-            return Result.success(new ColumnMapper(header));
+            return Result.success(new ColumnMapper(parsedHeaderColumns));
         }
         return Result.failure("Missing required header row, header was: " + Arrays.toString(parsedHeaderColumns));
+    }
+
+    public static ColumnMapper createColumnMapper(String header) {
+//        return create(header).values().getFirst();
+        return new ColumnMapper(header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE));
     }
 
     @NotNull

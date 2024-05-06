@@ -10,7 +10,7 @@ class ColumnMapperTest {
 
     @Test
     void emptyStringReturnedWhenOptionalColumnDoesNotExist() throws Exception {
-        ColumnMapper columnMapper = new ColumnMapper("Artist\tSong Title\tRelease Title\tTheme1");
+        ColumnMapper columnMapper = ColumnMapper.createColumnMapper("Artist\tSong Title\tRelease Title\tTheme1");
 
         String[] columns = {"Earth, Wind & Fire", "Gratitude", "Greatest Hits", "Thank You"};
         String optionalColumnName = "Release Type";
@@ -26,7 +26,7 @@ class ColumnMapperTest {
             "Artist, Missing required column: \"Artist\", Song Title\tRelease Title\tTheme1"
     })
     void failureWhenMissingOneRequiredColumn(String requiredColumnName, String failureMessage, String header) throws Exception {
-        ColumnMapper columnMapper = new ColumnMapper(header);
+        ColumnMapper columnMapper = ColumnMapper.createColumnMapper(header);
 
         String[] columns = {"Earth, Wind & Fire", "Greatest Hits", "Thank You"};
         Result<String> result = columnMapper.extractColumn(columns, requiredColumnName);
@@ -41,7 +41,7 @@ class ColumnMapperTest {
     @Test
     void failureWhenHeaderColumnCountDoesNotMatchDataColumnCount() throws Exception {
         String headerRow = "One\tTwo\tThree\tFour";
-        ColumnMapper columnMapper = new ColumnMapper(headerRow);
+        ColumnMapper columnMapper = ColumnMapper.createColumnMapper(headerRow);
 
         String[] columns = {"1", "2", "3", "4", "5", "6"};
 
