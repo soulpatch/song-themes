@@ -25,7 +25,7 @@ public final class ColumnMapper {
         if (parsedHeader.containsAll(requiredColumns)) {
             return Result.success(new ColumnMapper(header));
         }
-        return Result.failure("");
+        return Result.failure("Missing required header row, header was: " + Arrays.toString(parsedHeaderColumns));
     }
 
     @NotNull
