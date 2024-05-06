@@ -3,6 +3,7 @@ package com.songthematic.songthemes.application;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,7 +11,7 @@ import java.util.stream.Stream;
 
 public final class ColumnMapper {
     private final List<String> headerColumns;
-    private static Set<String> requiredColumns = Set.of("Artist", "Song Title", "Theme1");
+    private final static Set<String> REQUIRED_COLUMNS = Set.of("Artist", "Song Title", "Theme1");
 
     private ColumnMapper(String[] parsedHeaderColumns) {
         headerColumns = Arrays.asList(parsedHeaderColumns);
@@ -19,15 +20,17 @@ public final class ColumnMapper {
     static Result<ColumnMapper> create(String header) {
         String[] parsedHeaderColumns = header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE);
         Set<String> parsedHeader = Stream.of(parsedHeaderColumns).collect(Collectors.toSet());
-        if (parsedHeader.containsAll(requiredColumns)) {
+        if (parsedHeader.containsAll(REQUIRED_COLUMNS)) {
             return Result.success(new ColumnMapper(parsedHeaderColumns));
         }
-        return Result.failure("Missing required header row, header was: " + Arrays.toString(parsedHeaderColumns));
+
+        Set<String> missingColumns = new HashSet<>(REQUIRED_COLUMNS);
+        missingColumns.removeAll(parsedHeader);
+        return Result.failure("Header is missing the required column(s): " + missingColumns + ", header was: " + Arrays.toString(parsedHeaderColumns));
     }
 
     public static ColumnMapper createColumnMapper(String header) {
         return create(header).values().getFirst();
-//        return new ColumnMapper(header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE));
     }
 
     @NotNull
@@ -51,7 +54,7 @@ public final class ColumnMapper {
     }
 
     private boolean isOptionalColumn(String columnName) {
-        return !requiredColumns.contains(columnName);
+        return !REQUIRED_COLUMNS.contains(columnName);
     }
 
     private boolean headerColumnsDoNotMatch(String[] columns) {

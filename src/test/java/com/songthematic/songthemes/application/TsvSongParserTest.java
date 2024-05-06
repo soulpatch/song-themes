@@ -31,7 +31,7 @@ class TsvSongParserTest {
                 assertThat(result)
                         .isFailure()
                         .failureMessages()
-                        .contains("Missing required header row, header was: [Blue Oyster Cult, Don't Fear The Reaper, Agents of Fortune]");
+                        .contains("Header is missing the required column(s): [Artist, Song Title, Theme1], header was: [Blue Oyster Cult, Don't Fear The Reaper, Agents of Fortune]");
             }
 
             @Test

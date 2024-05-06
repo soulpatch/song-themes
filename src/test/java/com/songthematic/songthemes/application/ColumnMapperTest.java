@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ColumnMapperTest {
@@ -22,19 +24,21 @@ class ColumnMapperTest {
 
     @ParameterizedTest
     @CsvSource({
-            "Song Title, Missing required column: \"Song Title\", Artist\tRelease Title\tTheme1",
-            "Artist, Missing required column: \"Artist\", Song Title\tRelease Title\tTheme1"
+            "Artist\tRelease Title\tTheme1, [Song Title]",
+            "Artist\tRelease Title, '[Song Title, Theme1]'",
+            "Release Title, '[Artist, Song Title, Theme1]'",
+            "Song Title\tRelease Title\tTheme1, [Artist]"
     })
-    void failureWhenMissingOneRequiredColumn(String requiredColumnName, String failureMessage, String header) throws Exception {
+    void failureWhenMissingOneRequiredColumn(String header, String missingColumnNames) throws Exception {
 
-        String[] columns = {"Earth, Wind & Fire", "Greatest Hits", "Thank You"};
         Result<ColumnMapper> result = ColumnMapper.create(header);
+        String[] parsedHeaderColumns = header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE);
 
         assertThat(result.isSuccess())
                 .as("Expected success to be false because required column is missing")
                 .isFalse();
         assertThat(result.failureMessages())
-                .containsExactly(failureMessage);
+                .containsExactly("Header is missing the required column(s): " + missingColumnNames + ", header was: " + Arrays.toString(parsedHeaderColumns));
     }
 
     @Test
