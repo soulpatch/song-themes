@@ -26,10 +26,9 @@ class ColumnMapperTest {
             "Artist, Missing required column: \"Artist\", Song Title\tRelease Title\tTheme1"
     })
     void failureWhenMissingOneRequiredColumn(String requiredColumnName, String failureMessage, String header) throws Exception {
-        ColumnMapper columnMapper = ColumnMapper.createColumnMapper(header);
 
         String[] columns = {"Earth, Wind & Fire", "Greatest Hits", "Thank You"};
-        Result<String> result = columnMapper.extractColumn(columns, requiredColumnName);
+        Result<ColumnMapper> result = ColumnMapper.create(header);
 
         assertThat(result.isSuccess())
                 .as("Expected success to be false because required column is missing")
@@ -40,7 +39,7 @@ class ColumnMapperTest {
 
     @Test
     void failureWhenHeaderColumnCountDoesNotMatchDataColumnCount() throws Exception {
-        String headerRow = "One\tTwo\tThree\tFour";
+        String headerRow = "Artist\tSong Title\tTheme1\tTheme2";
         ColumnMapper columnMapper = ColumnMapper.createColumnMapper(headerRow);
 
         String[] columns = {"1", "2", "3", "4", "5", "6"};
@@ -50,6 +49,6 @@ class ColumnMapperTest {
         assertThat(result.isSuccess())
                 .isFalse();
         assertThat(result.failureMessages())
-                .containsExactly("Number of columns was 6, row contains: [1, 2, 3, 4, 5, 6]. Must have columns matching the 4 header columns [One, Two, Three, Four].");
+                .containsExactly("Number of columns was 6, row contains: [1, 2, 3, 4, 5, 6]. Must have columns matching the 4 header columns [Artist, Song Title, Theme1, Theme2].");
     }
 }

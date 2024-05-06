@@ -26,8 +26,8 @@ public final class ColumnMapper {
     }
 
     public static ColumnMapper createColumnMapper(String header) {
-//        return create(header).values().getFirst();
-        return new ColumnMapper(header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE));
+        return create(header).values().getFirst();
+//        return new ColumnMapper(header.split("\t", TsvSongParser.MAX_COLUMNS_TO_PARSE));
     }
 
     @NotNull

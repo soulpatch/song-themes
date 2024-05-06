@@ -211,49 +211,5 @@ class TsvSongParserTest {
                     .containsExactly(new Song("Earth, Wind & Fire", "Gratitude", "", "", List.of("Thank You")));
         }
 
-        @Test
-        void oneFailureMessageWhenOneRequiredColumnMissing() throws Exception {
-            String header = "Song Title\tTheme1";
-            String tsvSong = "Gratitude\tThank You";
-            TsvSongParser tsvSongParser = new TsvSongParser();
-
-            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapper.createColumnMapper(header));
-
-            assertThat(result)
-                    .isFailure()
-                    .failureMessages()
-                    .containsExactly("Missing required column: \"Artist\"");
-        }
-
-        @Test
-        void multipleFailureMessagesWhenMissingAllRequiredColumns() throws Exception {
-            String header = "Notes";
-            String tsvSong = "written by Burt Bacharach";
-            TsvSongParser tsvSongParser = new TsvSongParser();
-
-            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapper.createColumnMapper(header));
-
-            assertThat(result)
-                    .isFailure()
-                    .failureMessages()
-                    .hasSize(3)
-                    .containsExactlyInAnyOrder("Missing required column: \"Theme1\"",
-                                               "Missing required column: \"Artist\"",
-                                               "Missing required column: \"Song Title\"");
-        }
-
-        @Test
-        void failureWhenMissingTheme1() throws Exception {
-            String header = "Artist\tSong Title";
-            String tsvSong = "Earth, Wind & Fire\tGratitude";
-            TsvSongParser tsvSongParser = new TsvSongParser();
-
-            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapper.createColumnMapper(header));
-
-            assertThat(result)
-                    .isFailure()
-                    .failureMessages()
-                    .containsExactly("Missing required column: \"Theme1\"");
-        }
     }
 }
