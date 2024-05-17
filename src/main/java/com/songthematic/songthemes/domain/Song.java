@@ -14,6 +14,7 @@ public record Song(String artist, String songTitle, String releaseTitle, String 
         if (artist.isBlank()) {
             invalidAttributes.add("artist");
         }
+
         if (songTitle.isBlank()) {
             invalidAttributes.add("song title");
         }

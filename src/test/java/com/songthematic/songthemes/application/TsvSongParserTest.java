@@ -1,6 +1,7 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -168,6 +169,7 @@ class TsvSongParserTest {
 
     @Nested
     class ParseSingleSongTest {
+
         @Test
         void failureResultForRowWithNotEnoughColumns() throws Exception {
             String header = "Artist\tSong Title\tTheme1";
@@ -180,6 +182,36 @@ class TsvSongParserTest {
                     .isFailure()
                     .failureMessages()
                     .containsExactly("Number of columns was 2, row contains: [Husker Du, Green Eyes]. Must have columns matching the 3 header columns [Artist, Song Title, Theme1].");
+        }
+
+        @Test
+        void failureResultForEmptyRequiredArtistCell() throws Exception {
+            String header = "Artist\tSong Title\tTheme1";
+            String tsvSong = "\tGreen Eyes\tCats";
+            TsvSongParser tsvSongParser = new TsvSongParser();
+
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapperTest.createColumnMapper(header));
+
+            assertThat(result)
+                    .isFailure()
+                    .failureMessages()
+                    .containsExactly("");
+        }
+
+        @Test
+        @Disabled("do this after other empty cells")
+        void failureResultForEmptyTheme() throws Exception {
+            String header = "Artist\tSong Title\tTheme1";
+            String tsvSong = "Husker Du\tGreen Eyes\t";
+            TsvSongParser tsvSongParser = new TsvSongParser();
+
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapperTest.createColumnMapper(header));
+
+            assertThat(result)
+                    .isFailure()
+                    .failureMessages()
+                    .containsExactly("");
+//                    .containsExactly("Number of columns was 2, row contains: [Husker Du, Green Eyes]. Must have columns matching the 3 header columns [Artist, Song Title, Theme1].");
         }
 
         @Test

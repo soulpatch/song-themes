@@ -33,8 +33,11 @@ public final class ColumnMapper {
     Result<String> extractColumn(String[] rowColumns, String columnName) {
         if (headerColumns.contains(columnName)) {
             int index = headerColumns.indexOf(columnName);
-            String column = rowColumns[index];
-            return Result.success(column);
+            String cell = rowColumns[index];
+            if (cell.isBlank() && isRequiredColumn(columnName)) {
+                return Result.failure("");
+            }
+            return Result.success(cell);
         } else if (isOptionalColumn(columnName)) {
             return Result.success("");
         }
@@ -50,7 +53,11 @@ public final class ColumnMapper {
     }
 
     private boolean isOptionalColumn(String columnName) {
-        return !REQUIRED_COLUMNS.contains(columnName);
+        return !isRequiredColumn(columnName);
+    }
+
+    private boolean isRequiredColumn(String columnName) {
+        return REQUIRED_COLUMNS.contains(columnName);
     }
 
     private boolean headerColumnsDoNotMatch(String[] columns) {
