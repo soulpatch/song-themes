@@ -105,9 +105,10 @@ Increase Song Attributes
 [X] Eliminate usages of createColumnMapper(String)
 
 >>>[ ] if header row correct, missing required cell(s) -> one failure message row?
-        // artist, title, theme1
+        // artist, song-title, theme1
         // "", "foo", "politics"
         // "", "foo", ""            << one failure message for this scenario
+        // "band1", "foo", ""
 
 [ ] redirect after Import currently goes to /, want to show import success instead (e.g. 25 songs imported)
 [ ] Deploy to Production
