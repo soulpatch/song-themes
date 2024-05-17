@@ -32,10 +32,12 @@ class SongImporterTest {
                 Artist\tSong Title\tRelease Title\tRelease Type\tRecord Label\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
                 DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tDontCareRecordLabel\tSkippedNotes\tThank You\t\t\t\tDontCareContributor
                 """;
-        songImporter.handleSongImport(tsvSongs, new RedirectAttributesModelMap());
+        String redirectPage = songImporter.handleSongImport(tsvSongs, new RedirectAttributesModelMap());
 
         assertThat(repository.allSongs())
                 .hasSize(1);
+        assertThat(redirectPage)
+                .isEqualTo("redirect:/song-import-success");
     }
 
     @Test

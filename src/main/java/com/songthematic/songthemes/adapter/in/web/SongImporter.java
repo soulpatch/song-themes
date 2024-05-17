@@ -25,6 +25,11 @@ public class SongImporter {
         return "song-import";
     }
 
+    @GetMapping("/song-import-success")
+    public String songImportSuccess() {
+        return "song-import-success";
+    }
+
     @PostMapping("/song-import")
     public String handleSongImport(@RequestParam("tsvSongs") String tsvSongs, RedirectAttributes redirectAttributes) {
         if (tsvSongs == null) {
@@ -32,7 +37,7 @@ public class SongImporter {
         }
         Result<Song> result = songService.importSongs(tsvSongs);
         if (result.isSuccess()) {
-            return "redirect:/";
+            return "redirect:/song-import-success";
         }
         redirectAttributes.addFlashAttribute("failureMessages", result.failureMessages());
         redirectAttributes.addFlashAttribute("tsvSongs", tsvSongs);

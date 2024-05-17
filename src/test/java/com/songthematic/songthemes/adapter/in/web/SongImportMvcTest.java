@@ -26,13 +26,19 @@ public class SongImportMvcTest {
     SongJdbcRepository songJdbcRepository;
 
     @Test
-    public void getToSongImportEndpointReturns200() throws Exception {
+    public void getRequestToSongImportEndpointReturns200() throws Exception {
         mockMvc.perform(get("/song-import"))
                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
-    void postToSongImportEndpointRedirects() throws Exception {
+    void getRequestToSongImportSuccessEndpointReturns200() throws Exception {
+        mockMvc.perform(get("/song-import-success"))
+               .andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    void postRequestToSongImportEndpointRedirects() throws Exception {
         mockMvc.perform(post("/song-import")
                                 .param("tsvSongs", "")
                                 .with(csrf()))

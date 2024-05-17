@@ -39,7 +39,7 @@ Increase Song Attributes
 
 [X] Upgrade to Spring Boot 3.2.1
 [X] Upgrade to Spring Boot 3.2.2
-[ ] Install Tab Shifter IntelliJ Plug-in
+[X] Install Tab Shifter IntelliJ Plug-in
 
 [ ] Adding Songs via the bulk load of TSV (text box instead of via file)
     [X] Decided to switch from CSV to TSV because copying from Excel produces tab separated columns
@@ -110,13 +110,18 @@ Increase Song Attributes
         // "", "foo", ""            << decided to not collapse into one failure message for this scenario
         // "band1", "foo", ""
 
-[ ] redirect after Import currently goes to /, want to show import success instead (e.g. 25 songs imported)
+[ ] Bulk import success user feedback
+    [ ] redirect to bulk import success page
+    [ ] show number of songs imported
+    [ ] Successful bulk import shows imported data in easy to read form (e.g. tabular) **
+
+[ ] Autocomplete for Themes
 [ ] Deploy to Production
 [ ] Add ArchUnit checking
 [ ] Add mutation testing tool
+[ ] Handle duplicate entries on bulk import
 
-
- [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
+[ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
         [X] explicitly protect admin endpoints
         [X] add
