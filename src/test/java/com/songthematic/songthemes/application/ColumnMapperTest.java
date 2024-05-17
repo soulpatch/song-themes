@@ -10,9 +10,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ColumnMapperTest {
 
+    public static ColumnMapper createColumnMapper(String header) {
+        return ColumnMapper.create(header).values().getFirst();
+    }
+
     @Test
     void emptyStringReturnedWhenOptionalColumnDoesNotExist() throws Exception {
-        ColumnMapper columnMapper = ColumnMapper.createColumnMapper("Artist\tSong Title\tRelease Title\tTheme1");
+        ColumnMapper columnMapper = createColumnMapper("Artist\tSong Title\tRelease Title\tTheme1");
 
         String[] columns = {"Earth, Wind & Fire", "Gratitude", "Greatest Hits", "Thank You"};
         String optionalColumnName = "Release Type";
@@ -44,7 +48,7 @@ class ColumnMapperTest {
     @Test
     void failureWhenHeaderColumnCountDoesNotMatchDataColumnCount() throws Exception {
         String headerRow = "Artist\tSong Title\tTheme1\tTheme2";
-        ColumnMapper columnMapper = ColumnMapper.createColumnMapper(headerRow);
+        ColumnMapper columnMapper = createColumnMapper(headerRow);
 
         String[] columns = {"1", "2", "3", "4", "5", "6"};
 

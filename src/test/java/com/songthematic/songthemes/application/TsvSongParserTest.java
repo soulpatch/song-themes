@@ -170,10 +170,11 @@ class TsvSongParserTest {
     class ParseSingleSongTest {
         @Test
         void failureResultForRowWithNotEnoughColumns() throws Exception {
+            String header = "Artist\tSong Title\tTheme1";
             String tsvSong = "Husker Du\tGreen Eyes";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapper.createColumnMapper("Artist\tSong Title\tTheme1"));
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapperTest.createColumnMapper(header));
 
             assertThat(result)
                     .isFailure()
@@ -187,7 +188,7 @@ class TsvSongParserTest {
             String tsvSong = "Earth, Wind & Fire\tGratitude\tThank You";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapper.createColumnMapper(header));
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapperTest.createColumnMapper(header));
 
             assertThat(result)
                     .as("Song with required columns should have succeeded, but did not.")
@@ -198,11 +199,11 @@ class TsvSongParserTest {
 
         @Test
         void successForRowWithRequiredColumnsInDifferentOrder() throws Exception {
-            String header = "Song Title\tTheme1\tArtist";
+            String headerInDifferentOrder = "Song Title\tTheme1\tArtist";
             String tsvSong = "Gratitude\tThank You\tEarth, Wind & Fire";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
-            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapper.createColumnMapper(header));
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapperTest.createColumnMapper(headerInDifferentOrder));
 
             assertThat(result)
                     .as("Song with required columns should have succeeded, but did not.")

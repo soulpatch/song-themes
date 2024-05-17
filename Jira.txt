@@ -102,7 +102,7 @@ Increase Song Attributes
 [X] Single error message when bulk import is missing the header row
     [X] completely missing header row --> one failure message
     [X] missing a required column
-[ ] Eliminate usages of createColumnMapper(String)
+[X] Eliminate usages of createColumnMapper(String)
 
 >>>[ ] if header row correct, missing required cell(s) -> one failure message row?
         // artist, title, theme1

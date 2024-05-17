@@ -29,10 +29,6 @@ public final class ColumnMapper {
         return Result.failure("Header is missing the required column(s): " + missingColumns + ", header was: " + Arrays.toString(parsedHeaderColumns));
     }
 
-    public static ColumnMapper createColumnMapper(String header) {
-        return create(header).values().getFirst();
-    }
-
     @NotNull
     Result<String> extractColumn(String[] rowColumns, String columnName) {
         if (headerColumns.contains(columnName)) {
