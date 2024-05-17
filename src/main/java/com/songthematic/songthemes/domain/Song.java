@@ -5,6 +5,10 @@ import java.util.List;
 
 public record Song(String artist, String songTitle, String releaseTitle, String releaseType, List<String> themes) {
     public Song {
+        if (themes.isEmpty()) {
+            throw new MissingSongAttribute("Theme list is empty");
+        }
+
         String message = "These attributes were blank: ";
         List<String> invalidAttributes = new ArrayList<>();
         if (artist.isBlank()) {

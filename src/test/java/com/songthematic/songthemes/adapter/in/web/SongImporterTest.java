@@ -30,7 +30,7 @@ class SongImporterTest {
 
         String tsvSongs = """
                 Artist\tSong Title\tRelease Title\tRelease Type\tRecord Label\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
-                DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tSkippedNotes\tThank You\t\t\t\tDontCareContributor
+                DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tDontCareRecordLabel\tSkippedNotes\tThank You\t\t\t\tDontCareContributor
                 """;
         songImporter.handleSongImport(tsvSongs, new RedirectAttributesModelMap());
 
