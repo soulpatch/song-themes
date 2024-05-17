@@ -35,7 +35,8 @@ public final class ColumnMapper {
             int index = headerColumns.indexOf(columnName);
             String cell = rowColumns[index];
             if (cell.isBlank() && isRequiredColumn(columnName)) {
-                return Result.failure("");
+                return Result.failure("Song is missing required %s. Row contains %s."
+                                              .formatted(columnName, Arrays.toString(rowColumns)));
             }
             return Result.success(cell);
         } else if (isOptionalColumn(columnName)) {
