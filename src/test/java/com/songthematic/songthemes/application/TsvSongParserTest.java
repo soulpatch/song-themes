@@ -1,7 +1,6 @@
 package com.songthematic.songthemes.application;
 
 import com.songthematic.songthemes.domain.Song;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -190,6 +189,7 @@ class TsvSongParserTest {
         @CsvSource(textBlock = """
                 '\tGreen Eyes\tCats', Artist, '[, Green Eyes, Cats]'
                 'Husker Du\t\tCats', Song Title, '[Husker Du, , Cats]'
+                'Husker Du\tGreen Eyes\t', Theme1, '[Husker Du, Green Eyes, ]'
                 """
         )
         void failureResultForEmptyRequiredCell(String tsvSong, String missing, String rowContains) throws Exception {
@@ -203,22 +203,6 @@ class TsvSongParserTest {
                     .failureMessages()
                     .containsExactly("Song is missing required %s. Row contains %s."
                                              .formatted(missing, rowContains));
-        }
-
-        @Test
-        @Disabled("do this after other empty cells")
-        void failureResultForEmptyTheme() throws Exception {
-            String header = "Artist\tSong Title\tTheme1";
-            String tsvSong = "Husker Du\tGreen Eyes\t";
-            TsvSongParser tsvSongParser = new TsvSongParser();
-
-            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapperTest.createColumnMapper(header));
-
-            assertThat(result)
-                    .isFailure()
-                    .failureMessages()
-                    .containsExactly("");
-//                    .containsExactly("Number of columns was 2, row contains: [Husker Du, Green Eyes]. Must have columns matching the 3 header columns [Artist, Song Title, Theme1].");
         }
 
         @Test
