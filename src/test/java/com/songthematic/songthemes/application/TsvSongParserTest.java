@@ -192,7 +192,7 @@ class TsvSongParserTest {
                 'Husker Du\tGreen Eyes\t', Theme1, '[Husker Du, Green Eyes, ]'
                 """
         )
-        void failureResultForEmptyRequiredCell(String tsvSong, String missing, String rowContains) throws Exception {
+        void failureResultForSingleEmptyRequiredCell(String tsvSong, String missing, String rowContains) throws Exception {
             String header = "Artist\tSong Title\tTheme1";
             TsvSongParser tsvSongParser = new TsvSongParser();
 
@@ -203,6 +203,21 @@ class TsvSongParserTest {
                     .failureMessages()
                     .containsExactly("Song is missing required %s. Row contains %s."
                                              .formatted(missing, rowContains));
+        }
+
+        @Test
+        void twoFailureMessagesForTwoEmptyRequiredCells() throws Exception {
+            String header = "Artist\tSong Title\tTheme1";
+            String tsvSong = "\tGreen Eyes\t";
+            TsvSongParser tsvSongParser = new TsvSongParser();
+
+            Result<Song> result = tsvSongParser.parseSong(tsvSong, ColumnMapperTest.createColumnMapper(header));
+
+            assertThat(result)
+                    .isFailure()
+                    .failureMessages()
+                    .containsExactly("Song is missing required Artist. Row contains [, Green Eyes, ].",
+                                     "Song is missing required Theme1. Row contains [, Green Eyes, ].");
         }
 
         @Test
