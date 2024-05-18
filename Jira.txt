@@ -111,8 +111,8 @@ Increase Song Attributes
         // "band1", "foo", ""
 
 [ ] Bulk import success user feedback
-    [ ] redirect to bulk import success page
-    [ ] show number of songs imported
+    [X] redirect to bulk import success page
+>>> [ ] failing test: show number of songs imported (will be in SongImporterTest) -- might require a framework test for redirect attributes
     [ ] Successful bulk import shows imported data in easy to read form (e.g. tabular) **
 
 [ ] Autocomplete for Themes
