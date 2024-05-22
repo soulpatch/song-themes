@@ -9,5 +9,23 @@
 <body>
 <h1>Song Importer</h1>
 <p th:text="${successMessage}">Success Message</p>
+<h2>Imported Songs</h2>
+<table>
+    <tr>
+        <th>Artist</th>
+        <th>Song Title</th>
+        <th>Release Title</th>
+        <th>Release Type</th>
+        <th>Themes</th>
+    </tr>
+    <tr th:each="songView : ${songViews}">
+        <td th:text="${artist}">Artist</td>
+        <td th:text="${songTitle}">Song Title</td>
+        <td th:text="${releaseTitle}">Release Title</td>
+        <td th:text="${releastType}">Release Type</td>
+        <td th:text="${themes}">Themes</td>
+
+    </tr>
+</table>
 </body>
 </html>
