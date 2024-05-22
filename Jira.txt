@@ -6,17 +6,22 @@ Song Themes Stuff To Do Da-Do Da Do Wop
     [X] show number of songs imported (will be in SongImporterTest)
     [X] Ensure number of songs imported is displayed in the browser
     [X] Put Contributor level endpoints under their own path to make security easier
-    [ ] Successful bulk import shows imported data in easy to read form (e.g. tabular) **
+    [X] Successful bulk import shows imported data in easy to read form (e.g. tabular) **
+    [ ] Style HTML table of imported songs to be easier to read
+
+[ ] Deploy to Production
+    [ ] Set up database
+    [ ] GitHub actions for build and test
 
 [ ] Autocomplete for Themes
         Multi-select UI Sketch
             [New years {x}]  [Vampires {x}]
         Also, UI control filters as the user types
-[ ] Deploy to Production
-[ ] Add ArchUnit checking
-[ ] Add mutation testing tool
 [ ] Handle duplicate entries on bulk import
 [ ] If Release Type is Compilation, then Release Title becomes required
+
+[ ] Add ArchUnit checking
+[ ] Add mutation testing tool
 [ ] Replace Result class with library
     [ ] Issue: There is an implied List<SUCCESS> for any success(values)
     [ ] Create Result combinator to help refactor the HUGE parseSong() method -- which has lots of duplication

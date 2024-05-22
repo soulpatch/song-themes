@@ -19,11 +19,11 @@
         <th>Themes</th>
     </tr>
     <tr th:each="songView : ${songViews}">
-        <td th:text="${artist}">Artist</td>
-        <td th:text="${songTitle}">Song Title</td>
-        <td th:text="${releaseTitle}">Release Title</td>
-        <td th:text="${releastType}">Release Type</td>
-        <td th:text="${themes}">Themes</td>
+        <td th:text="${songView.artist}">Artist</td>
+        <td th:text="${songView.songTitle}">Song Title</td>
+        <td th:text="${songView.releaseTitle}">Release Title</td>
+        <td th:text="${songView.releaseType}">Release Type</td>
+        <td th:text="${songView.themes}">Themes</td>
 
     </tr>
 </table>

@@ -5,7 +5,7 @@ import com.songthematic.songthemes.domain.Song;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public record SongView(String artist, String title, String releaseTitle, String releaseType, String themes) {
+public record SongView(String artist, String songTitle, String releaseTitle, String releaseType, String themes) {
     static List<SongView> from(List<Song> foundSongs) {
         return foundSongs.stream()
                          .map(song -> new SongView(song.artist(),

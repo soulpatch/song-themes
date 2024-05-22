@@ -2,6 +2,7 @@ package com.songthematic.songthemes.adapter.in.web;
 
 import com.songthematic.songthemes.application.InMemorySongRepository;
 import com.songthematic.songthemes.application.SongService;
+import com.songthematic.songthemes.domain.Song;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
@@ -23,7 +24,7 @@ class SongImporterTest {
     }
 
     @Test
-    void songImportPutsSongInRepository() throws Exception {
+    void successPageShowsSongsImported() throws Exception {
         InMemorySongRepository repository = InMemorySongRepository.createEmpty();
         SongService songService = new SongService(repository);
         SongImporter songImporter = new SongImporter(songService);
@@ -36,15 +37,19 @@ class SongImporterTest {
         RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
         String redirectPage = songImporter.handleSongImport(tsvSongs, redirectAttributes);
 
-        assertThat(repository.allSongs())
-                .hasSize(2);
         assertThat(redirectPage)
                 .isEqualTo("redirect:/contributor/song-import-success");
 
-        String successMessage = (String) redirectAttributes.getFlashAttributes().get("successMessage");
-        assertThat(successMessage)
+        assertThat(successMessageFrom(redirectAttributes))
                 .isEqualTo("Successfully imported 2 song(s)");
 
+        List<Song> songs = repository.allSongs().toList();
+        assertThat(songViewsFrom(redirectAttributes))
+                .containsExactlyElementsOf(SongView.from(songs));
+    }
+
+    private List<SongView> songViewsFrom(RedirectAttributesModelMap redirectAttributes) {
+        return (List<SongView>) redirectAttributes.getFlashAttributes().get("songViews");
     }
 
     @Test
@@ -71,7 +76,7 @@ class SongImporterTest {
 
         assertThat(redirectPage)
                 .isEqualTo("redirect:/contributor/song-import");
-        assertThat(failureMessages(redirectAttributes))
+        assertThat(failureMessagesFrom(redirectAttributes))
                 .hasSize(2);
         assertThat(originalTextAreaContent(redirectAttributes))
                 .isEqualTo(tsvTwoMalformedSongs);
@@ -98,7 +103,7 @@ class SongImporterTest {
         RedirectAttributes redirectAttributes = new RedirectAttributesModelMap();
         songImporter.handleSongImport(missingHeaderRow, redirectAttributes);
 
-        assertThat(failureMessages(redirectAttributes))
+        assertThat(failureMessagesFrom(redirectAttributes))
                 .hasSize(1);
     }
 
@@ -106,7 +111,11 @@ class SongImporterTest {
         return (String) redirectAttributes.getFlashAttributes().get("tsvSongs");
     }
 
-    private List<String> failureMessages(RedirectAttributes redirectAttributes) {
+    private List<String> failureMessagesFrom(RedirectAttributes redirectAttributes) {
         return (List<String>) redirectAttributes.getFlashAttributes().get("failureMessages");
+    }
+
+    private String successMessageFrom(RedirectAttributesModelMap redirectAttributes) {
+        return (String) redirectAttributes.getFlashAttributes().get("successMessage");
     }
 }
