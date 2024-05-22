@@ -93,4 +93,23 @@ public abstract class SongServiceTestBase {
         assertThat(result)
                 .isFailure();
     }
+
+    @Test
+    void noSongsAddedToRepositoryWhenAtLeastOneMalformedSong() throws Exception {
+        String tsvTwoMalformedSongs = """
+                Artist\tSong Title\tRelease Title\tRelease Type\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
+                Husker Du\tGreen Eyes\t\t\t\tCats\t\t\t\tRizzi
+                Screaming Tribesmen\tDate with a Vampyre
+                Unnatural Axe\tThey Saved Hitler's Brain
+                """;
+        SongRepository songRepository = songRepository();
+        SongService songService = new SongService(songRepository);
+
+        Result<Song> result = songService.importSongs(tsvTwoMalformedSongs);
+
+        assertThat(result)
+                .isFailure();
+        assertThat(songRepository.allSongs())
+                .isEmpty();
+    }
 }

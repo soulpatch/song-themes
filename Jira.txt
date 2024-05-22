@@ -5,7 +5,7 @@ Song Themes Stuff To Do Da-Do Da Do Wop
     [X] redirect to bulk import success page
     [X] show number of songs imported (will be in SongImporterTest)
     [X] Ensure number of songs imported is displayed in the browser
-    [ ] Put Contributor level endpoints under their own path to make security easier
+    [X] Put Contributor level endpoints under their own path to make security easier
     [ ] Successful bulk import shows imported data in easy to read form (e.g. tabular) **
 
 [ ] Autocomplete for Themes
