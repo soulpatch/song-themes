@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-@Tag("io")
+@Tag("mvc")
 @WithMockUser("fake-user-name")
 public class SongImportMvcTest {
 
@@ -27,19 +27,19 @@ public class SongImportMvcTest {
 
     @Test
     public void getRequestToSongImportEndpointReturns200() throws Exception {
-        mockMvc.perform(get("/song-import"))
+        mockMvc.perform(get("/contributor/song-import"))
                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
     void getRequestToSongImportSuccessEndpointReturns200() throws Exception {
-        mockMvc.perform(get("/song-import-success"))
+        mockMvc.perform(get("/contributor/song-import-success"))
                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
     void postRequestToSongImportEndpointRedirects() throws Exception {
-        mockMvc.perform(post("/song-import")
+        mockMvc.perform(post("/contributor/song-import")
                                 .param("tsvSongs", "")
                                 .with(csrf()))
                .andExpect(status().is3xxRedirection());

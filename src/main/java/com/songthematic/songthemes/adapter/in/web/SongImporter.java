@@ -20,29 +20,29 @@ public class SongImporter {
         this.songService = songService;
     }
 
-    @GetMapping("/song-import")
+    @GetMapping("/contributor/song-import")
     public String songImport() {
         return "song-import";
     }
 
-    @GetMapping("/song-import-success")
+    @GetMapping("/contributor/song-import-success")
     public String songImportSuccess() {
         return "song-import-success";
     }
 
-    @PostMapping("/song-import")
+    @PostMapping("/contributor/song-import")
     public String handleSongImport(@RequestParam("tsvSongs") String tsvSongs, RedirectAttributes redirectAttributes) {
         if (tsvSongs == null) {
-            return "redirect:/song-import";
+            return "redirect:/contributor/song-import";
         }
         Result<Song> result = songService.importSongs(tsvSongs); //? confused 1 time by Result<Song>
         if (result.isSuccess()) {
             redirectAttributes.addFlashAttribute("successMessage", "Successfully imported %s song(s)".formatted(result.values().size()));
-            return "redirect:/song-import-success";
+            return "redirect:/contributor/song-import-success";
         }
         redirectAttributes.addFlashAttribute("failureMessages", result.failureMessages());
         redirectAttributes.addFlashAttribute("tsvSongs", tsvSongs);
 
-        return "redirect:/song-import";
+        return "redirect:/contributor/song-import";
     }
 }

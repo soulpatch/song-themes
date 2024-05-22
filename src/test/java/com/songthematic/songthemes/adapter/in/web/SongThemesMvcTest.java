@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
-@Tag("io")
+@Tag("mvc")
 @WithMockUser("fakeUser") // temporary work around
 public class SongThemesMvcTest {
 

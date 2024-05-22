@@ -39,7 +39,7 @@ class SongImporterTest {
         assertThat(repository.allSongs())
                 .hasSize(2);
         assertThat(redirectPage)
-                .isEqualTo("redirect:/song-import-success");
+                .isEqualTo("redirect:/contributor/song-import-success");
 
         String successMessage = (String) redirectAttributes.getFlashAttributes().get("successMessage");
         assertThat(successMessage)
@@ -54,7 +54,7 @@ class SongImporterTest {
         String redirectPage = songImporter.handleSongImport(null, new RedirectAttributesModelMap());
 
         assertThat(redirectPage)
-                .isEqualTo("redirect:/song-import");
+                .isEqualTo("redirect:/contributor/song-import");
     }
 
     @Test
@@ -70,7 +70,7 @@ class SongImporterTest {
         String redirectPage = songImporter.handleSongImport(tsvTwoMalformedSongs, redirectAttributes);
 
         assertThat(redirectPage)
-                .isEqualTo("redirect:/song-import");
+                .isEqualTo("redirect:/contributor/song-import");
         assertThat(failureMessages(redirectAttributes))
                 .hasSize(2);
         assertThat(originalTextAreaContent(redirectAttributes))
