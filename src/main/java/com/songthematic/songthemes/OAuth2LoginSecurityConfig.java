@@ -17,7 +17,7 @@ public class OAuth2LoginSecurityConfig {
         http.authorizeHttpRequests(authorize -> authorize
                     .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                     .requestMatchers("/", "/theme-search").permitAll()
-                    .requestMatchers("/song-import").authenticated()
+                    .requestMatchers("/song-import", "/song-import-success").authenticated()
             )
             .oauth2Login(Customizer.withDefaults());
         return http.build();

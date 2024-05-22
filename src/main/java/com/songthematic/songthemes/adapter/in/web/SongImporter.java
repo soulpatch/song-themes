@@ -35,7 +35,7 @@ public class SongImporter {
         if (tsvSongs == null) {
             return "redirect:/song-import";
         }
-        Result<Song> result = songService.importSongs(tsvSongs); //? confused 1 time by Result<Song> really being Result<List<Song>>
+        Result<Song> result = songService.importSongs(tsvSongs); //? confused 1 time by Result<Song>
         if (result.isSuccess()) {
             redirectAttributes.addFlashAttribute("successMessage", "Successfully imported %s song(s)".formatted(result.values().size()));
             return "redirect:/song-import-success";
