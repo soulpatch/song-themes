@@ -1,114 +1,5 @@
-Song Themes Stuff To Do
------------------------
-Visitor Searches for Songs with One Theme
-
-Application
-[X] Create SongSearcher that can search by theme
-    [X] Finds no songs
-    [X] Finds a song that matches the theme
-    [X] Made theme search case-insensitive
-    [X] Find songs that have different themes
-    [X] Find multiple songs that match the theme
-
-Adapter
-[X] Create GET endpoint for searching by theme
-    [X] Return empty page
-    [X] Return model saying there were no results
-    [X] Return model saying there are results
-    [X] Returns model with a single song matching
-    [X] Returns model with a multiple song matching
-    [X] Generate HTML shows there were no results
-    [X] Generate HTML that shows matching results
-
-[X] Package up according to Hexagonal Architecture
-[X] First push of behavior to production!
-[X] Move songThemesByTitle into the adapter
-
-Add a Song with a Theme
-[X] Add a song that doesn't exist to the database
-    [X] just below UI
-    [X] Create in-memory repository
-    [X] Create database repository adapter
-
-Songs with Multiple Themes
-    [X] Find a Song if one of its Themes match
-    [X] Add a Song with multiple Themes
-
-Increase Song Attributes
-    [X] Add more song attributes (artist, release title, release type)
-
-[X] Upgrade to Spring Boot 3.2.1
-[X] Upgrade to Spring Boot 3.2.2
-[X] Install Tab Shifter IntelliJ Plug-in
-
-[ ] Adding Songs via the bulk load of TSV (text box instead of via file)
-    [X] Decided to switch from CSV to TSV because copying from Excel produces tab separated columns
-    [X] Add one line of Song information
-        [X] Process multiple songs
-        [X] Test for only one theme column (generally, not enough columns)
-        [X] Skip empty rows
-        [X] Skip blank rows
-        [X] Ensure each song must have non-empty Artist, Song Title and Theme(s)
-        [ ] Handle incorrect number of columns pasted -- having user friendly error messages
-            [X] Hold onto parse errors to return them all at once from the TsvSongParser.parse() method (using Result pattern)
-                Parse should return an Either (Java does not have) -- command success or return failure with information on why it failed
-                    violates command query separation, but not really
-            [X] Refactor parseWithResult
-            [X] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
-            [X] Display failure messages in the UI
-            [X] Put the bulk import string back into the import edit box upon failure
-            [X] Split Result into two concrete subclasses for success and failure
-            [X] Change partitionBy to use custom reducer (maybe try out tee as well) - OBSOLETED by using better Result class
-        [X] Skip over unused columns (needs a header row)
-            [X] Change all tests to include a header row
-            [X] Only parse columns that we want
-                    Must have at least these 3 columns
-                        Artist, Song Title, Theme1
-            [X] have parseAll support header
-            [X] Support these remaining columns, other columns are ignored
-                 Note: Theme1 already implemented
-                        Release Title, Release Type, Theme2, Theme3, Theme4
-            [X] Solve primitive obsession with header in parseSong - columnIndexOf(header...
-            [X] Convert IllegalArgumentException to a Result failure, then enable the Disabled tests
-                    If validating user input, return a Result like object
-                    Otherwise, throw an exception
-            [X] Write a custom assert for Result
-            [X] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
-            [X] Require that header rows have specific columns
-                [X] Handle missing Song Title at the TsvSongParser level
-                [X] parseAllReturnsMultipleFailureMessages() - fix failure message ...5?
-                    [X] returnsFailureResultForRowWithNotEnoughColumns()
-                [X] Handle multiple themes -- currently failureWhenMissingTheme1()
-        [ ] If Release Type is Compilation, then Release Title becomes required
-        [ ] Create Result combinator to help refactor the HUGE parseSong() method -- which has lots of duplication
-
-[X] Persist to DB
-    [X] Move SongSearcher searching into SongRepository
-    [X] Extract a port interface for SongRepository
-    [X] Implement a JDBC Adapter
-        [X] Add database dependencies
-        [X] Use Flyway for database management migration
-            [X] Create schema
-        [X] Create database object that represents the schema in memory -- will be annotated with ORM annotations
-        [X] Create Spring Data JDBC repository
-        [X] Write a couple tests to ensure we are reading and writing the table correctly
-        [X] Write concrete adapter that implements SongRepository
-        [X] Modify use case layer test to also be able to use concrete database adapter
-                [X] run tests against both concrete and fake
-        [X] Wire up concrete database adapter to the application
-
-[X] Add Search page to UI
-[X] Display Artist - Song Title - Release Title [Theme(s)]
-[X] Single error message when bulk import is missing the header row
-    [X] completely missing header row --> one failure message
-    [X] missing a required column
-[X] Eliminate usages of createColumnMapper(String)
-
-[X] if header row correct, missing required cell(s) -> one failure message row?
-        // artist, song-title, theme1
-        // "", "foo", "politics"
-        // "", "foo", ""            << decided to not collapse into one failure message for this scenario
-        // "band1", "foo", ""
+Song Themes Stuff To Do Da-Do Da Do Wop
+---------------------------------------
 
 [ ] Bulk import success user feedback
     [X] redirect to bulk import success page
@@ -116,10 +7,15 @@ Increase Song Attributes
     [ ] Successful bulk import shows imported data in easy to read form (e.g. tabular) **
 
 [ ] Autocomplete for Themes
+        Multi-select UI Sketch
+            [New years {x}]  [Vampires {x}]
+        Also, UI control filters as the user types
 [ ] Deploy to Production
 [ ] Add ArchUnit checking
 [ ] Add mutation testing tool
 [ ] Handle duplicate entries on bulk import
+[ ] If Release Type is Compilation, then Release Title becomes required
+[ ] Create Result combinator to help refactor the HUGE parseSong() method -- which has lots of duplication
 
 [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
@@ -134,21 +30,69 @@ Increase Song Attributes
 
 [ ] Make in memory version act a little more like the real thing. If Song is modified, it shouldn't be reflected back into InMemorySongRepository because that is not how databases work -- DO NOT NEED TO TACKLE YET, because we are not updating songs yet -- If Song were mutable and there is more behavior, we'd use the Snapshot pattern
 
-UI
-[ ] Adding Single Song via the UI
-[ ]
+[ ] Adding Single Song via the UI? Or wait until we implement Contributors role?
 
-UI Theme Sketch
-    [New years {x}]  [Vampires {x}]
+
 
 
 RELEASE "PLAN"
-V0.1 - Site has songs and themes that Admin entered, includes authentication
-V0.2 - Add concept of Contributor
-V0.3 - Add concept of Member
-V0.4 -
+v0.1 - Site has songs and themes that Admin entered, includes authentication
+v0.2 - Add concept of Contributor
+v0.3 - Add concept of Member
+v0.4 -
+
+EARLY STORIES
+Visitor searches for songs with one theme
+Administrator adds bulk entry of songs and their themes (up to 4 themes) via the clipboard
+Visitor searches for songs with multiple themes
+Administrator adds a single song and its theme
+Administrator adds a single song and its themes PLURAL
+
+NEXT LEVEL STORIES
+Invitation
+    Administrator invites person (unknown to the system) to be a Contributor
+    Administrator assigns roles
+    Administrator invites a person (unknown to the system)  to be an Administrator
+Contributor Adding Songs
+    Contributor adds a single song and its themes PLURAL
+    Administrator approves contributor song theme submission(s)
+Contributor Updating Songs
+    Find Song by any Song Attribute (Title, Artist, etc.)
+    Contributor submits a song theme edit/correction/update/additional info
+    Administrator is notified when a Contributor submits contribution
+    Administrator approves contributor song theme update
+    Administrator rejects contributor song theme or update. Gives reason why
+
+FUTURE FEATURE IDEAS
+* Administrator bulk imports song themes from the clipboard
+* Administrator bulk imports song themes from a file
+* Contributor bulk imports song themes from the clipboard
+* Contributor bulk imports song themes from a file
+* Expand search results based on themes chosen, using synonyms or other mechanisms
+* Member can register to receive notifications when new songs added for theme(s) of interest
+
+* Member can save theme search result as a playlist
+* Member can edit their playlist (remove, re-order)
+* Member can generate a Spotify playlist (Youtube, Amazon, Apple, WindowsMedia Player also?)
+* Member can flag songs as favorites (only visible to that member)
+* Member can rate songs 0-3 stars (only visible to that member)
+* Member can make their curated theme playlist public. Website will need to display curated playlists...a big-ish topic
+* Identify contributors with similar taste
+* Member can share their playlist with anyone
+* Have the playlist be of certain time duration (consider bin packing)
+
+* Contributor can view all of their contributions
+*
+
+OPEN QUESTIONS
+* Differentiating between songs with same title, but are different songs (cover vs not-a-cover)
+* Differentiating between bands with the same name
+* Event-sourced domain model vs state-based domain model?
+* How do we handle typos/different spelling?
+    e.g. New Years vs New Year's
 
 
+-----------------------------------------------------------------------------------------
 STREAM AD HOC NOTES
     What is a song? (which episode did we discuss this?) -- * means Required data
         Theme(s) *  (require at least one)
@@ -158,7 +102,6 @@ STREAM AD HOC NOTES
         Release Type (Compilation, Soundtrack) - consider better name later
 
 Saff Squeeze
-
 
 2024 Jan 6 - Episode #10
 
@@ -232,58 +175,114 @@ Saff Squeeze
             Compilation = Various Artists
             Compilation =Discogs= Collection
 
-RANDOM NOTES
-Mock-free Zone
+    Mock-free Zone
 
-REFERENCE BOOKS MENTIONED DURING LIVE STREAMS
-* GOOS book = Growing Object-Oriented Software, Guided by Tests by Steve Freeman, Nat Pryce
+=========================================================================================
+COMPLETED / FINISHED / CONCLUDED / ACCOMPLISHED / SETTLED / WRAPPED UP / DISCHARED / DONE
 
+Application
+[X] Create SongSearcher that can search by theme
+    [X] Finds no songs
+    [X] Finds a song that matches the theme
+    [X] Made theme search case-insensitive
+    [X] Find songs that have different themes
+    [X] Find multiple songs that match the theme
 
-EARLY STORIES
-Visitor searches for songs with one theme
-Visitor searches for songs with multiple themes
-Administrator adds a single song and its theme
-Administrator adds a single song and its themes PLURAL
+Adapter
+[X] Create GET endpoint for searching by theme
+    [X] Return empty page
+    [X] Return model saying there were no results
+    [X] Return model saying there are results
+    [X] Returns model with a single song matching
+    [X] Returns model with a multiple song matching
+    [X] Generate HTML shows there were no results
+    [X] Generate HTML that shows matching results
 
-NEXT LEVEL STORIES
-Find Song by any Song Attribute (Title, Artist, etc.)
+[X] Package up according to Hexagonal Architecture
+[X] First push of behavior to production!
+[X] Move songThemesByTitle into the adapter
 
-Invitation
-    Administrator invites person (unknown to the system) to be a Contributor
-    Administrator assigns roles
-    Administrator invites a person (unknown to the system)  to be an Administrator
-Contributor Adding Songs
-    Contributor adds a single song and its themes PLURAL
-    Administrator approves contributor song theme submission(s)
-Contributor Updating Songs
-    Contributor submits a song theme edit/correction/update/additional info
-    Administrator is notified when a Contributor submits contribution
-    Administrator approves contributor song theme update
-    Administrator rejects contributor song theme or update. Gives reason why
+Add a Song with a Theme
+[X] Add a song that doesn't exist to the database
+    [X] just below UI
+    [X] Create in-memory repository
+    [X] Create database repository adapter
 
-FUTURE FEATURE IDEAS
-* Administrator bulk imports song themes from a file
-* Administrator bulk imports song themes from the clipboard
-* Contributor bulk imports song themes from a file
-* Expand search results based on themes chosen, using synonyms or other mechanisms
-* Member can register to receive notifications when new songs added for theme(s) of interest
+Songs with Multiple Themes
+    [X] Find a Song if one of its Themes match
+    [X] Add a Song with multiple Themes
 
-* Member can save theme search result as a playlist
-* Member can edit their playlist (remove, re-order)
-* Member can generate a Spotify playlist (Youtube, Amazon, Apple, WindowsMedia Player also?)
-* Member can flag songs as favorites (only visible to that member)
-* Member can rate songs 0-3 stars (only visible to that member)
-* Member can make their curated theme playlist public. Website will need to display curated playlists...a big-ish topci
-* Identify contributors with similar taste
-* Member can share their playlist with anyone
-* Have the playlist be of certain time duration (consider bin packing)
+Increase Song Attributes
+    [X] Add more song attributes (artist, release title, release type)
 
-* Contributor can view all of their contributions
-*
+[X] Upgrade to Spring Boot 3.2.1
+[X] Upgrade to Spring Boot 3.2.2
+[X] Install Tab Shifter IntelliJ Plug-in
 
-QUESTIONS
-* Differentiating between songs with same title, but are different songs (cover vs not-a-cover)
-* Differentiating between bands with the same name
-* Event-sourced domain model vs state-based domain model?
-* How do we handle typos/different spelling?
-    e.g. New Years vs New Year's
+[X] Adding Songs via the bulk load of TSV (text box instead of via file)
+    [X] Decided to switch from CSV to TSV because copying from Excel produces tab separated columns
+    [X] Add one line of Song information
+        [X] Process multiple songs
+        [X] Test for only one theme column (generally, not enough columns)
+        [X] Skip empty rows
+        [X] Skip blank rows
+        [X] Ensure each song must have non-empty Artist, Song Title and Theme(s)
+        [X] Handle incorrect number of columns pasted -- having user friendly error messages
+            [X] Hold onto parse errors to return them all at once from the TsvSongParser.parse() method (using Result pattern)
+                Parse should return an Either (Java does not have) -- command success or return failure with information on why it failed
+                    violates command query separation, but not really
+            [X] Refactor parseWithResult
+            [X] Have all clients of TsvSongParser use parseWithResult() instead of deprecated parse()
+            [X] Display failure messages in the UI
+            [X] Put the bulk import string back into the import edit box upon failure
+            [X] Split Result into two concrete subclasses for success and failure
+            [X] Change partitionBy to use custom reducer (maybe try out tee as well) - OBSOLETED by using better Result class
+        [X] Skip over unused columns (needs a header row)
+            [X] Change all tests to include a header row
+            [X] Only parse columns that we want
+                    Must have at least these 3 columns
+                        Artist, Song Title, Theme1
+            [X] have parseAll support header
+            [X] Support these remaining columns, other columns are ignored
+                 Note: Theme1 already implemented
+                        Release Title, Release Type, Theme2, Theme3, Theme4
+            [X] Solve primitive obsession with header in parseSong - columnIndexOf(header...
+            [X] Convert IllegalArgumentException to a Result failure, then enable the Disabled tests
+                    If validating user input, return a Result like object
+                    Otherwise, throw an exception
+            [X] Write a custom assert for Result
+            [X] When we call ColumnMapper with a column that doesn't exist we should get a failure result --> fix emptyStringReturnedWhenColumnDoesntExist()
+            [X] Require that header rows have specific columns
+                [X] Handle missing Song Title at the TsvSongParser level
+                [X] parseAllReturnsMultipleFailureMessages() - fix failure message ...5?
+                    [X] returnsFailureResultForRowWithNotEnoughColumns()
+                [X] Handle multiple themes -- currently failureWhenMissingTheme1()
+
+[X] Persist to DB
+    [X] Move SongSearcher searching into SongRepository
+    [X] Extract a port interface for SongRepository
+    [X] Implement a JDBC Adapter
+        [X] Add database dependencies
+        [X] Use Flyway for database management migration
+            [X] Create schema
+        [X] Create database object that represents the schema in memory -- will be annotated with ORM annotations
+        [X] Create Spring Data JDBC repository
+        [X] Write a couple tests to ensure we are reading and writing the table correctly
+        [X] Write concrete adapter that implements SongRepository
+        [X] Modify use case layer test to also be able to use concrete database adapter
+                [X] run tests against both concrete and fake
+        [X] Wire up concrete database adapter to the application
+
+[X] Add Search page to UI
+[X] Display Artist - Song Title - Release Title [Theme(s)]
+[X] Single error message when bulk import is missing the header row
+    [X] completely missing header row --> one failure message
+    [X] missing a required column
+[X] Eliminate usages of createColumnMapper(String)
+
+[X] if header row correct, missing required cell(s) -> one failure message row?
+        // artist, song-title, theme1
+        // "", "foo", "politics"
+        // "", "foo", ""            << decided to not collapse into one failure message for this scenario
+        // "band1", "foo", ""
+
