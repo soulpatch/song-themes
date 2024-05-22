@@ -4,6 +4,11 @@ Song Themes Stuff To Do Da-Do Da Do Wop
 [ ] Bulk import success user feedback
     [X] redirect to bulk import success page
 >>> [ ] failing test: show number of songs imported (will be in SongImporterTest) -- might require a framework test for redirect attributes
+            **1. send along redirect attributes - not as resilient (due to lack of separation b/w commands and queries) --> DECISION: Likely overkill at this point.
+            2. maintain command/query separation, then somewhere persist info about most recent/all song imports (and their success/failure)
+                a) store every command and its state
+                b) store most recent
+
     [ ] Successful bulk import shows imported data in easy to read form (e.g. tabular) **
 
 [ ] Autocomplete for Themes
