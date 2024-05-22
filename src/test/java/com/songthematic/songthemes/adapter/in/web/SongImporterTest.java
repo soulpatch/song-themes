@@ -31,13 +31,20 @@ class SongImporterTest {
         String tsvSongs = """
                 Artist\tSong Title\tRelease Title\tRelease Type\tRecord Label\tNotes\tTheme1\tTheme2\tTheme3\tTheme4\tContributor
                 DontCareArtist\tDontCareSongTitle\tDontCareReleaseTitle\tDontCareReleaseType\tDontCareRecordLabel\tSkippedNotes\tThank You\t\t\t\tDontCareContributor
+                DontCareArtist2\tDontCareSongTitle2\tDontCareReleaseTitle2\tDontCareReleaseType2\tDontCareRecordLabel2\tSkippedNotes2\tThank You2\t\t\t\tDontCareContributor2
                 """;
-        String redirectPage = songImporter.handleSongImport(tsvSongs, new RedirectAttributesModelMap());
+        RedirectAttributesModelMap redirectAttributes = new RedirectAttributesModelMap();
+        String redirectPage = songImporter.handleSongImport(tsvSongs, redirectAttributes);
 
         assertThat(repository.allSongs())
-                .hasSize(1);
+                .hasSize(2);
         assertThat(redirectPage)
                 .isEqualTo("redirect:/song-import-success");
+
+        String successMessage = (String) redirectAttributes.getFlashAttributes().get("successMessage");
+        assertThat(successMessage)
+                .isEqualTo("Successfully imported 2 song(s)");
+
     }
 
     @Test

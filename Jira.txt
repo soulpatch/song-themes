@@ -20,7 +20,9 @@ Song Themes Stuff To Do Da-Do Da Do Wop
 [ ] Add mutation testing tool
 [ ] Handle duplicate entries on bulk import
 [ ] If Release Type is Compilation, then Release Title becomes required
-[ ] Create Result combinator to help refactor the HUGE parseSong() method -- which has lots of duplication
+[ ] Replace Result class with library
+    [ ] Issue: There is an implied List<SUCCESS> for any success(values)
+    [ ] Create Result combinator to help refactor the HUGE parseSong() method -- which has lots of duplication
 
 [ ] Authentication/Authorization for database admin role (will use third party delegation - Kinde, Supabase, FusionAuth, Auth0)
         [X] OAuth configuration
