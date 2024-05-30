@@ -1,7 +1,7 @@
 package com.songthematic.songthemes;
 
+import com.songthematic.songthemes.adapter.out.jdbc.JdbcSongRepository;
 import com.songthematic.songthemes.adapter.out.jdbc.SongJdbcAdapter;
-import com.songthematic.songthemes.adapter.out.jdbc.SongJdbcRepository;
 import com.songthematic.songthemes.application.SongService;
 import com.songthematic.songthemes.application.port.SongRepository;
 import com.songthematic.songthemes.application.port.ThemeFinder;
@@ -14,8 +14,8 @@ import java.util.List;
 public class SongThemesConfig {
 
     @Bean
-    public SongService songService(SongJdbcRepository songJdbcRepository) {
-        SongRepository songJdbcAdapter = new SongJdbcAdapter(songJdbcRepository);
+    public SongService songService(JdbcSongRepository jdbcSongRepository) {
+        SongRepository songJdbcAdapter = new SongJdbcAdapter(jdbcSongRepository);
         return new SongService(songJdbcAdapter);
     }
 
@@ -23,7 +23,7 @@ public class SongThemesConfig {
     public ThemeFinder themeFinder() {
         return new ThemeFinder() {
             @Override
-            public List<String> findAll() {
+            public List<String> allThemes() {
                 return List.of();
             }
         };

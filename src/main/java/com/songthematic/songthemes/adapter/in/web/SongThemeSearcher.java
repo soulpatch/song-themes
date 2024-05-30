@@ -24,7 +24,7 @@ public class SongThemeSearcher {
     @GetMapping("/theme-search")
     public String themeSearch(@RequestParam(value = "requestedTheme", required = false, defaultValue = "") String requestedTheme, Model model) {
         if (requestedTheme.isBlank()) {
-            model.addAttribute("themes", themeFinder.findAll());
+            model.addAttribute("themes", themeFinder.allThemes());
             return "theme-search-home";
         }
         List<Song> foundSongs = songService.searchByTheme(requestedTheme);

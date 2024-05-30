@@ -10,7 +10,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,50 +18,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 })
 @Testcontainers(disabledWithoutDocker = true)
 @Tag("database")
-class SongJdbcRepositoryTest {
+class JdbcThemeFinderTest {
     @Container
     @ServiceConnection
     static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15-alpine");
 
     @Autowired
-    SongJdbcRepository songJdbcRepository;
+    JdbcSongRepository jdbcSongRepository;
+
+    @Autowired
+    JdbcThemeFinder jdbcThemeFinder;
 
     @Test
-    void canReadAndWriteDbo() throws Exception {
-        SongDbo songDbo = new SongDbo("Yellowman", "Donate Money", "Fantastic Yellowman", "", List.of("Money", "Donate"));
-
-        SongDbo savedDbo = songJdbcRepository.save(songDbo);
-
-        assertThat(savedDbo.getId())
-                .isNotNull();
-
-        savedDbo.setSongTitle("Donate Money!");
-        songJdbcRepository.save(songDbo);
-
-        Optional<SongDbo> foundDbo = songJdbcRepository.findById(savedDbo.getId());
-
-        assertThat(foundDbo)
-                .isPresent()
-                .get()
-                .extracting(SongDbo::getSongTitle)
-                .isEqualTo("Donate Money!");
-    }
-
-    @Test
-    void findByThemeWorksRegardlessOfCase() throws Exception {
+    void allThemesReturnedByFindAllForSingleSongWithMultipleThemes() throws Exception {
         SongDbo songDbo = new SongDbo("Yellowman", "Donate Money", "Fantastic Yellowman", "", List.of("Money", "Donate"));
         SongDbo songDbo2 = new SongDbo("Mojo Nixon", "Where the Hell's My Money?", "Frenzy", "", List.of("Money"));
         SongDbo songDbo3 = new SongDbo("Peggy Lee", "My Heart Belongs To Daddy", "The Best Of Peggy Lee 1952-1956", "", List.of("Daddy"));
+        jdbcSongRepository.save(songDbo);
+        jdbcSongRepository.save(songDbo2);
+        jdbcSongRepository.save(songDbo3);
 
-        songJdbcRepository.save(songDbo);
-        songJdbcRepository.save(songDbo2);
-        songJdbcRepository.save(songDbo3);
+        List<String> themes = jdbcThemeFinder.allThemes();
 
-        List<SongDbo> foundSongs = songJdbcRepository.findByThemeIgnoreCase("money");
-
-        assertThat(foundSongs)
-                .hasSize(2)
-                .extracting(SongDbo::getSongTitle)
-                .containsExactlyInAnyOrder("Donate Money", "Where the Hell's My Money?");
+        assertThat(themes)
+                .containsExactly("Money", "Money", "Daddy");
     }
 }

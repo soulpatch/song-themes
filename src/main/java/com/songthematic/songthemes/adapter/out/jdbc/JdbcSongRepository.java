@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface SongJdbcRepository extends ListCrudRepository<SongDbo, Long> {
+public interface JdbcSongRepository extends ListCrudRepository<SongDbo, Long> {
     @Query("SELECT * FROM songs WHERE :theme ILIKE ANY(themes)")
     List<SongDbo> findByThemeIgnoreCase(@Param("theme") String theme);
 }

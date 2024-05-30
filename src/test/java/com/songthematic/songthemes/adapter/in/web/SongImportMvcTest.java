@@ -1,7 +1,7 @@
 package com.songthematic.songthemes.adapter.in.web;
 
 import com.songthematic.songthemes.SongThemesConfig;
-import com.songthematic.songthemes.adapter.out.jdbc.SongJdbcRepository;
+import com.songthematic.songthemes.adapter.out.jdbc.JdbcSongRepository;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class SongImportMvcTest {
     MockMvc mockMvc;
 
     @MockBean
-    SongJdbcRepository songJdbcRepository;
+    JdbcSongRepository jdbcSongRepository;
 
     @Test
     public void getRequestToSongImportEndpointReturns200() throws Exception {

@@ -7,28 +7,28 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class SongJdbcAdapter implements SongRepository {
-    private final SongJdbcRepository songJdbcRepository;
+    private final JdbcSongRepository jdbcSongRepository;
 
-    public SongJdbcAdapter(SongJdbcRepository songJdbcRepository) {
+    public SongJdbcAdapter(JdbcSongRepository jdbcSongRepository) {
 
-        this.songJdbcRepository = songJdbcRepository;
+        this.jdbcSongRepository = jdbcSongRepository;
     }
 
     @Override
     public Stream<Song> allSongs() {
-        return songJdbcRepository.findAll()
+        return jdbcSongRepository.findAll()
                                  .stream()
                                  .map(SongDbo::toDomain);
     }
 
     @Override
     public void add(Song song) {
-        songJdbcRepository.save(SongDbo.from(song));
+        jdbcSongRepository.save(SongDbo.from(song));
     }
 
     @Override
     public List<Song> findByTheme(String requestedTheme) {
-        return songJdbcRepository.findByThemeIgnoreCase(requestedTheme)
+        return jdbcSongRepository.findByThemeIgnoreCase(requestedTheme)
                                  .stream()
                                  .map(SongDbo::toDomain)
                                  .toList();

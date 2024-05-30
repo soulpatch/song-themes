@@ -24,15 +24,15 @@ public class JdbcSongServiceTest extends SongServiceTestBase {
     static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:15-alpine");
 
     @Autowired
-    SongJdbcRepository songJdbcRepository;
+    JdbcSongRepository jdbcSongRepository;
 
     @BeforeEach
     void beforeEach() {
-        songJdbcRepository.deleteAll();
+        jdbcSongRepository.deleteAll();
     }
 
     @Override
     protected @NotNull SongRepository songRepository() {
-        return new SongJdbcAdapter(songJdbcRepository);
+        return new SongJdbcAdapter(jdbcSongRepository);
     }
 }

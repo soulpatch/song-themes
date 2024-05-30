@@ -7,7 +7,7 @@ public class StubThemeFinder implements ThemeFinder {
     }
 
     @Override
-    public List<String> findAll() {
+    public List<String> allThemes() {
         return List.of("Halloween", "New Years");
     }
 }
