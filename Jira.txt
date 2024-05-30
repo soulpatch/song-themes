@@ -9,7 +9,16 @@ Song Themes Stuff To Do Da-Do Da Do Wop
     [X] Style HTML table of imported songs to be easier to read
 
 [ ] Autocomplete for Themes
+    [ ] List of unique themes with a dropdown selection, sorted alphabetical
+    [ ]
+    [ ]
         Multi-select UI Sketch
+        - start typing...if matches existing theme(s), then show the existing themes, then allow one of those themes to be selected.
+            thin vertical slice
+            - show all existing themes, and only one to be selected (translates to standard HTML dropdown)
+        - allow for multiple themes to be selected
+        - allow for a selected them to be removed (e.g. changing ones mind)
+
             [New years {x}]  [Vampires {x}]
         Also, UI control filters as the user types
 

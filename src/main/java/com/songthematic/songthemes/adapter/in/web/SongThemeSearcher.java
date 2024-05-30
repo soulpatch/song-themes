@@ -1,6 +1,7 @@
 package com.songthematic.songthemes.adapter.in.web;
 
 import com.songthematic.songthemes.application.SongService;
+import com.songthematic.songthemes.application.port.ThemeFinder;
 import com.songthematic.songthemes.domain.Song;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +14,17 @@ import java.util.List;
 public class SongThemeSearcher {
 
     private final SongService songService;
+    private final ThemeFinder themeFinder;
 
-    public SongThemeSearcher(SongService songService) {
+    public SongThemeSearcher(SongService songService, ThemeFinder themeFinder) {
         this.songService = songService;
+        this.themeFinder = themeFinder;
     }
 
     @GetMapping("/theme-search")
     public String themeSearch(@RequestParam(value = "requestedTheme", required = false, defaultValue = "") String requestedTheme, Model model) {
         if (requestedTheme.isBlank()) {
+            model.addAttribute("themes", themeFinder.findAll());
             return "theme-search-home";
         }
         List<Song> foundSongs = songService.searchByTheme(requestedTheme);
@@ -34,5 +38,4 @@ public class SongThemeSearcher {
             return "theme-search-has-results";
         }
     }
-
 }
