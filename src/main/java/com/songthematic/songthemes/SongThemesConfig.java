@@ -8,6 +8,8 @@ import com.songthematic.songthemes.application.port.ThemeFinder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 public class SongThemesConfig {
 
@@ -19,6 +21,11 @@ public class SongThemesConfig {
 
     @Bean
     public ThemeFinder themeFinder() {
-        return new ThemeFinder();
+        return new ThemeFinder() {
+            @Override
+            public List<String> findAll() {
+                return List.of();
+            }
+        };
     }
 }

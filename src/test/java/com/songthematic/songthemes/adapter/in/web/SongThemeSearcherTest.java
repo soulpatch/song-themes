@@ -2,7 +2,7 @@ package com.songthematic.songthemes.adapter.in.web;
 
 import com.songthematic.songthemes.application.SongFactory;
 import com.songthematic.songthemes.application.SongService;
-import com.songthematic.songthemes.application.port.ThemeFinder;
+import com.songthematic.songthemes.application.port.StubThemeFinder;
 import com.songthematic.songthemes.domain.Song;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ class SongThemeSearcherTest {
     @ParameterizedTest(name = "requestedTheme is \"{0}\"")
     @ValueSource(strings = {"", " "})
     void emptySearchNavigatesToSearchHome(String requestedTheme) throws Exception {
-        SongThemeSearcher songThemeSearcher = new SongThemeSearcher(SongService.createNull(), new ThemeFinder());
+        SongThemeSearcher songThemeSearcher = new SongThemeSearcher(SongService.createNull(), new StubThemeFinder());
 
         String viewName = songThemeSearcher.themeSearch(requestedTheme, new ConcurrentModel());
 
@@ -80,6 +80,6 @@ class SongThemeSearcherTest {
     private static SongThemeSearcher createSongThemesController(Song... songs) {
         SongService songService = SongService.createNull();
         Arrays.stream(songs).forEach(songService::addSong);
-        return new SongThemeSearcher(songService, new ThemeFinder());
+        return new SongThemeSearcher(songService, new StubThemeFinder());
     }
 }
