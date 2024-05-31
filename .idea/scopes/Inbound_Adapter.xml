@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Inbound Adapter" pattern="src:com.songthematic.songthemes.adapter.in..*" />
+</component>
