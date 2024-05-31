@@ -2,17 +2,24 @@ package com.songthematic.songthemes;
 
 import com.songthematic.songthemes.application.SongService;
 import com.songthematic.songthemes.domain.Song;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.utility.DockerImageName;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-@Disabled("Ted to fill in workaround for this")
+@Import({SongThemesStartup.class, TestStartupConfiguration.class})
+@Tag("database")
 class SongThemesStartupTests {
 
     @Autowired
@@ -40,4 +47,17 @@ class SongThemesStartupTests {
         assertThat(foundSongs)
                 .hasSize(1);
     }
+}
+
+// Ensure we have a database available, since Docker Compose won't run when we run tests
+// So for tests above, we configure and use the Postgres container
+@TestConfiguration(proxyBeanMethods = false)
+class TestStartupConfiguration {
+
+    @Bean
+    @ServiceConnection
+    PostgreSQLContainer<?> postgresContainer() {
+        return new PostgreSQLContainer<>(DockerImageName.parse("postgres:15-alpine"));
+    }
+
 }
