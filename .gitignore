@@ -7,6 +7,8 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+!.idea/fileColors.xml
+!.idea/scopes/
 *.iws
 *.iml
 *.ipr
