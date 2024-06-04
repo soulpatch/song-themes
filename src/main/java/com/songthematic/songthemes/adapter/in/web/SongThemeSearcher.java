@@ -25,7 +25,7 @@ public class SongThemeSearcher {
     @GetMapping("/themes")
     @ResponseBody
     public String autocompleteThemes() {
-        return "";
+        return "<p>Cats</p><p>Dogs</p>";
     }
 
     @GetMapping("/theme-search")

@@ -18,7 +18,12 @@ Song Themes Stuff To Do Da-Do Da Do Wop
             - show all existing themes, and only one to be selected (translates to standard HTML dropdown)
     [ ] Single selection autocomplete
         - start typing...if matches existing theme(s), then show the existing themes, then allow one of those themes to be selected.
-    [ ]
+        [ ] start typing returns HTML that gets put in the right place
+        [ ] Display the choice in a dropdown-like list, at first
+        [ ]
+        [ ]
+        [ ] Implement filter
+
 
 Multi-select UI Sketch (with words)
         - allow for multiple themes to be selected
