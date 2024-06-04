@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface JdbcThemeFinder extends CrudRepository<SongDbo, Long>, ThemeFinder {
 
-    @Query("SELECT DISTINCT unnest(themes) AS theme FROM songs")
+    @Query("SELECT DISTINCT unnest(themes) AS theme FROM songs ORDER BY theme ASC")
     List<String> allThemes();
 }

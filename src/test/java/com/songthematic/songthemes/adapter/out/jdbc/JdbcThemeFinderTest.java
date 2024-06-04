@@ -41,6 +41,6 @@ class JdbcThemeFinderTest {
         List<String> themes = jdbcThemeFinder.allThemes();
 
         assertThat(themes)
-                .containsExactlyInAnyOrder("Money", "Donate", "Daddy", "Heart");
+                .containsExactly("Daddy", "Donate", "Heart", "Money");
     }
 }

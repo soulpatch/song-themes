@@ -13,7 +13,7 @@ Song Themes Stuff To Do Da-Do Da Do Wop
         [X] List of themes from Themes1
         [X] List of all themes
         [X] List of unique themes
-        [ ] List of unique themes, sorted alphabetical
+        [X] List of unique themes, sorted alphabetical
         [ ] Implement the dropdown
     [ ]
     [ ]
