@@ -10,13 +10,16 @@ Song Themes Stuff To Do Da-Do Da Do Wop
 
 [ ] Autocomplete for Themes
     [ ] List of unique themes with a dropdown selection, sorted alphabetical
-        [X] List of themes
+        [X] List of themes from Themes1
+        [X] List of all themes
         [ ] List of unique themes
         [ ] List of unique themes, sorted alphabetical
         [ ] Implement the dropdown
     [ ]
     [ ]
-        Multi-select UI Sketch
+
+
+Multi-select UI Sketch (with words)
         - start typing...if matches existing theme(s), then show the existing themes, then allow one of those themes to be selected.
             thin vertical slice
             - show all existing themes, and only one to be selected (translates to standard HTML dropdown)
