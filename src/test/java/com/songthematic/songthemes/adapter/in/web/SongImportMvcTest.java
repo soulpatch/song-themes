@@ -2,6 +2,7 @@ package com.songthematic.songthemes.adapter.in.web;
 
 import com.songthematic.songthemes.SongThemesConfig;
 import com.songthematic.songthemes.adapter.out.jdbc.JdbcSongRepository;
+import com.songthematic.songthemes.application.port.ThemeFinder;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
+@WebMvcTest({SongImporter.class})
 @Import({SongThemesConfig.class})
 @Tag("mvc")
 @WithMockUser("fake-user-name")
@@ -27,6 +28,9 @@ public class SongImportMvcTest {
 
     @MockBean
     JdbcSongRepository jdbcSongRepository;
+
+    @MockBean
+    ThemeFinder themeFinder;
 
     @Test
     public void getRequestToSongImportEndpointReturns200() throws Exception {
