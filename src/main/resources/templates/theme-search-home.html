@@ -3,12 +3,27 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 <head>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <meta charset="UTF-8">
     <title>Theme Search</title>
 </head>
 <body>
 <h1>Select a song theme</h1>
 <form method="get" action="#" th:action="@{/theme-search}">
+
+    <input type="text"
+           name="theme-query"
+           autocomplete="off"
+           hx-trigger="input changed delay:500ms"
+           hx-post="/themes"
+           hx-target="#search-results"
+    />
+
+    <div id="search-results">
+
+    </div>
+
+
     <select name="requestedTheme">
         <option th:each="theme : ${themes}"
                 th:text="${theme}"
