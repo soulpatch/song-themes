@@ -23,7 +23,7 @@ public class SongThemesConfig {
     public ThemeFinder themeFinder() {
         return new ThemeFinder() {
             @Override
-            public List<String> allThemes() {
+            public List<String> allUniqueThemesAlphabetically() {
                 return List.of();
             }
         };
