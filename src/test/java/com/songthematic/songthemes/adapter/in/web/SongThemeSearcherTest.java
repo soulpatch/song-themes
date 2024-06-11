@@ -21,7 +21,7 @@ class SongThemeSearcherTest {
     @ParameterizedTest(name = "requestedTheme is \"{0}\"")
     @ValueSource(strings = {"", " "})
     void emptySearchNavigatesToSearchHome(String requestedTheme) throws Exception {
-        SongThemeSearcher songThemeSearcher = new SongThemeSearcher(SongService.createNull(), new StubThemeFinder());
+        SongThemeSearcher songThemeSearcher = new SongThemeSearcher(SongService.createNull(), new StubThemeFinder(new String[]{"Halloween", "New Years"}));
 
         String viewName = songThemeSearcher.themeSearch(requestedTheme, new ConcurrentModel());
 
@@ -70,16 +70,30 @@ class SongThemeSearcherTest {
                 .containsExactly("Halloween", "New Years");
     }
 
+    @Test
+    void autocompleteReturnsHtmlWithThemesMatchingRequest() throws Exception {
+        SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween");
+
+        String autocompletedThemes = songThemeSearcher.autocompleteThemes("Hal");
+
+        assertThat(autocompletedThemes)
+                .isEqualTo("<p>Halloween</p>");
+    }
+
     private @NotNull SongThemeSearcher createSongThemesControllerWithThemes(String theme1, String theme2) {
-        return createSongThemesController(SongFactory.createSong("New Year's Eve In A Haunted House", theme1),
-                                          SongFactory.createSong("Digging My Grave", theme2)
-        );
+        return createSongThemesController(theme1, theme2);
     }
 
     @NotNull
     private static SongThemeSearcher createSongThemesController(Song... songs) {
         SongService songService = SongService.createNull();
         Arrays.stream(songs).forEach(songService::addSong);
-        return new SongThemeSearcher(songService, new StubThemeFinder());
+        return new SongThemeSearcher(songService, new StubThemeFinder("Halloween", "New Years"));
+    }
+
+    @NotNull
+    private static SongThemeSearcher createSongThemesController(String... themes) {
+        SongService songService = SongService.createNull();
+        return new SongThemeSearcher(songService, new StubThemeFinder(themes));
     }
 }

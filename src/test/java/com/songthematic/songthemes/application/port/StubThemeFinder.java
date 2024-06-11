@@ -1,13 +1,20 @@
 package com.songthematic.songthemes.application.port;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class StubThemeFinder implements ThemeFinder {
-    public StubThemeFinder() {
+
+    private final List<String> themes;
+
+    public StubThemeFinder(String... themeArray) {
+        themes = Arrays.asList(themeArray);
     }
 
     @Override
     public List<String> allUniqueThemesAlphabetically() {
-        return List.of("Halloween", "New Years");
+        Collections.sort(themes);
+        return themes;
     }
 }

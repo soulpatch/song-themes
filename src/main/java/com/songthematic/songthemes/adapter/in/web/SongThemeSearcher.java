@@ -24,7 +24,7 @@ public class SongThemeSearcher {
 
     @GetMapping("/themes")
     @ResponseBody
-    public String autocompleteThemes(@RequestParam(value = "theme-query", defaultValue = "") String themeQuery, Model model) {
+    public String autocompleteThemes(@RequestParam(value = "theme-query", defaultValue = "") String themeQuery) {
         return "<p>%s</p>".formatted(themeQuery);
     }
 
