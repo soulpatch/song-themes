@@ -32,13 +32,13 @@ public class SongThemesMvcTest {
 
     @Test
     public void getToSearchEndpointReturns200() throws Exception {
-        mockMvc.perform(get("/theme-search?requestedTheme=pants"))
+        mockMvc.perform(get("/theme-search?requested-theme=pants"))
                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
     public void getToThemesEndpointReturns200() throws Exception {
-        mockMvc.perform(get("/themes"))
+        mockMvc.perform(get("/themes?theme-query=pants"))
                .andExpect(status().isOk());
     }
 }

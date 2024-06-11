@@ -24,12 +24,12 @@ public class SongThemeSearcher {
 
     @GetMapping("/themes")
     @ResponseBody
-    public String autocompleteThemes() {
-        return "<p>Cats</p><p>Dogs</p>";
+    public String autocompleteThemes(@RequestParam(value = "theme-query", defaultValue = "") String themeQuery, Model model) {
+        return "<p>%s</p>".formatted(themeQuery);
     }
 
     @GetMapping("/theme-search")
-    public String themeSearch(@RequestParam(value = "requestedTheme", required = false, defaultValue = "") String requestedTheme, Model model) {
+    public String themeSearch(@RequestParam(value = "requested-theme", required = false, defaultValue = "") String requestedTheme, Model model) {
         if (requestedTheme.isBlank()) {
             model.addAttribute("themes", themeFinder.allUniqueThemesAlphabetically());
             return "theme-search-home";
