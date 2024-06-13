@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class SongThemeSearcher {
@@ -25,7 +26,9 @@ public class SongThemeSearcher {
     @GetMapping("/themes")
     @ResponseBody
     public String autocompleteThemes(@RequestParam(value = "theme-query", defaultValue = "") String themeQuery) {
-        return "<p>%s</p>".formatted(themeQuery);
+        List<String> matchingThemes = themeFinder.startsWith(themeQuery);
+        return matchingThemes.stream()
+                             .collect(Collectors.joining("\n", "<p>", "</p>"));
     }
 
     @GetMapping("/theme-search")

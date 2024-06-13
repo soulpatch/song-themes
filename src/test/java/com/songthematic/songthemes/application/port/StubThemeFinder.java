@@ -17,4 +17,9 @@ public class StubThemeFinder implements ThemeFinder {
         Collections.sort(themes);
         return themes;
     }
+
+    @Override
+    public List<String> startsWith(String themeQuery) {
+        return themes;
+    }
 }

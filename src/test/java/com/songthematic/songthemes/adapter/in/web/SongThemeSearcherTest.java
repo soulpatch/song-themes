@@ -80,8 +80,9 @@ class SongThemeSearcherTest {
                 .isEqualTo("<p>Halloween</p>");
     }
 
-    private @NotNull SongThemeSearcher createSongThemesControllerWithThemes(String theme1, String theme2) {
-        return createSongThemesController(theme1, theme2);
+    private @NotNull SongThemeSearcher createSongThemesControllerWithThemes(String... themes) {
+        SongService songService = SongService.createNull();
+        return new SongThemeSearcher(songService, new StubThemeFinder(themes));
     }
 
     @NotNull
@@ -89,11 +90,5 @@ class SongThemeSearcherTest {
         SongService songService = SongService.createNull();
         Arrays.stream(songs).forEach(songService::addSong);
         return new SongThemeSearcher(songService, new StubThemeFinder("Halloween", "New Years"));
-    }
-
-    @NotNull
-    private static SongThemeSearcher createSongThemesController(String... themes) {
-        SongService songService = SongService.createNull();
-        return new SongThemeSearcher(songService, new StubThemeFinder(themes));
     }
 }
