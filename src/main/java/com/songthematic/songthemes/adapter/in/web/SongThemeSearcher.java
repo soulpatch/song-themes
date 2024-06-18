@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class SongThemeSearcher {
@@ -30,8 +29,7 @@ public class SongThemeSearcher {
             return "";
         }
         List<String> matchingThemes = themeFinder.startsWithIgnoringCase(themeQuery);
-        return matchingThemes.stream()
-                             .collect(Collectors.joining("</p>\n<p>", "<p>", "</p>"));
+        return HtmlTransformer.convertThemesToHtml(matchingThemes);
     }
 
     @GetMapping("/theme-search")
