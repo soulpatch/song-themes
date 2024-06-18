@@ -91,7 +91,7 @@ class SongThemeSearcherTest {
             String autocompletedThemes = songThemeSearcher.autocompleteThemes("Hal");
 
             assertThat(autocompletedThemes)
-                    .isEqualTo("<p>Halloween</p>");
+                    .isEqualTo(HtmlTransformer.convertThemesToHtml(List.of("Halloween")));
         }
 
         @Test
@@ -101,7 +101,7 @@ class SongThemeSearcherTest {
             String autocompletedThemes = songThemeSearcher.autocompleteThemes("Ha");
 
             assertThat(autocompletedThemes)
-                    .isEqualTo("<p>Halloween</p>\n<p>Happy</p>");
+                    .isEqualTo(HtmlTransformer.convertThemesToHtml(List.of("Halloween", "Happy")));
         }
     }
 
