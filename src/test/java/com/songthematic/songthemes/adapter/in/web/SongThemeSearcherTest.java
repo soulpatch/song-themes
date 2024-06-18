@@ -71,13 +71,23 @@ class SongThemeSearcherTest {
     }
 
     @Test
-    void autocompleteReturnsHtmlWithThemesMatchingRequest() throws Exception {
+    void autocompleteReturnsHtmlWithSingleThemeMatchingRequest() throws Exception {
         SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween");
 
         String autocompletedThemes = songThemeSearcher.autocompleteThemes("Hal");
 
         assertThat(autocompletedThemes)
                 .isEqualTo("<p>Halloween</p>");
+    }
+
+    @Test
+    void autocompleteReturnsHtmlWithMultipleThemesMatchingRequest() throws Exception {
+        SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween", "Happy");
+
+        String autocompletedThemes = songThemeSearcher.autocompleteThemes("Ha");
+
+        assertThat(autocompletedThemes)
+                .isEqualTo("<p>Halloween</p>\n<p>Happy</p>");
     }
 
     private @NotNull SongThemeSearcher createSongThemesControllerWithThemes(String... themes) {
