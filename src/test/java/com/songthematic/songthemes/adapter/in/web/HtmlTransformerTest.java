@@ -15,6 +15,8 @@ class HtmlTransformerTest {
         String html = HtmlTransformer.convertThemesToHtml(themes);
 
         assertThat(html)
-                .isEqualTo("<button>Cats</button>\n<button>Dogs</button>");
+                .isEqualTo("""
+                                   <button class="autocomplete-suggestion">Cats</button>
+                                   <button class="autocomplete-suggestion">Dogs</button>""");
     }
 }

@@ -6,6 +6,21 @@
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <meta charset="UTF-8">
     <title>Theme Search</title>
+    <style>
+        .autocomplete-suggestion {
+            border: none;
+            text-align: left;
+            background-color: white;
+        }
+
+        .autocomplete-box {
+            border: 1px solid #d4d4d4;
+            display: grid;
+            max-height: 4lh;
+            overflow-y: auto;
+            width: 40ch;
+        }
+    </style>
 </head>
 <body>
 <h1>Select a song theme</h1>
@@ -19,7 +34,7 @@
            hx-target="#autocomplete-box"
     />
 
-    <div id="autocomplete-box" style="max-height: 4lh; width: 40ch; border: 1px solid #d4d4d4; overflow-y: auto">
+    <div id="autocomplete-box" class="autocomplete-box">
 
     </div>
 
