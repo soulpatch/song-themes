@@ -19,11 +19,12 @@ Song Themes Stuff To Do Da-Do Da Do Wop
     [ ] Single selection autocomplete
         - start typing...if matches existing theme(s), then show the existing themes, then allow one of those themes to be selected.
         [X] start typing returns hard-coded HTML that gets put into a div temporarily
-    >>> [ ] start typing and have returned HTML to be narrowed down based on what is typed
-        [ ] Display the choice in a dropdown-like list, at first
+        [X] start typing and have returned HTML to be narrowed down based on what is typed
+        [X] put autocomplete results into a max sized scrollable div container
+        [ ] autocomplete results should be buttons instead of paragraphs
         [ ]
+        [ ] make sure auto-complete results don't return items already selected
         [ ]
-        [ ] Implement filter
     [ ] Searching for songs with multiple themes, returns songs matching ANY theme (implied OR)
         [ ] Figure out if want ranking of returned songs -- meaning are songs matching two themes rank higher than songs matching only one?
 
