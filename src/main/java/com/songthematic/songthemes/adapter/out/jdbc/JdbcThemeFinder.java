@@ -10,4 +10,7 @@ public interface JdbcThemeFinder extends CrudRepository<SongDbo, Long>, ThemeFin
 
     @Query("SELECT DISTINCT unnest(themes) AS theme FROM songs ORDER BY theme ASC")
     List<String> allUniqueThemesAlphabetically();
+
+    @Query("SELECT * FROM (SELECT DISTINCT unnest(themes) AS theme FROM songs) AS allThemes WHERE theme ILIKE CONCAT(:themeQuery, '%') ORDER BY theme ASC")
+    List<String> startsWithIgnoringCase(String themeQuery);
 }

@@ -5,5 +5,5 @@ import java.util.List;
 public interface ThemeFinder {
     List<String> allUniqueThemesAlphabetically();
 
-    List<String> startsWith(String themeQuery);
+    List<String> startsWithIgnoringCase(String themeQuery);
 }

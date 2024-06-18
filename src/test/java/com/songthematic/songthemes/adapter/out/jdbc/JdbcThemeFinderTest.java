@@ -43,4 +43,19 @@ class JdbcThemeFinderTest {
         assertThat(themes)
                 .containsExactly("Daddy", "Donate", "Heart", "Money");
     }
+
+    @Test
+    void themesStartingWithQueryInAlphabeticalOrder() throws Exception {
+        SongDbo songDbo = new SongDbo("Yellowman", "Donate Money", "Fantastic Yellowman", "", List.of("Money", "Donate"));
+        SongDbo songDbo2 = new SongDbo("Mojo Nixon", "Where the Hell's My Money?", "Frenzy", "", List.of("Money"));
+        SongDbo songDbo3 = new SongDbo("Peggy Lee", "My Heart Belongs To Daddy", "The Best Of Peggy Lee 1952-1956", "", List.of("Daddy", "Heart"));
+        jdbcSongRepository.save(songDbo);
+        jdbcSongRepository.save(songDbo2);
+        jdbcSongRepository.save(songDbo3);
+
+        List<String> themes = jdbcThemeFinder.startsWithIgnoringCase("d");
+
+        assertThat(themes)
+                .containsExactly("Daddy", "Donate");
+    }
 }

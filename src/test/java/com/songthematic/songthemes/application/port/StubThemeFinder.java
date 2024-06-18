@@ -19,7 +19,7 @@ public class StubThemeFinder implements ThemeFinder {
     }
 
     @Override
-    public List<String> startsWith(String themeQuery) {
+    public List<String> startsWithIgnoringCase(String themeQuery) {
         return themes.stream()
                      .filter(theme -> theme.startsWith(themeQuery))
                      .toList();
