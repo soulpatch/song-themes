@@ -26,6 +26,9 @@ public class SongThemeSearcher {
     @GetMapping("/themes")
     @ResponseBody
     public String autocompleteThemes(@RequestParam(value = "theme-query", defaultValue = "") String themeQuery) {
+        if (themeQuery.isBlank()) {
+            return "";
+        }
         List<String> matchingThemes = themeFinder.startsWithIgnoringCase(themeQuery);
         return matchingThemes.stream()
                              .collect(Collectors.joining("</p>\n<p>", "<p>", "</p>"));

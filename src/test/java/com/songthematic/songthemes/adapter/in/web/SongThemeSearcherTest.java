@@ -5,6 +5,7 @@ import com.songthematic.songthemes.application.SongService;
 import com.songthematic.songthemes.application.port.StubThemeFinder;
 import com.songthematic.songthemes.domain.Song;
 import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -70,27 +71,42 @@ class SongThemeSearcherTest {
                 .containsExactly("Halloween", "New Years");
     }
 
-    @Test
-    void autocompleteReturnsHtmlWithSingleThemeMatchingRequest() throws Exception {
-        SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween");
+    @Nested
+    class AutoCompleteReturnsHtmlWith {
+        @Test
+        void emptyStringWhenThemeQueryIsBlank() throws Exception {
+            SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween");
 
-        String autocompletedThemes = songThemeSearcher.autocompleteThemes("Hal");
+            String autocompletedThemes = songThemeSearcher.autocompleteThemes("");
 
-        assertThat(autocompletedThemes)
-                .isEqualTo("<p>Halloween</p>");
+            assertThat(autocompletedThemes)
+                    .isEqualTo("");
+
+        }
+
+        @Test
+        void singleThemeMatchingThemeQuery() throws Exception {
+            SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween");
+
+            String autocompletedThemes = songThemeSearcher.autocompleteThemes("Hal");
+
+            assertThat(autocompletedThemes)
+                    .isEqualTo("<p>Halloween</p>");
+        }
+
+        @Test
+        void multipleThemesMatchingThemeQuery() throws Exception {
+            SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween", "Happy");
+
+            String autocompletedThemes = songThemeSearcher.autocompleteThemes("Ha");
+
+            assertThat(autocompletedThemes)
+                    .isEqualTo("<p>Halloween</p>\n<p>Happy</p>");
+        }
     }
 
-    @Test
-    void autocompleteReturnsHtmlWithMultipleThemesMatchingRequest() throws Exception {
-        SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween", "Happy");
-
-        String autocompletedThemes = songThemeSearcher.autocompleteThemes("Ha");
-
-        assertThat(autocompletedThemes)
-                .isEqualTo("<p>Halloween</p>\n<p>Happy</p>");
-    }
-
-    private @NotNull SongThemeSearcher createSongThemesControllerWithThemes(String... themes) {
+    @NotNull
+    private static SongThemeSearcher createSongThemesControllerWithThemes(String... themes) {
         SongService songService = SongService.createNull();
         return new SongThemeSearcher(songService, new StubThemeFinder(themes));
     }
