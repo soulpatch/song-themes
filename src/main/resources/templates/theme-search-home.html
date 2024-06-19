@@ -49,17 +49,18 @@
 </ul>
 
 <input type="text"
-           name="theme-query"
-           autocomplete="off"
-           hx-trigger="input changed delay:250ms"
-           hx-get="/themes"
-           hx-target="#autocomplete-box"
-    />
+       id="theme-query"
+       name="theme-query"
+       autocomplete="off"
+       hx-trigger="input changed delay:250ms"
+       hx-get="/themes"
+       hx-target="#autocomplete-box"
+/>
 
 
 <div id="autocomplete-box" class="autocomplete-box">
 
-    </div>
+</div>
 
 <form method="get" action="#" th:action="@{/theme-search}">
     <select name="requested-theme">

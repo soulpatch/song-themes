@@ -24,10 +24,11 @@ Song Themes Stuff To Do Da-Do Da Do Wop
         [X] autocomplete results should be buttons instead of paragraphs
         [ ] post of selected theme to the back end (selected theme state is maintained on the back end)
             [X] test drive post mapping end point
-            [ ] end point sends HTML of selected theme(s)
-        [ ] selecting a suggestion button initiates a search
-        [ ]
+            [X] end point sends HTML of the selected theme
+>>>     [ ] clear input box when a theme is selected
         [ ] make sure auto-complete results don't return items already selected
+        [ ] clicking Search button initiates a search
+        [ ] enable Search button when at least one theme is selected
         [ ]
     [ ] Searching for songs with multiple themes, returns songs matching ANY theme (implied OR)
         [ ] Figure out if want ranking of returned songs -- meaning are songs matching two themes rank higher than songs matching only one?

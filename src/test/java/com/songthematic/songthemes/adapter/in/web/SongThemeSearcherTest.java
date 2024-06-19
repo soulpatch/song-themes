@@ -78,12 +78,12 @@ class SongThemeSearcherTest {
         void htmlForSelectedThemeReturnedWhenThemeIsPosted() throws Exception {
             SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween");
 
-            String html = songThemeSearcher.selectTheme("Halloween");
+            String html = songThemeSearcher.selectTheme("New Years");
 
             assertThat(html)
                     .isEqualTo("""
                                        <swap hx-swap-oob="beforeend" id="selected-themes-box">
-                                       <li>Halloween</li>
+                                       <li>New Years</li>
                                        </swap>""");
         }
     }

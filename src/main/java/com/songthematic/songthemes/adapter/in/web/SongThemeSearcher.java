@@ -38,8 +38,8 @@ public class SongThemeSearcher {
     public String selectTheme(@RequestParam("theme") String theme) {
         return """
                 <swap hx-swap-oob="beforeend" id="selected-themes-box">
-                <li>Halloween</li>
-                </swap>""";
+                <li>%s</li>
+                </swap>""".formatted(theme);
     }
 
     @GetMapping("/theme-search")
