@@ -24,7 +24,6 @@
 </head>
 <body>
 <h1>Select a song theme</h1>
-<form method="get" action="#" th:action="@{/theme-search}">
 
     <input type="text"
            name="theme-query"
@@ -38,7 +37,7 @@
 
     </div>
 
-
+<form method="get" action="#" th:action="@{/theme-search}">
     <select name="requested-theme">
         <option th:each="theme : ${themes}"
                 th:text="${theme}"
@@ -47,6 +46,8 @@
         </option>
     </select>
     <button type="submit">Search</button>
+
+
 </form>
 </body>
 </html>
