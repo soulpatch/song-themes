@@ -12,7 +12,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest({SongThemeSearcher.class})
@@ -39,6 +41,14 @@ public class SongThemesMvcTest {
     @Test
     public void getToThemesEndpointReturns200() throws Exception {
         mockMvc.perform(get("/themes?theme-query=pants"))
+               .andExpect(status().isOk());
+    }
+
+    @Test
+    void postToSelectedThemesReturns200() throws Exception {
+        mockMvc.perform(post("/selected-themes")
+                                .param("theme", "Cats")
+                                .with(csrf()))
                .andExpect(status().isOk());
     }
 }

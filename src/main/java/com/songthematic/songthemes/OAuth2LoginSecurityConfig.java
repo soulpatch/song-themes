@@ -16,7 +16,7 @@ public class OAuth2LoginSecurityConfig {
         http.csrf((csrf) -> csrf.disable());
         http.authorizeHttpRequests(authorize -> authorize
                     .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-                    .requestMatchers("/", "/theme-search", "/themes").permitAll()
+                    .requestMatchers("/", "/theme-search", "/themes", "/selected-themes").permitAll()
                     .requestMatchers("/contributor/**").authenticated()
                     .anyRequest().denyAll()
             )

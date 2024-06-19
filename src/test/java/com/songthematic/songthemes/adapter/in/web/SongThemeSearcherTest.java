@@ -72,6 +72,23 @@ class SongThemeSearcherTest {
     }
 
     @Nested
+    class SelectedTheme {
+
+        @Test
+        void htmlForSelectedThemeReturnedWhenThemeIsPosted() throws Exception {
+            SongThemeSearcher songThemeSearcher = createSongThemesControllerWithThemes("New Years", "Halloween");
+
+            String html = songThemeSearcher.selectTheme("Halloween");
+
+            assertThat(html)
+                    .isEqualTo("""
+                                       <swap hx-swap-oob="beforeend" id="selected-themes-box">
+                                       <li>Halloween</li>
+                                       </swap>""");
+        }
+    }
+
+    @Nested
     class AutoCompleteReturnsHtmlWith {
         @Test
         void emptyStringWhenThemeQueryIsBlank() throws Exception {

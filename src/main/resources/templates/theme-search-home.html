@@ -20,12 +20,35 @@
             overflow-y: auto;
             width: 40ch;
         }
+
+        .selected-themes-box {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .selected-themes-box li {
+            margin-right: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            background-color: #e4e4e4;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 5px;
+            font-size: 90%;
+        }
     </style>
 </head>
 <body>
 <h1>Select a song theme</h1>
 
-    <input type="text"
+<ul id="selected-themes-box" class="selected-themes-box">
+
+</ul>
+
+<input type="text"
            name="theme-query"
            autocomplete="off"
            hx-trigger="input changed delay:250ms"
@@ -33,7 +56,8 @@
            hx-target="#autocomplete-box"
     />
 
-    <div id="autocomplete-box" class="autocomplete-box">
+
+<div id="autocomplete-box" class="autocomplete-box">
 
     </div>
 

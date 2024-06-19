@@ -6,6 +6,7 @@ import com.songthematic.songthemes.domain.Song;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,6 +31,15 @@ public class SongThemeSearcher {
         }
         List<String> matchingThemes = themeFinder.startsWithIgnoringCase(themeQuery);
         return HtmlTransformer.convertThemesToHtml(matchingThemes);
+    }
+
+    @PostMapping("/selected-themes")
+    @ResponseBody
+    public String selectTheme(@RequestParam("theme") String theme) {
+        return """
+                <swap hx-swap-oob="beforeend" id="selected-themes-box">
+                <li>Halloween</li>
+                </swap>""";
     }
 
     @GetMapping("/theme-search")

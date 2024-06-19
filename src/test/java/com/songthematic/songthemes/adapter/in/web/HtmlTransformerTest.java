@@ -16,7 +16,7 @@ class HtmlTransformerTest {
 
         assertThat(html)
                 .isEqualTo("""
-                                   <button class="autocomplete-suggestion" hx-post="/selected-themes" name="theme" value="Cats">Cats</button>
-                                   <button class="autocomplete-suggestion" hx-post="/selected-themes" name="theme" value="Dogs">Dogs</button>""");
+                                   <button class="autocomplete-suggestion" hx-post="/selected-themes" hx-swap="none" name="theme" value="Cats">Cats</button>
+                                   <button class="autocomplete-suggestion" hx-post="/selected-themes" hx-swap="none" name="theme" value="Dogs">Dogs</button>""");
     }
 }

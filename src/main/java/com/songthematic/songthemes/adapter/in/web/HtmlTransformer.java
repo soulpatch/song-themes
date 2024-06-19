@@ -8,7 +8,7 @@ public class HtmlTransformer {
     static String convertThemesToHtml(List<String> themes) {
         return themes.stream()
                      .map(theme -> """
-                             <button class="autocomplete-suggestion" hx-post="/selected-themes" name="theme" value="%1$s">%1$s</button>"""
+                             <button class="autocomplete-suggestion" hx-post="/selected-themes" hx-swap="none" name="theme" value="%1$s">%1$s</button>"""
                              .formatted(theme))
                      .collect(Collectors.joining("\n"));
     }

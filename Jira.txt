@@ -23,6 +23,8 @@ Song Themes Stuff To Do Da-Do Da Do Wop
         [X] put autocomplete results into a max sized scrollable div container
         [X] autocomplete results should be buttons instead of paragraphs
         [ ] post of selected theme to the back end (selected theme state is maintained on the back end)
+            [X] test drive post mapping end point
+            [ ] end point sends HTML of selected theme(s)
         [ ] selecting a suggestion button initiates a search
         [ ]
         [ ] make sure auto-complete results don't return items already selected
