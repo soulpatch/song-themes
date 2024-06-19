@@ -21,7 +21,9 @@ Song Themes Stuff To Do Da-Do Da Do Wop
         [X] start typing returns hard-coded HTML that gets put into a div temporarily
         [X] start typing and have returned HTML to be narrowed down based on what is typed
         [X] put autocomplete results into a max sized scrollable div container
-        [ ] autocomplete results should be buttons instead of paragraphs
+        [X] autocomplete results should be buttons instead of paragraphs
+        [ ] post of selected theme to the back end (selected theme state is maintained on the back end)
+        [ ] selecting a suggestion button initiates a search
         [ ]
         [ ] make sure auto-complete results don't return items already selected
         [ ]

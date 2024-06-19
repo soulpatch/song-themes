@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class HtmlTransformer {
+    @SuppressWarnings("Convert2MethodRef")
     static String convertThemesToHtml(List<String> themes) {
-        String buttonElementStart = """
-                <button class="autocomplete-suggestion">""";
         return themes.stream()
-                     .collect(Collectors.joining("</button>\n" + buttonElementStart, buttonElementStart, "</button>"));
+                     .map(theme -> """
+                             <button class="autocomplete-suggestion" hx-post="/selected-themes" name="theme" value="%1$s">%1$s</button>"""
+                             .formatted(theme))
+                     .collect(Collectors.joining("\n"));
     }
 }
